@@ -1,4 +1,5 @@
 import { useParams, Link } from 'react-router-dom'
+import { motion } from 'framer-motion'
 import films from '../data/films'
 
 /**
@@ -41,14 +42,27 @@ function FilmDetail() {
             </svg>
             Back to Films
           </Link>
-          <h1>{film.title}</h1>
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          >
+            {film.title}
+          </motion.h1>
         </div>
       </section>
 
       <div className="film-detail">
         <div className="container">
           {/* Full width hero image */}
-          <div className="film-detail-hero">
+          <motion.div 
+            className="film-detail-hero"
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          >
             {film.image ? (
               <img src={film.image} alt={`${film.title} hero`} loading="lazy" />
             ) : (
@@ -56,10 +70,16 @@ function FilmDetail() {
                 <span>Hero Image</span>
               </div>
             )}
-          </div>
+          </motion.div>
 
           {/* Content grid */}
-          <div className="film-detail-content">
+          <motion.div 
+            className="film-detail-content"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          >
             <div className="film-detail-main">
               <h2>Synopsis</h2>
               <p>{film.synopsis}</p>
@@ -90,7 +110,7 @@ function FilmDetail() {
                 )}
               </dl>
             </aside>
-          </div>
+          </motion.div>
         </div>
       </div>
     </div>

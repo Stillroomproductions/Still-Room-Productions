@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { motion } from 'framer-motion'
 import films from '../data/films'
 
 /**
@@ -10,14 +11,28 @@ function Films() {
     <div id="films">
       <section className="page-header">
         <div className="container">
-          <h1>Films</h1>
+          <motion.h1 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          >
+            Films
+          </motion.h1>
         </div>
       </section>
 
       <section className="films-section">
         <div className="container">
-          {films.map((film) => (
-            <article className="film-entry" key={film.id}>
+          {films.map((film, index) => (
+            <motion.article 
+              className="film-entry" 
+              key={film.id}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-10%" }}
+              transition={{ duration: 0.8, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
+            >
               {/* Image */}
               <div className="film-image-wrapper">
                 {film.image ? (
@@ -41,7 +56,7 @@ function Films() {
                   Producer: {film.producer}
                 </p>
               </div>
-            </article>
+            </motion.article>
           ))}
         </div>
       </section>

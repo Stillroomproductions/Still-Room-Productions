@@ -1,3 +1,5 @@
+import { motion } from 'framer-motion'
+
 /**
  * Contact page — minimal text layout with a clean form.
  */
@@ -13,13 +15,26 @@ function Contact() {
     <div id="contact">
       <section className="page-header">
         <div className="container">
-          <h1>Contact</h1>
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          >
+            Contact
+          </motion.h1>
         </div>
       </section>
 
       <section className="contact-section">
         <div className="container">
-          <div className="contact-content">
+          <motion.div 
+            className="contact-content"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-10%" }}
+            transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          >
             <a href="mailto:hello@stillroomproductions.com" className="contact-email">
               hello@stillroomproductions.com
             </a>
@@ -64,7 +79,7 @@ function Contact() {
                 Send Message
               </button>
             </form>
-          </div>
+          </motion.div>
         </div>
       </section>
     </div>

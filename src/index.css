@@ -38,6 +38,23 @@ html {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Lenis Smooth Scroll Recommended Styles */
+html.lenis, html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
 body {
   font-family: var(--font-family);
   font-weight: var(--font-weight-light);
@@ -294,6 +311,26 @@ a:hover {
   text-align: center;
   padding: 120px var(--page-padding) 80px;
   position: relative;
+  overflow: hidden;
+}
+
+/* Cinematic Background Elements */
+.cinematic-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(circle at center, rgba(15, 15, 15, 0.4) 0%, rgba(0, 0, 0, 1) 100%);
+}
+
+.cinematic-bg-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 0%, var(--color-black) 95%);
+  pointer-events: none;
 }
 
 .hero-logo {
@@ -301,8 +338,6 @@ a:hover {
   height: auto;
   margin-bottom: 48px;
   color: var(--color-white);
-  opacity: 0;
-  animation: fadeIn 1.2s ease forwards;
 }
 
 .hero-tagline {
@@ -311,8 +346,6 @@ a:hover {
   font-weight: var(--font-weight-light);
   letter-spacing: 0.12em;
   max-width: 500px;
-  opacity: 0;
-  animation: fadeIn 1.2s ease 0.4s forwards;
 }
 
 .hero-location {
@@ -321,8 +354,6 @@ a:hover {
   color: var(--color-grey-dark);
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  opacity: 0;
-  animation: fadeIn 1.2s ease 0.7s forwards;
 }
 
 .hero-scroll-indicator {
@@ -330,8 +361,6 @@ a:hover {
   bottom: 40px;
   left: 50%;
   transform: translateX(-50%);
-  opacity: 0;
-  animation: fadeIn 1.2s ease 1s forwards;
 }
 
 .hero-scroll-indicator span {
@@ -365,6 +394,7 @@ a:hover {
   grid-template-columns: 1fr 1fr;
   gap: 60px;
   align-items: start;
+  will-change: transform, opacity;
 }
 
 .film-entry:last-child {
@@ -701,11 +731,7 @@ a:hover {
   50% { opacity: 0.8; }
 }
 
-/* Subtle page entrance */
-.page-enter {
-  opacity: 0;
-  animation: fadeIn 0.6s ease forwards;
-}
+/* Removed .page-enter as animations are handled by Framer Motion */
 
 /* ---------- Responsive ---------- */
 @media (max-width: 900px) {
