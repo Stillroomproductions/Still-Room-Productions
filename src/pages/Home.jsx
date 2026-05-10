@@ -1,12 +1,12 @@
 import { motion } from 'framer-motion'
 import CinematicBackground from '../components/CinematicBackground'
-import Films from './Films'
+import Work from './Work'
 import About from './About'
 import Contact from './Contact'
 
 /**
  * Home page — full-screen hero with centred logo and tagline,
- * followed by scrolling sections for Films, About, and Contact.
+ * followed by scrolling sections for Work, About, and Contact.
  */
 function Home() {
   return (
@@ -15,25 +15,15 @@ function Home() {
       <section className="hero" id="home">
         <CinematicBackground />
         
-        {/* Full logo with room icon + text */}
-        <motion.svg 
-          className="hero-logo" 
-          viewBox="0 0 200 220" 
-          fill="none" 
-          xmlns="http://www.w3.org/2000/svg"
+        {/* Typographic logo text */}
+        <motion.h1 
+          className="hero-logo-text"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
         >
-          <rect x="40" y="20" width="120" height="120" stroke="currentColor" strokeWidth="3" fill="none"/>
-          <rect x="75" y="50" width="50" height="50" stroke="currentColor" strokeWidth="2" fill="none"/>
-          <line x1="40" y1="20" x2="75" y2="50" stroke="currentColor" strokeWidth="1.5"/>
-          <line x1="160" y1="20" x2="125" y2="50" stroke="currentColor" strokeWidth="1.5"/>
-          <line x1="40" y1="140" x2="75" y2="100" stroke="currentColor" strokeWidth="1.5"/>
-          <line x1="160" y1="140" x2="125" y2="100" stroke="currentColor" strokeWidth="1.5"/>
-          <text x="100" y="175" textAnchor="middle" fontFamily="Inter, Helvetica Neue, Arial, sans-serif" fontWeight="300" fontSize="18" letterSpacing="6" fill="currentColor">STILL ROOM</text>
-          <text x="100" y="198" textAnchor="middle" fontFamily="Inter, Helvetica Neue, Arial, sans-serif" fontWeight="300" fontSize="11" letterSpacing="8" fill="currentColor">PRODUCTIONS</text>
-        </motion.svg>
+          Still Room Productions
+        </motion.h1>
 
         <motion.p 
           className="hero-tagline"
@@ -41,16 +31,7 @@ function Home() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
         >
-          Independent film production.
-        </motion.p>
-        
-        <motion.p 
-          className="hero-location"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.7, ease: [0.16, 1, 0.3, 1] }}
-        >
-          Based in London, UK
+          Still Room Productions develops formally restrained film and television work about systems, procedure, memory, and moral pressure.
         </motion.p>
 
         {/* Scroll indicator */}
@@ -66,7 +47,7 @@ function Home() {
       </section>
 
       {/* OTHER SECTIONS */}
-      <Films />
+      <Work />
       <About />
       <Contact />
     </div>

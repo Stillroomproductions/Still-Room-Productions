@@ -29,13 +29,7 @@ function About() {
             transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
           >
             <p>
-              Still Room Productions is an independent film production company committed to authentic, character-driven storytelling. We develop and produce feature films, shorts, and documentary projects with a distinct creative voice.
-            </p>
-            <p>
-              Founded on the belief that cinema should be both rigorous and compassionate, we work closely with writers and directors to nurture projects from inception through to exhibition. Our focus is on the quiet spaces — the moments that define us, the places we inhabit, and the complex inner lives of those often overlooked by mainstream narrative.
-            </p>
-            <p>
-              We are not currently accepting unsolicited scripts or project submissions, but we are always interested in connecting with new collaborators and co-production partners.
+              Still Room Productions is a London-based independent production company developing restrained, formally precise work for film and television. Its projects observe people at the point where private life meets process, record, and procedure.
             </p>
           </motion.div>
 
@@ -47,9 +41,17 @@ function About() {
             viewport={{ once: true, margin: "-10%" }}
             transition={{ duration: 1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
           >
-            {/* <img src="/about-image.jpg" alt="Still Room Productions team" /> */}
+            {/* 
+              Image Art Direction Note:
+              When real images are eventually added by the client, the visual language should lean toward:
+              - Empty rooms
+              - Institutional and procedural spaces
+              - Documents, tables, chairs, corridors
+              - Fluorescent-lit environments
+              - Thresholds, surfaces, architectural details
+              - Objects with an evidentiary quality
+            */}
             <div className="about-image-placeholder">
-              <span>Production Image</span>
             </div>
           </motion.div>
         </div>

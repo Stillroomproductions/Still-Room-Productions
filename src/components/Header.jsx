@@ -32,7 +32,16 @@ function Header() {
 
   const navLinks = [
     { to: '/#home', label: 'Home' },
-    { to: '/#films', label: 'Films' },
+    { 
+      to: '/#work', 
+      label: 'Work',
+      // Sub-categories ready to activate when content is available:
+      // subItems: [
+      //   { label: 'Film' },
+      //   { label: 'Television' },
+      //   { label: 'In Development' }
+      // ]
+    },
     { to: '/#about', label: 'About' },
     { to: '/#contact', label: 'Contact' },
   ]
