@@ -15,6 +15,8 @@ function Home() {
         <div className="hero-background">
           <img src="/images/_52A7400.jpg" alt="Empty hospital bed with observation chart" />
           <div className="hero-gradient"></div>
+          {/* Dark radial veil centred where text lives */}
+          <div className="hero-veil"></div>
         </div>
 
         {/* Typographic logo text */}

@@ -329,6 +329,15 @@ a:hover {
   overflow: hidden;
 }
 
+.hero-veil {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 60% at 50% 50%,
+      rgba(0, 0, 0, 0.55) 0%,
+      rgba(0, 0, 0, 0.15) 60%,
+      transparent 100%);
+}
+
 /* Hero Background Image */
 .hero-background {
   position: absolute;
@@ -366,15 +375,36 @@ a:hover {
   margin-bottom: 48px;
   color: var(--color-white);
   line-height: 1.2;
+  text-align: center;
+
+
+}
+
+@media (max-width: 768px) {
+  .hero-logo-text {
+    font-size: 2.1rem;
+    margin-bottom: 18px;
+  }
 }
 
 .hero-tagline {
   font-size: clamp(0.9375rem, 1.1vw, 1rem);
-  /* Matches body p size */
-  color: var(--color-grey);
+  color: var(--color-white);
   font-weight: var(--font-weight-light);
   max-width: 600px;
   line-height: 1.8;
+  text-align: center;
+  background: rgba(38, 38, 38, 0.35);
+  padding: 0;
+  border: none;
+  border-radius: 3px;
+}
+
+@media (max-width: 768px) {
+  .hero-tagline {
+    font-size: 0.8rem;
+
+  }
 }
 
 .hero-location {
