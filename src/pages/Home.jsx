@@ -35,7 +35,7 @@ function Home() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
         >
-          Still Room Productions develops formally restrained film and television work about systems, procedure, memory, and moral pressure.
+          Develops formally restrained film and television work about systems, procedure, memory, and moral pressure.
         </motion.p>
 
         {/* Scroll indicator */}
