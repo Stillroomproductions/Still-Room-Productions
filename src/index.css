@@ -5,7 +5,9 @@
    ========================================================================== */
 
 /* ---------- Reset & Base ---------- */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -39,18 +41,23 @@ html {
 }
 
 /* Lenis Smooth Scroll Recommended Styles */
-html.lenis, html.lenis body {
+html.lenis,
+html.lenis body {
   height: auto;
 }
+
 .lenis.lenis-smooth {
   scroll-behavior: auto !important;
 }
+
 .lenis.lenis-smooth [data-lenis-prevent] {
   overscroll-behavior: contain;
 }
+
 .lenis.lenis-stopped {
   overflow: hidden;
 }
+
 .lenis.lenis-scrolling iframe {
   pointer-events: none;
 }
@@ -65,7 +72,10 @@ body {
 }
 
 /* ---------- Typography ---------- */
-h1, h2, h3, h4 {
+h1,
+h2,
+h3,
+h4 {
   font-weight: var(--font-weight-light);
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -88,9 +98,11 @@ h3 {
 }
 
 p {
-  font-size: clamp(0.9375rem, 1.1vw, 1rem); /* 15-16px */
+  font-size: clamp(0.9375rem, 1.1vw, 1rem);
+  /* 15-16px */
   color: var(--color-grey);
-  max-width: 58ch; /* 52-58 characters per line */
+  max-width: 58ch;
+  /* 52-58 characters per line */
   line-height: 1.75;
 }
 
@@ -129,9 +141,13 @@ a:hover {
   left: 0;
   right: 0;
   z-index: 100;
-  padding: 28px 0;
+  padding: 18px 0;
+  background-color: rgba(80, 80, 80, 0.35);
+  backdrop-filter: blur(12px) saturate(150%);
+  -webkit-backdrop-filter: blur(12px) saturate(150%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   transition: background-color var(--transition-base),
-              padding var(--transition-base);
+    padding var(--transition-base);
 }
 
 .site-header--scrolled {
@@ -181,7 +197,7 @@ a:hover {
   font-weight: var(--font-weight-regular);
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--color-grey);
+  color: var(--color-white);
   transition: color var(--transition-base);
   position: relative;
 }
@@ -225,7 +241,7 @@ a:hover {
   transition: all var(--transition-base);
 }
 
-.menu-toggle span + span {
+.menu-toggle span+span {
   margin-top: 7px;
 }
 
@@ -266,7 +282,7 @@ a:hover {
   font-weight: var(--font-weight-light);
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: var(--color-grey);
+  color: var(--color-white);
   transition: color var(--transition-base);
 }
 
@@ -313,22 +329,32 @@ a:hover {
   overflow: hidden;
 }
 
-/* Cinematic Background Elements */
-.cinematic-bg {
+/* Hero Background Image */
+.hero-background {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   z-index: -1;
-  pointer-events: none;
-  background: radial-gradient(circle at center, rgba(15, 15, 15, 0.4) 0%, rgba(0, 0, 0, 1) 100%);
 }
 
-.cinematic-bg-overlay {
+.hero-background img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: left center;
+  /* Preserves the observation chart and gown detail on the left */
+  display: block;
+}
+
+.hero-gradient {
   position: absolute;
-  inset: 0;
-  background: linear-gradient(to bottom, transparent 0%, var(--color-black) 95%);
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 25%;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.5), transparent);
   pointer-events: none;
 }
 
@@ -343,7 +369,8 @@ a:hover {
 }
 
 .hero-tagline {
-  font-size: clamp(0.9375rem, 1.1vw, 1rem); /* Matches body p size */
+  font-size: clamp(0.9375rem, 1.1vw, 1rem);
+  /* Matches body p size */
   color: var(--color-grey);
   font-weight: var(--font-weight-light);
   max-width: 600px;
@@ -376,13 +403,15 @@ a:hover {
 
 /* ---------- Page Header (sub-pages) ---------- */
 .page-header {
-  padding: 220px 0 100px; /* Increased whitespace */
+  padding: 220px 0 100px;
+  /* Increased whitespace */
   text-align: center;
 }
 
 .page-header h1 {
   margin-bottom: 0;
-  opacity: 0.8; /* Archival feel, not loud */
+  opacity: 0.8;
+  /* Archival feel, not loud */
 }
 
 /* ---------- Films Page ---------- */
@@ -408,7 +437,7 @@ a:hover {
   direction: rtl;
 }
 
-.film-entry:nth-child(even) > * {
+.film-entry:nth-child(even)>* {
   direction: ltr;
 }
 
@@ -569,14 +598,17 @@ a:hover {
 }
 
 .about-content p {
-  margin: 0 auto 40px; /* Increased whitespace */
+  margin: 0 auto 40px;
+  /* Increased whitespace */
   text-align: left;
 }
 
 .about-image {
-  margin: 80px 0; /* Increased whitespace */
+  margin: 80px 0;
+  /* Increased whitespace */
   aspect-ratio: 3 / 2;
-  background: var(--color-grey-border); /* Flat dark grey rectangle, no text */
+  background: var(--color-grey-border);
+  /* Flat dark grey rectangle, no text */
   overflow: hidden;
 }
 
@@ -704,7 +736,7 @@ a:hover {
   padding: 14px 40px;
   cursor: pointer;
   transition: color var(--transition-base),
-              border-color var(--transition-base);
+    border-color var(--transition-base);
 }
 
 .form-submit:hover {
@@ -723,6 +755,7 @@ a:hover {
     opacity: 0;
     transform: translateY(12px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -730,8 +763,15 @@ a:hover {
 }
 
 @keyframes scrollPulse {
-  0%, 100% { opacity: 0.3; }
-  50% { opacity: 0.8; }
+
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+
+  50% {
+    opacity: 0.8;
+  }
 }
 
 /* Removed .page-enter as animations are handled by Framer Motion */
@@ -802,7 +842,4 @@ a:hover {
     padding: 120px 0 40px;
   }
 
-  .contact-form {
-    gap: 24px;
-  }
-}
+  .contact-form {}

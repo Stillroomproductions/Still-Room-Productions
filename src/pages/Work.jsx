@@ -76,6 +76,9 @@ function Work() {
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             >
               <div className="film-image-wrapper">
+                {film.title === "ASSESSMENT" && (
+                  <img src="/images/_52A7357.jpg" alt="Patient sitting on hospital bed in assessment room" style={{ objectPosition: "top center" }} />
+                )}
                 {/* Image placeholder: institutional still, to be provided */}
               </div>
               <div className="film-info">

@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion'
-import CinematicBackground from '../components/CinematicBackground'
 import Work from './Work'
 import About from './About'
 import Contact from './Contact'
@@ -13,10 +12,13 @@ function Home() {
     <div className="page-enter">
       {/* HERO SECTION */}
       <section className="hero" id="home">
-        <CinematicBackground />
-        
+        <div className="hero-background">
+          <img src="/images/_52A7400.jpg" alt="Empty hospital bed with observation chart" />
+          <div className="hero-gradient"></div>
+        </div>
+
         {/* Typographic logo text */}
-        <motion.h1 
+        <motion.h1
           className="hero-logo-text"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -25,7 +27,7 @@ function Home() {
           Still Room Productions
         </motion.h1>
 
-        <motion.p 
+        <motion.p
           className="hero-tagline"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -35,8 +37,8 @@ function Home() {
         </motion.p>
 
         {/* Scroll indicator */}
-        <motion.div 
-          className="hero-scroll-indicator" 
+        <motion.div
+          className="hero-scroll-indicator"
           aria-hidden="true"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
