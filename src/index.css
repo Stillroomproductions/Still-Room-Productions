@@ -558,6 +558,27 @@ a:hover {
   transition: opacity var(--transition-base);
 }
 
+.film-media-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.supporting-image-wrapper {
+  width: 55%;
+  aspect-ratio: 16 / 10;
+  background: var(--color-grey-subtle);
+  overflow: hidden;
+  align-self: flex-end;
+}
+
+.supporting-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
 /* Placeholder styling for empty image slots */
 .film-image-placeholder {
   width: 100%;

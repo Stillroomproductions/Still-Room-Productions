@@ -75,11 +75,25 @@ function Work() {
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             >
-              <div className="film-image-wrapper">
+              <div className="film-media-container">
+                <div className="film-image-wrapper">
+                  {film.title === "ASSESSMENT" && (
+                    <img 
+                      src="/images/_52A6982.jpg" 
+                      alt="PLEASE DO NOT ABUSE OUR STAFF institutional sign under fluorescent lighting" 
+                      style={{ objectFit: 'contain', backgroundColor: '#000000' }} 
+                    />
+                  )}
+                  {/* Image placeholder: institutional still, to be provided */}
+                </div>
                 {film.title === "ASSESSMENT" && (
-                  <img src="/images/_52A7357.jpg" alt="Patient sitting on hospital bed in assessment room" style={{ objectPosition: "top center" }} />
+                  <div className="supporting-image-wrapper">
+                    <img 
+                      src="/images/_52A6909.jpg" 
+                      alt="Hospital monitor, clock, and oxygen equipment against the wall" 
+                    />
+                  </div>
                 )}
-                {/* Image placeholder: institutional still, to be provided */}
               </div>
               <div className="film-info">
                 <span className="film-status">{film.type} — {film.status}</span>
