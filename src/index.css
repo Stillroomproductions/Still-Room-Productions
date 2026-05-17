@@ -559,17 +559,24 @@ a:hover {
 }
 
 .film-media-container {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
+  position: relative;
+  width: 100%;
 }
 
 .supporting-image-wrapper {
-  width: 55%;
+  position: absolute;
+  bottom: -20px;
+  right: -20px;
+  width: 50%;
   aspect-ratio: 16 / 10;
   background: var(--color-grey-subtle);
   overflow: hidden;
-  align-self: flex-end;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.75);
+  z-index: 2;
+  border: 1px solid var(--color-grey-border);
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
+              opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  opacity: 0.8;
 }
 
 .supporting-image-wrapper img {
@@ -577,6 +584,16 @@ a:hover {
   height: 100%;
   object-fit: cover;
   display: block;
+}
+
+/* Hover animations for Assessment dual still stack */
+.film-media-container:hover .supporting-image-wrapper {
+  transform: translate(12px, 12px);
+  opacity: 1;
+}
+
+.film-media-container:hover .film-image-wrapper img {
+  opacity: 0.7;
 }
 
 /* Placeholder styling for empty image slots */
@@ -932,6 +949,28 @@ a:hover {
 
   .page-header {
     padding: 140px 0 60px;
+  }
+
+  .film-media-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .supporting-image-wrapper {
+    position: relative;
+    bottom: auto;
+    right: auto;
+    width: 60%;
+    margin-top: 16px;
+    align-self: flex-end;
+    box-shadow: none;
+    opacity: 1;
+    border: none;
+    transform: none !important;
+  }
+
+  .film-media-container:hover .film-image-wrapper img {
+    opacity: 1;
   }
 }
 
