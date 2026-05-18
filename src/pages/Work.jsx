@@ -1,3 +1,4 @@
+import { Fragment } from 'react'
 import { motion } from 'framer-motion'
 
 /**
@@ -9,7 +10,7 @@ function Work() {
       title: "ON RECORD",
       type: "Short Film",
       status: "Post-Production",
-      description: "A procedural interview unfolds inside a small administrative room as a woman attempts to formally account for a private event. The institution records everything except what matters."
+      description: "A mother attends an evidence clarification appointment after her son's assessment request is rejected. As each document is reviewed, labelled, and absorbed into the file, the procedure records everything except the child himself."
     },
     {
       title: "THE CONSULTATION",
@@ -67,40 +68,55 @@ function Work() {
       <section className="films-section">
         <div className="container">
           {films.map((film, index) => (
-            <motion.article
-              key={index}
-              className="film-entry"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            >
-              <div className="film-media-container">
-                <div className="film-image-wrapper">
-                  {film.title === "ASSESSMENT" && (
-                    <img 
-                      src="/images/_52A6982.jpg" 
-                      alt="PLEASE DO NOT ABUSE OUR STAFF institutional sign under fluorescent lighting" 
-                      style={{ objectFit: 'contain', backgroundColor: '#000000' }} 
-                    />
-                  )}
-                  {/* Image placeholder: institutional still, to be provided */}
-                </div>
-                {film.title === "ASSESSMENT" && (
-                  <div className="supporting-image-wrapper">
-                    <img 
-                      src="/images/_52A6909.jpg" 
-                      alt="Hospital monitor, clock, and oxygen equipment against the wall" 
-                    />
+            <Fragment key={index}>
+              <motion.article
+                className="film-entry"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <div className="film-media-container">
+                  <div className="film-image-wrapper">
+                    {film.title === "ASSESSMENT" && (
+                      <img 
+                        src="/images/_52A6982.jpg" 
+                        alt="PLEASE DO NOT ABUSE OUR STAFF institutional sign under fluorescent lighting" 
+                        style={{ objectFit: 'contain', backgroundColor: '#000000' }} 
+                      />
+                    )}
+                    {film.title === "ON RECORD" && (
+                      /* <!-- Image placeholder: still to be provided by client --> */
+                      null
+                    )}
+                    {film.title === "PROTOCOL" && (
+                      /* <!-- Image placeholder: still to be provided by client --> */
+                      null
+                    )}
                   </div>
-                )}
-              </div>
-              <div className="film-info">
-                <span className="film-status">{film.type} — {film.status}</span>
-                <h2 className="film-title">{film.title}</h2>
-                <p className="film-logline">{film.description}</p>
-              </div>
-            </motion.article>
+                </div>
+                <div className="film-info">
+                  <span className="film-status">{film.type} — {film.status}</span>
+                  <h2 className="film-title">{film.title}</h2>
+                  <p className="film-logline">{film.description}</p>
+                </div>
+              </motion.article>
+
+              {index === 3 && (
+                <motion.div 
+                  className="work-divider-image"
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                >
+                  <img 
+                    src="/images/_52A6909.jpg" 
+                    alt="Hospital monitor, clock, and oxygen equipment against the wall" 
+                  />
+                </motion.div>
+              )}
+            </Fragment>
           ))}
         </div>
       </section>

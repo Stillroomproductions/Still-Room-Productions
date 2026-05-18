@@ -13,7 +13,7 @@ function Home() {
       {/* HERO SECTION */}
       <section className="hero" id="home">
         <div className="hero-background">
-          <img src="/images/_52A7400.jpg" alt="Empty hospital bed with observation chart" />
+          <img src="/images/_52A6947_jpg.jpeg" alt="Wider, empty clinical room with teal curtains, monitor, equipment trolley and digital clock on the wall" />
           <div className="hero-gradient"></div>
           {/* Dark radial veil centred where text lives */}
           <div className="hero-veil"></div>

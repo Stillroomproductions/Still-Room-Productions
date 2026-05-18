@@ -35,8 +35,8 @@ function Contact() {
             viewport={{ once: true, margin: "-10%" }}
             transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
           >
-            <a href="mailto:hello@stillroomproductions.com" className="contact-email">
-              hello@stillroomproductions.com
+            <a href="mailto:Info@stillroomproductions.com" className="contact-email">
+              Info@stillroomproductions.com
             </a>
             <p className="contact-location">London, UK</p>
 
