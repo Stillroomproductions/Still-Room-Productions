@@ -7,10 +7,10 @@ import { motion } from 'framer-motion'
 function Work() {
   const films = [
     {
-      title: "ON RECORD",
+      title: "ASSESSMENT",
       type: "Short Film",
       status: "Post-Production",
-      description: "A mother attends an evidence clarification appointment after her son's assessment request is rejected. As each document is reviewed, labelled, and absorbed into the file, the procedure records everything except the child himself."
+      description: "Inside a clinical assessment room, a patient is processed through a sequence of institutional checks and observations. Procedure continues regardless of emotional reality."
     },
     {
       title: "THE CONSULTATION",
@@ -19,35 +19,43 @@ function Work() {
       description: "Two partners attend a formal consultation with a specialist. Across a single meeting, administrative procedure slowly replaces intimacy, responsibility, and speech."
     },
     {
-      title: "ASSESSMENT",
+      title: "ON RECORD",
       type: "Short Film",
       status: "Post-Production",
-      description: "Inside a clinical assessment room, a patient is processed through a sequence of institutional checks and observations. Procedure continues regardless of emotional reality."
+      description: "A mother attends an evidence clarification appointment after her son's assessment request is rejected. As each document is reviewed, labelled, and absorbed into the file, the procedure records everything except the child himself."
     },
+    /* <!-- Hidden temporarily — awaiting assets and final copy -->
     {
       title: "PROTOCOL",
       type: "Short Film",
       status: "In Development",
       description: "After a breakdown at a community centre, a wellbeing lead tries to support a colleague without turning his distress into procedure. But once the system opens, even his request not to be recorded becomes part of the file."
     },
+    */
+    /* <!-- Hidden temporarily — awaiting assets and final copy -->
     {
       title: "THE POSITION",
       type: "Short Film",
       status: "In Development",
       description: "A woman waits upstairs while a formal family discussion unfolds below. Through silence, movement, and administrative language, a decision gradually takes shape around her absence."
     },
+    */
+    /* <!-- Hidden temporarily — awaiting assets and final copy -->
     {
       title: "MY HOUSE",
       type: "Short Film",
       status: "In Development",
       description: "A routine housing visit slowly reveals the unstable boundary between care, observation, and institutional authority inside a domestic space."
     },
+    */
+    /* <!-- Hidden temporarily — awaiting assets and final copy -->
     {
       title: "THE CHILD IS WELL",
       type: "Short Film",
       status: "In Development",
       description: "Across a late-night phone line between two separate rooms, a procedural welfare check becomes an attempt to determine whether language itself can adequately account for harm."
     }
+    */
   ];
 
   return (
@@ -85,13 +93,17 @@ function Work() {
                         style={{ objectFit: 'contain', backgroundColor: '#000000' }} 
                       />
                     )}
-                    {film.title === "ON RECORD" && (
-                      /* <!-- Image placeholder: still to be provided by client --> */
-                      null
+                    {film.title === "THE CONSULTATION" && (
+                      <img 
+                        src="/images/_52A6947_jpg.jpeg" 
+                        alt="Wider, empty clinical room with teal curtains, monitor, equipment trolley and digital clock on the wall" 
+                      />
                     )}
-                    {film.title === "PROTOCOL" && (
-                      /* <!-- Image placeholder: still to be provided by client --> */
-                      null
+                    {film.title === "ON RECORD" && (
+                      <img 
+                        src="/images/_52A6916.jpg" 
+                        alt="Dark institutional corridor with single overhead bulb" 
+                      />
                     )}
                   </div>
                 </div>
