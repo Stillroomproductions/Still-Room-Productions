@@ -174,7 +174,8 @@ a:hover {
 .header-logo-icon {
   width: 28px;
   height: 28px;
-  color: var(--color-white);
+  color: inherit;
+  transition: color var(--transition-base);
 }
 
 .header-logo-text {
@@ -382,18 +383,17 @@ a:hover {
 
 @media (max-width: 768px) {
   .hero {
-    align-items: flex-start;
-    text-align: left;
-    justify-content: flex-end;
-    padding-bottom: 80px;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
   }
 
   .hero-logo-text {
-    font-size: 1.6rem;
+    font-size: 2.2rem;
     letter-spacing: 0.08em;
-    text-align: left;
-    margin-bottom: 16px;
-    line-height: 1.3;
+    text-align: center;
+    margin-bottom: 24px;
+    line-height: 1.2;
   }
 }
 
@@ -478,25 +478,17 @@ a:hover {
 
 @media (max-width: 768px) {
   .hero-tagline {
-    font-size: 0.78rem;
-    padding: 0;
-    margin: 0;
+    font-size: 0.72rem;
+    padding: 10px 20px;
+    margin: 0 auto;
     letter-spacing: 0.02em;
-    border-radius: 0;
-    background: none;
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-    box-shadow: none;
-    text-shadow: none;
-    text-align: left;
-    width: 90%;
+    border-radius: 40px;
     max-width: 90%;
-    animation: none;
-    transform: none;
+    line-height: 1.6;
   }
 
   .hero-tagline::before {
-    display: none;
+    border-radius: 40px;
   }
 }
 
