@@ -28,7 +28,7 @@ function Work() {
       title: "PROTOCOL",
       type: "Short Film",
       status: "In Development",
-      description: "Following an incident at a community centre, a worker attempts to complete the required safeguarding procedure while another staff member struggles to remain functional inside the process itself."
+      description: "After a breakdown at a community centre, a wellbeing lead tries to support a colleague without turning his distress into procedure. But once the system opens, even his request not to be recorded becomes part of the file."
     },
     {
       title: "THE POSITION",
