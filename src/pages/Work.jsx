@@ -91,10 +91,7 @@ function Work() {
                       />
                     )}
                     {film.title === "THE CONSULTATION" && (
-                      <img 
-                        src="/images/the_consultation_office.jpg" 
-                        alt="Empty office with desk, computer, and chairs" 
-                      />
+                      <img src="/images/the_consultation_office.jpg" alt="Empty office with desk, computer, and chairs" />
                     )}
                   </div>
                 </div>
