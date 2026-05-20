@@ -24,14 +24,12 @@ function Work() {
       status: "Post-Production",
       description: "A mother attends an evidence clarification appointment after her son's assessment request is rejected. As each document is reviewed, labelled, and absorbed into the file, the procedure records everything except the child himself."
     },
-    /* <!-- Hidden temporarily — awaiting assets and final copy -->
     {
       title: "PROTOCOL",
       type: "Short Film",
       status: "In Development",
       description: "After a breakdown at a community centre, a wellbeing lead tries to support a colleague without turning his distress into procedure. But once the system opens, even his request not to be recorded becomes part of the file."
     },
-    */
     /* <!-- Hidden temporarily — awaiting assets and final copy -->
     {
       title: "THE POSITION",
@@ -88,21 +86,14 @@ function Work() {
                   <div className="film-image-wrapper">
                     {film.title === "ASSESSMENT" && (
                       <img 
-                        src="/images/_52A6982.jpg" 
-                        alt="PLEASE DO NOT ABUSE OUR STAFF institutional sign under fluorescent lighting" 
-                        style={{ objectFit: 'contain', backgroundColor: '#000000' }} 
+                        src="/images/_52A6947_jpg.jpeg" 
+                        alt="Hospital bed with gown and observation chart" 
                       />
                     )}
                     {film.title === "THE CONSULTATION" && (
                       <img 
-                        src="/images/_52A6947_jpg.jpeg" 
-                        alt="Wider, empty clinical room with teal curtains, monitor, equipment trolley and digital clock on the wall" 
-                      />
-                    )}
-                    {film.title === "ON RECORD" && (
-                      <img 
-                        src="/images/_52A6916.jpg" 
-                        alt="Dark institutional corridor with single overhead bulb" 
+                        src="/images/the_consultation_office.jpg" 
+                        alt="Empty office with desk, computer, and chairs" 
                       />
                     )}
                   </div>

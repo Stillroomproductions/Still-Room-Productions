@@ -548,6 +548,18 @@ a:hover {
   border-bottom: 1px solid var(--color-grey-border);
 }
 
+/* Entry without media layout (centered single column) */
+.film-entry.no-media {
+  grid-template-columns: 1fr;
+  max-width: 650px;
+  margin: 0 auto;
+  direction: ltr !important;
+}
+
+.film-entry.no-media > * {
+  direction: ltr !important;
+}
+
 .film-entry:nth-child(even) {
   direction: rtl;
 }
@@ -1022,7 +1034,7 @@ a:hover {
     font-size: 0.65rem;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: var(--color-grey);
+    color: #b2b2b2;
     margin-bottom: 10px;
     display: block;
   }
@@ -1108,6 +1120,26 @@ a:hover {
     min-height: 44px;
     display: inline-flex;
     align-items: center;
+  }
+
+  /* Subtle contrast and brightness lift for targeted images on mobile */
+  img[src*="54321"],
+  img[src*="_52A6916"],
+  img[src*="on_record_new"],
+  img[src*="_52A6982"] {
+    filter: contrast(1.06) brightness(1.04);
+  }
+
+  /* Entry without media layout on mobile */
+  .film-entry.no-media {
+    max-width: none;
+    margin-left: calc(-1 * var(--page-padding));
+    margin-right: calc(-1 * var(--page-padding));
+    direction: ltr !important;
+  }
+
+  .film-entry.no-media > * {
+    direction: ltr !important;
   }
 }
 
