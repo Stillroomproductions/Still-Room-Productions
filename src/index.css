@@ -330,15 +330,6 @@ a:hover {
   overflow: hidden;
 }
 
-.hero-veil {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse 70% 60% at 50% 50%,
-      rgba(0, 0, 0, 0.55) 0%,
-      rgba(0, 0, 0, 0.15) 60%,
-      transparent 100%);
-}
-
 /* Hero Background Image */
 .hero-background {
   position: absolute;
@@ -417,78 +408,16 @@ a:hover {
   line-height: 1.8;
   letter-spacing: 0.03em;
   text-align: center;
-
-  /* Capsule structure */
-  padding: 10px 36px;
   margin: 0 auto;
-  border-radius: 60px;
-
-  position: relative;
-
-  /* Glassmorphism directly on the element */
-  background: rgba(80, 80, 80, 0.35);
-  backdrop-filter: blur(12px) saturate(150%);
-  -webkit-backdrop-filter: blur(12px) saturate(150%);
-
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
-
-  /* Subtle clean animation */
-  animation: subtleFloat 6s ease-in-out infinite;
-}
-
-@keyframes subtleFloat {
-
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-6px);
-  }
-}
-
-/* The glowing spinning stroke strictly on the border */
-.hero-tagline::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: 60px;
-  /* matches outer radius */
-  padding: 1px;
-  /* stroke thickness */
-
-  /* The moving glow gradient */
-  background: conic-gradient(from var(--spin-angle, 0deg),
-      rgba(255, 255, 255, 0.1) 0%,
-      rgba(255, 255, 255, 0.1) 35%,
-      rgba(255, 255, 255, 1) 50%,
-      rgba(255, 255, 255, 0.1) 65%,
-      rgba(255, 255, 255, 0.1) 100%);
-
-  /* Mask it to ONLY show the padding area (the border) */
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-
-  pointer-events: none;
-  animation: spin 4s linear infinite;
 }
 
 @media (max-width: 768px) {
   .hero-tagline {
     font-size: 0.72rem;
-    padding: 10px 20px;
     margin: 0 auto;
     letter-spacing: 0.02em;
-    border-radius: 40px;
     max-width: 90%;
     line-height: 1.6;
-  }
-
-  .hero-tagline::before {
-    border-radius: 40px;
   }
 }
 
@@ -838,6 +767,7 @@ a:hover {
   letter-spacing: 0.08em;
   margin-bottom: 16px;
   transition: color var(--transition-base);
+  white-space: nowrap;
 }
 
 .contact-email:hover {
@@ -1122,6 +1052,10 @@ a:hover {
     align-items: center;
   }
 
+  .contact-email {
+    white-space: nowrap;
+  }
+
   /* Subtle contrast and brightness lift for targeted images on mobile */
   img[src*="54321"],
   img[src*="_52A6916"],
@@ -1171,5 +1105,10 @@ a:hover {
 
   .page-header {
     padding: 120px 0 40px;
+  }
+
+  .contact-email {
+    font-size: clamp(0.78rem, 3.5vw, 1.1rem);
+    letter-spacing: 0.1em;
   }
 }

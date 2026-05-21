@@ -27,12 +27,12 @@ function Contact() {
               href="mailto:INFO@STILLROOMPRODUCTIONS.COM" 
               className="contact-email" 
               style={{ 
-                fontSize: 'clamp(0.8rem, 4.5vw, 1.3rem)', 
+                fontSize: 'clamp(0.75rem, 2.5vw, 1.3rem)', 
                 letterSpacing: '0.15em', 
                 marginBottom: '24px',
                 textTransform: 'uppercase',
                 textIndent: '0.15em',
-                wordBreak: 'break-all',
+                whiteSpace: 'nowrap',
                 display: 'inline-block'
               }}
             >

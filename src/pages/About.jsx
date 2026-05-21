@@ -51,7 +51,7 @@ function About() {
               - Thresholds, surfaces, architectural details
               - Objects with an evidentiary quality
             */}
-            <img src="/images/_52A6916.jpg" alt="Dark institutional corridor with single overhead bulb" />
+            <img src="/images/_52A6982.jpg" alt="Institutional red signage under fluorescent light" />
           </motion.div>
         </div>
       </section>
