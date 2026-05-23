@@ -1,9 +1,14 @@
 import { motion } from 'framer-motion'
+import useSiteSettings from '../hooks/useSiteSettings'
 
 /**
  * About page — clean text-led page with a single optional image.
  */
 function About() {
+  const { aboutText } = useSiteSettings()
+  const content = aboutText ||
+    'Still Room Productions is a London-based independent production company developing restrained, formally precise work for film and television. Its projects observe people at the point where private life meets process, record, and procedure.'
+
   return (
     <div id="about">
       <section className="page-header">
@@ -28,9 +33,7 @@ function About() {
             viewport={{ once: true, margin: "-10%" }}
             transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
           >
-            <p>
-              Still Room Productions is a London-based independent production company developing restrained, formally precise work for film and television. Its projects observe people at the point where private life meets process, record, and procedure.
-            </p>
+            <p>{content}</p>
           </motion.div>
 
           {/* Single large image slot */}

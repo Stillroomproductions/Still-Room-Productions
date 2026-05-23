@@ -1,60 +1,16 @@
 import { Fragment } from 'react'
 import { motion } from 'framer-motion'
+import useProjects from '../hooks/useProjects'
 
 /**
  * Work page — structurally clean and empty, ready for real titles to be dropped in.
  */
 function Work() {
-  const films = [
-    {
-      title: "ASSESSMENT",
-      type: "Short Film",
-      status: "Post-Production",
-      description: "Inside a clinical assessment room, a patient is processed through a sequence of institutional checks and observations. Procedure continues regardless of emotional reality."
-    },
-    {
-      title: "THE CONSULTATION",
-      type: "Short Film",
-      status: "Post-Production",
-      description: "Two partners attend a formal consultation with a specialist. Across a single meeting, administrative procedure slowly replaces intimacy, responsibility, and speech."
-    },
-    {
-      title: "ON RECORD",
-      type: "Short Film",
-      status: "Post-Production",
-      description: "A mother attends an evidence clarification appointment after her son's assessment request is rejected. As each document is reviewed, labelled, and absorbed into the file, the procedure records everything except the child himself."
-    },
-    {
-      title: "PROTOCOL",
-      type: "Short Film",
-      status: "In Development",
-      description: "After a breakdown at a community centre, a wellbeing lead tries to support a colleague without turning his distress into procedure. But once the system opens, even his request not to be recorded becomes part of the file."
-    },
-    /* <!-- Hidden temporarily — awaiting assets and final copy -->
-    {
-      title: "THE POSITION",
-      type: "Short Film",
-      status: "In Development",
-      description: "A woman waits upstairs while a formal family discussion unfolds below. Through silence, movement, and administrative language, a decision gradually takes shape around her absence."
-    },
-    */
-    /* <!-- Hidden temporarily — awaiting assets and final copy -->
-    {
-      title: "MY HOUSE",
-      type: "Short Film",
-      status: "In Development",
-      description: "A routine housing visit slowly reveals the unstable boundary between care, observation, and institutional authority inside a domestic space."
-    },
-    */
-    /* <!-- Hidden temporarily — awaiting assets and final copy -->
-    {
-      title: "THE CHILD IS WELL",
-      type: "Short Film",
-      status: "In Development",
-      description: "Across a late-night phone line between two separate rooms, a procedural welfare check becomes an attempt to determine whether language itself can adequately account for harm."
-    }
-    */
-  ];
+  const { projects, isLoading } = useProjects()
+
+  if (isLoading) {
+    return <div id="work" style={{ minHeight: '100vh', background: '#000' }} />
+  }
 
   return (
     <div id="work">
@@ -73,8 +29,8 @@ function Work() {
 
       <section className="films-section">
         <div className="container">
-          {films.map((film, index) => (
-            <Fragment key={index}>
+          {projects.map((film, index) => (
+            <Fragment key={film.title || index}>
               <motion.article
                 className="film-entry"
                 initial={{ opacity: 0, y: 30 }}
@@ -84,20 +40,20 @@ function Work() {
               >
                 <div className="film-media-container">
                   <div className="film-image-wrapper">
-                    {film.title === "ASSESSMENT" && (
+                    {film.title?.toUpperCase() === "ASSESSMENT" && (
                       <img 
                         src="/images/_52A6947_jpg.jpeg" 
                         alt="Hospital bed with gown and observation chart" 
                       />
                     )}
-                    {film.title === "THE CONSULTATION" && (
+                    {film.title?.toUpperCase() === "THE CONSULTATION" && (
                       <img src="/images/the_consultation_office.jpg" alt="Empty office with desk, computer, and chairs" />
                     )}
                   </div>
                 </div>
                 <div className="film-info">
                   <span className="film-status">{film.type} — {film.status}</span>
-                  <h2 className="film-title">{film.title}</h2>
+                  <h2 className="film-title">{film.title?.toUpperCase()}</h2>
                   <p className="film-logline">{film.description}</p>
                 </div>
               </motion.article>

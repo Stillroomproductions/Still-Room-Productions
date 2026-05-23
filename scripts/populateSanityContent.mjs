@@ -1,0 +1,67 @@
+import { createClient } from '@sanity/client'
+
+const client = createClient({
+  projectId: 'tk6o47ip',
+  dataset: 'production',
+  apiVersion: '2026-05-23',
+  useCdn: false,
+})
+
+const projects = [
+  {
+    _id: 'project-assessment',
+    _type: 'project',
+    title: 'Assessment',
+    type: 'Short Film',
+    status: 'Post-Production',
+    description:
+      'Inside a clinical assessment room, a patient is processed through a sequence of institutional checks and observations. Procedure continues regardless of emotional reality.',
+    visibleOnSite: true,
+    displayOrder: 1,
+  },
+  {
+    _id: 'project-the-consultation',
+    _type: 'project',
+    title: 'The Consultation',
+    type: 'Short Film',
+    status: 'Post-Production',
+    description:
+      'Two partners attend a formal consultation with a specialist. Across a single meeting, administrative procedure slowly replaces intimacy, responsibility, and speech.',
+    visibleOnSite: true,
+    displayOrder: 2,
+  },
+  {
+    _id: 'project-on-record',
+    _type: 'project',
+    title: 'On Record',
+    type: 'Short Film',
+    status: 'Post-Production',
+    description:
+      'A mother attends an evidence clarification appointment after her son\'s assessment request is rejected. As each document is reviewed, labelled, and absorbed into the file, the procedure records everything except the child himself.',
+    visibleOnSite: true,
+    displayOrder: 3,
+  },
+]
+
+const siteSettings = {
+  _id: 'siteSettings',
+  _type: 'siteSettings',
+  aboutText:
+    'Still Room Productions is a London-based independent production company developing restrained, formally precise work for film and television. Its projects observe people at the point where private life meets process, record, and procedure.',
+}
+
+async function populate() {
+  try {
+    for (const project of projects) {
+      await client.createOrReplace(project)
+    }
+
+    await client.createOrReplace(siteSettings)
+    console.log('Sanity content populated successfully.')
+  } catch (error) {
+    console.error('Failed to populate Sanity content:', error)
+    process.exit(1)
+  }
+}
+
+populate()
