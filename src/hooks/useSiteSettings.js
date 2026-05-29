@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import sanityClient from '../sanityClient'
+import { client as sanityClient } from '../sanityClient'
 
 const query = `*[_type == "siteSettings"][0]{
   aboutText

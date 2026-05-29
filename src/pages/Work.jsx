@@ -1,5 +1,6 @@
 import { Fragment } from 'react'
 import { motion } from 'framer-motion'
+import { urlFor } from '../sanityClient'
 import useProjects from '../hooks/useProjects'
 
 /**
@@ -40,14 +41,27 @@ function Work() {
               >
                 <div className="film-media-container">
                   <div className="film-image-wrapper">
-                    {film.title?.toUpperCase() === "ASSESSMENT" && (
-                      <img 
-                        src="/images/_52A6947_jpg.jpeg" 
-                        alt="Hospital bed with gown and observation chart" 
+                    {film.mainImage ? (
+                      <img
+                        src={urlFor(film.mainImage).width(1200).url()}
+                        alt={`${film.title} hero`}
+                        loading="lazy"
                       />
-                    )}
-                    {film.title?.toUpperCase() === "THE CONSULTATION" && (
-                      <img src="/images/the_consultation_office.jpg" alt="Empty office with desk, computer, and chairs" />
+                    ) : (
+                      <>
+                        {film.title?.toUpperCase() === "ASSESSMENT" && (
+                          <img
+                            src="/images/_52A6947_jpg.jpeg"
+                            alt="Hospital bed with gown and observation chart"
+                          />
+                        )}
+                        {film.title?.toUpperCase() === "THE CONSULTATION" && (
+                          <img
+                            src="/images/the_consultation_office.jpg"
+                            alt="Empty office with desk, computer, and chairs"
+                          />
+                        )}
+                      </>
                     )}
                   </div>
                 </div>
