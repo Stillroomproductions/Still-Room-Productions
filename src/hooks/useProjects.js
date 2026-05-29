@@ -2,17 +2,17 @@ import { useEffect, useState } from 'react'
 import { client as sanityClient } from '../sanityClient'
 
 const query = `*[_type == "project" && visibleOnSite == true] | order(displayOrder asc){
+  _id,
   title,
   type,
   status,
   description,
   director,
   producer,
+  "image": mainImage,
   trailerUrl,
   festivalSelections,
-  pressQuotes,
-  mainImage,
-  displayOrder
+  pressQuotes
 }`
 
 export default function useProjects() {

@@ -1,16 +1,50 @@
+import { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import films from '../data/films'
+import { client } from '../sanityClient'
+import { urlFor } from '../sanityClient'
 
-/**
- * Individual film detail page.
- * Shows expanded information, synopsis, and large hero image.
- */
 function FilmDetail() {
   const { slug } = useParams()
-  
-  // Find the requested film
-  const film = films.find(f => f.slug === slug)
+  const [film, setFilm] = useState(null)
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    let active = true
+
+    client.fetch(`*[_type == "film" && slug.current == $slug][0]{
+      title,
+      logline,
+      status,
+      format,
+      year,
+      director,
+      producer,
+      runtime,
+      image,
+      synopsis
+    }`, { slug })
+      .then((data) => {
+        if (active) {
+          setFilm(data)
+          setIsLoading(false)
+        }
+      })
+      .catch(() => {
+        if (active) {
+          setFilm(null)
+          setIsLoading(false)
+        }
+      })
+
+    return () => {
+      active = false
+    }
+  }, [slug])
+
+  if (isLoading) {
+    return <div className="page-enter" />
+  }
 
   if (!film) {
     return (
@@ -31,6 +65,10 @@ function FilmDetail() {
       </div>
     )
   }
+
+  const synopsisText = Array.isArray(film.synopsis)
+    ? film.synopsis.map((block) => block.children?.map((child) => child.text).join('')).join('\n\n')
+    : film.synopsis
 
   return (
     <div className="page-enter">
@@ -55,7 +93,6 @@ function FilmDetail() {
 
       <div className="film-detail">
         <div className="container">
-          {/* Full width hero image */}
           <motion.div 
             className="film-detail-hero"
             initial={{ opacity: 0, scale: 0.95 }}
@@ -64,15 +101,16 @@ function FilmDetail() {
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
           >
             {film.image ? (
-              <img src={film.image} alt={`${film.title} hero`} loading="lazy" />
+              <img
+                src={urlFor(film.image).width(1200).url()}
+                alt={`${film.title} hero`}
+                loading="lazy"
+              />
             ) : (
-              <div className="film-image-placeholder">
-                <span>Hero Image</span>
-              </div>
+              <div className="film-image-placeholder" />
             )}
           </motion.div>
 
-          {/* Content grid */}
           <motion.div 
             className="film-detail-content"
             initial={{ opacity: 0, y: 30 }}
@@ -82,7 +120,7 @@ function FilmDetail() {
           >
             <div className="film-detail-main">
               <h2>Synopsis</h2>
-              <p>{film.synopsis}</p>
+              <p>{synopsisText}</p>
             </div>
             
             <aside className="film-detail-sidebar">
@@ -96,11 +134,19 @@ function FilmDetail() {
                 <dt>Producer</dt>
                 <dd>{film.producer}</dd>
 
-                <dt>Year</dt>
-                <dd>{film.year}</dd>
+                {film.year && (
+                  <>
+                    <dt>Year</dt>
+                    <dd>{film.year}</dd>
+                  </>
+                )}
 
-                <dt>Format</dt>
-                <dd>{film.format}</dd>
+                {film.format && (
+                  <>
+                    <dt>Format</dt>
+                    <dd>{film.format}</dd>
+                  </>
+                )}
 
                 {film.runtime && (
                   <>

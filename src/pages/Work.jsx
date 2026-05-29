@@ -4,7 +4,7 @@ import { urlFor } from '../sanityClient'
 import useProjects from '../hooks/useProjects'
 
 /**
- * Work page — structurally clean and empty, ready for real titles to be dropped in.
+ * Work page — renders project content exclusively from Sanity.
  */
 function Work() {
   const { projects, isLoading } = useProjects()
@@ -30,8 +30,8 @@ function Work() {
 
       <section className="films-section">
         <div className="container">
-          {projects.map((film, index) => (
-            <Fragment key={film.title || index}>
+          {projects.map((project, index) => (
+            <Fragment key={project._id || project.title || index}>
               <motion.article
                 className="film-entry"
                 initial={{ opacity: 0, y: 30 }}
@@ -41,51 +41,24 @@ function Work() {
               >
                 <div className="film-media-container">
                   <div className="film-image-wrapper">
-                    {film.mainImage ? (
+                    {project.image ? (
                       <img
-                        src={urlFor(film.mainImage).width(1200).url()}
-                        alt={`${film.title} hero`}
+                        src={urlFor(project.image).width(1200).url()}
+                        alt={project.title}
                         loading="lazy"
                       />
                     ) : (
-                      <>
-                        {film.title?.toUpperCase() === "ASSESSMENT" && (
-                          <img
-                            src="/images/_52A6947_jpg.jpeg"
-                            alt="Hospital bed with gown and observation chart"
-                          />
-                        )}
-                        {film.title?.toUpperCase() === "THE CONSULTATION" && (
-                          <img
-                            src="/images/the_consultation_office.jpg"
-                            alt="Empty office with desk, computer, and chairs"
-                          />
-                        )}
-                      </>
+                      <div className="image-placeholder" />
                     )}
                   </div>
                 </div>
+
                 <div className="film-info">
-                  <span className="film-status">{film.type} — {film.status}</span>
-                  <h2 className="film-title">{film.title?.toUpperCase()}</h2>
-                  <p className="film-logline">{film.description}</p>
+                  <span className="film-status">{project.type} — {project.status}</span>
+                  <h2 className="film-title">{project.title?.toUpperCase()}</h2>
+                  <p className="film-logline">{project.description}</p>
                 </div>
               </motion.article>
-
-              {index === 3 && (
-                <motion.div 
-                  className="work-divider-image"
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                >
-                  <img 
-                    src="/images/_52A6909.jpg" 
-                    alt="Hospital monitor, clock, and oxygen equipment against the wall" 
-                  />
-                </motion.div>
-              )}
             </Fragment>
           ))}
         </div>
