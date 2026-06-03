@@ -42,6 +42,7 @@ export default function ProjectPage({ slug, onBack }) {
         console.error(err)
         setLoading(false)
       })
+    window.scrollTo(0, 0)
   }, [slug])
 
   if (loading) return <div>Loading...</div>
