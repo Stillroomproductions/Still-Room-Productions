@@ -51,17 +51,36 @@ export default {
       type: 'string',
     },
     {
-      name: 'mainImage',
-      title: 'Main Image',
-      type: 'image',
-      options: {
-        hotspot: true,
-      },
+      name: 'images',
+      title: 'Project Images',
+      description: 'Add up to 3 images. First image is the hero, second and third appear below the project info.',
+      type: 'array',
+      of: [{ type: 'image', options: { hotspot: true } }],
+      validation: Rule => Rule.max(3)
+    },
+    {
+      name: 'slug',
+      title: 'Page URL',
+      type: 'slug',
+      description: 'Click Generate after filling in the title. Required for individual project pages.',
+      options: { source: 'title', maxLength: 96 }
     },
     {
       name: 'trailerUrl',
       title: 'Trailer URL',
       type: 'url',
+    },
+    {
+      name: 'cast',
+      title: 'Cast',
+      type: 'array',
+      of: [{
+        type: 'object',
+        fields: [
+          { name: 'actorName', title: 'Actor Name', type: 'string' },
+          { name: 'characterName', title: 'Character Name', type: 'string' }
+        ]
+      }]
     },
     {
       name: 'festivalSelections',
@@ -108,7 +127,7 @@ export default {
     select: {
       title: 'title',
       subtitle: 'status',
-      media: 'mainImage',
+      media: 'images.0',
     },
   },
 }

@@ -9,7 +9,10 @@ const query = `*[_type == "project" && visibleOnSite == true] | order(displayOrd
   description,
   director,
   producer,
-  "image": mainImage,
+  slug,
+  "image": images[0],
+  images,
+  cast,
   trailerUrl,
   festivalSelections,
   pressQuotes
