@@ -6,7 +6,7 @@ import { motion } from 'framer-motion'
 function Contact() {
   return (
     <div id="contact">
-      <section className="contact-section" style={{ padding: '60px 0 80px' }}>
+      <section className="contact-section">
         <div className="container">
           <motion.div 
             className="contact-content"
@@ -18,7 +18,6 @@ function Contact() {
               display: 'flex', 
               flexDirection: 'column', 
               alignItems: 'center', 
-              justifyContent: 'center',
               width: '100%',
               textAlign: 'center'
             }}

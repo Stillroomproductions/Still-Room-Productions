@@ -447,7 +447,7 @@ a:hover {
 
 /* ---------- Page Header (sub-pages) ---------- */
 .page-header {
-  padding: 220px 0 100px;
+  padding: 40px 0 100px;
   /* Increased whitespace */
   text-align: center;
 }
@@ -707,6 +707,12 @@ a:hover {
 /* ---------- About Page ---------- */
 .about-section {
   padding: 0 0 120px;
+  /* Mobile */
+@media (max-width: 768px) {
+  
+    padding: 0 0 20px;
+  
+}
 }
 
 .about-content {
@@ -750,8 +756,16 @@ a:hover {
 }
 
 /* ---------- Contact Page ---------- */
+#contact {
+  min-height: auto;
+}
+
 .contact-section {
-  padding: 0 0 120px;
+  padding: 80px 0 120px;
+  min-height: auto;
+  @media (max-width: 768px) {
+    padding: 0px 0 80px;
+  }
 }
 
 .contact-content {
@@ -780,7 +794,7 @@ a:hover {
   color: var(--color-grey-dark);
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  margin-bottom: 60px;
+  margin-bottom: 0;
 }
 
 .contact-divider {
