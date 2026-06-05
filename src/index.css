@@ -465,7 +465,7 @@ a:hover {
 
 .film-entry {
   border-top: 1px solid var(--color-grey-border);
-  padding: 60px 0;
+  padding: 140px 0;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 60px;
@@ -936,9 +936,9 @@ a:hover {
 
   .film-entry {
     grid-template-columns: 1fr;
-    gap: 24px;
-    padding-top: 60px;
-    padding-bottom: 60px;
+    gap: 32px;
+    padding-top: 80px;
+    padding-bottom: 80px;
     margin-left: calc(-1 * var(--page-padding));
     margin-right: calc(-1 * var(--page-padding));
     padding-left: var(--page-padding);
@@ -984,16 +984,21 @@ a:hover {
 
   .film-detail-content {
     grid-template-columns: 1fr;
-    gap: 40px;
+    gap: 56px;
   }
 
   .page-header {
-    padding: 140px 0 60px;
+    padding: 180px 0 80px;
   }
 
   .film-media-container {
     display: flex;
     flex-direction: column;
+  }
+
+  .film-detail-hero {
+    margin-bottom: 80px;
+    /* Increased from 60px for mobile spacing */
   }
 
   .supporting-image-wrapper {
@@ -1021,6 +1026,11 @@ a:hover {
     padding-right: 5% !important;
     margin-left: auto !important;
     margin-right: auto !important;
+  }
+
+  .about-image {
+    margin: 120px 0;
+    /* Increased from 80px (50% more) for mobile spacing */
   }
 
   /* Contact Page - Mobile Form Optimization */

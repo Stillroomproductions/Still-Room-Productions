@@ -1,4 +1,5 @@
-import { Fragment, useState } from 'react'
+import { Fragment, useState, useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { urlFor } from '../sanityClient'
 import useProjects from '../hooks/useProjects'
@@ -10,6 +11,14 @@ import ProjectPage from '../pages/ProjectPage'
 function Work() {
   const { projects, isLoading } = useProjects()
   const [selectedSlug, setSelectedSlug] = useState(null)
+  const { hash } = useLocation()
+
+  /* Close ProjectPage when navigating to a different section via header nav */
+  useEffect(() => {
+    if (hash && hash !== '#work') {
+      setSelectedSlug(null)
+    }
+  }, [hash])
 
   if (isLoading) {
     return <div id="work" style={{ minHeight: '100vh', background: '#000' }} />
@@ -69,7 +78,7 @@ function Work() {
                 </div>
 
                 <div className="film-info">
-                  <span className="film-status">{project.type} — {project.status}</span>
+                  <span className="film-status">SHORT FILM</span>
                   <h2 className="film-title" style={{ cursor: project.slug?.current ? 'pointer' : 'default' }}>{project.title?.toUpperCase()}</h2>
                   <p className="film-logline">{project.description}</p>
                 </div>

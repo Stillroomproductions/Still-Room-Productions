@@ -6,7 +6,7 @@ import { motion } from 'framer-motion'
 function Contact() {
   return (
     <div id="contact">
-      <section className="contact-section" style={{ padding: '180px 0 220px' }}>
+      <section className="contact-section" style={{ padding: '60px 0 80px' }}>
         <div className="container">
           <motion.div 
             className="contact-content"

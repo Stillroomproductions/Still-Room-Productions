@@ -126,7 +126,7 @@ function FilmDetail() {
             <aside className="film-detail-sidebar">
               <dl className="film-detail-meta">
                 <dt>Status</dt>
-                <dd>{film.status}</dd>
+                <dd>SHORT FILM</dd>
 
                 <dt>Director</dt>
                 <dd>{film.director}</dd>

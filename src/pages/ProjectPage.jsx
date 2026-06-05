@@ -50,6 +50,8 @@ export default function ProjectPage({ slug, onBack }) {
 
   const embedUrl = getEmbedUrl(project.trailerUrl)
 
+  /* Image order: environment first, people second. Client to upload in correct order via Sanity. */
+
   return (
     <div id="project-detail" style={{ minHeight: '100vh', background: '#000', color: '#fff' }}>
       <div className="container" style={{ paddingTop: '80px' }}>
@@ -61,7 +63,7 @@ export default function ProjectPage({ slug, onBack }) {
 
         {/* Status */}
         <div className="project-status" style={{ fontSize: '12px', textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '20px', opacity: 0.7 }}>
-          {project.type}
+          SHORT FILM
         </div>
 
         {/* Title */}
@@ -74,14 +76,14 @@ export default function ProjectPage({ slug, onBack }) {
 
         {/* Synopsis */}
         {project.description && (
-          <div className="project-synopsis" style={{ fontSize: '16px', lineHeight: 1.8, marginBottom: '60px', maxWidth: '800px', opacity: 0.9 }}>
+          <div className="project-synopsis" style={{ fontSize: '16px', lineHeight: 1.8, marginBottom: '48px', maxWidth: '800px', opacity: 0.9 }}>
             {project.description}
           </div>
         )}
 
-        {/* Hero image */}
+        {/* Hero image (environment) */}
         {project.images?.[0] && (
-          <div className="project-hero-image" style={{ marginBottom: '60px', aspectRatio: '16/9', overflow: 'hidden' }}>
+          <div className="project-hero-image" style={{ marginBottom: '100px', aspectRatio: '16/9', overflow: 'hidden' }}>
             <img src={urlFor(project.images[0]).url()} alt={project.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
           </div>
         )}
@@ -131,7 +133,7 @@ export default function ProjectPage({ slug, onBack }) {
           </div>
         )}
 
-        {/* Second image */}
+        {/* Second image (people/characters) */}
         {project.images?.[1] && (
           <div className="project-image" style={{ marginBottom: '60px', aspectRatio: '16/9', overflow: 'hidden' }}>
             <img src={urlFor(project.images[1]).url()} alt={`${project.title} image 2`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
