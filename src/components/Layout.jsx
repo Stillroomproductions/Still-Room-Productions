@@ -1,5 +1,5 @@
 import { Outlet, useLocation } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import Lenis from 'lenis'
 import Header from './Header'
 import Footer from './Footer'
@@ -10,6 +10,7 @@ import Footer from './Footer'
  */
 function Layout() {
   const { pathname, hash } = useLocation()
+  const [selectedSlug, setSelectedSlug] = useState(null)
 
   useEffect(() => {
     const lenis = new Lenis({
@@ -34,20 +35,23 @@ function Layout() {
 
   useEffect(() => {
     if (hash) {
-      const element = document.querySelector(hash)
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' })
-        return
-      }
+      const timeoutId = setTimeout(() => {
+        const element = document.querySelector(hash)
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' })
+        }
+      }, 50)
+      return () => clearTimeout(timeoutId)
+    } else {
+      window.scrollTo(0, 0)
     }
-    window.scrollTo(0, 0)
-  }, [pathname, hash])
+  }, [pathname, hash, selectedSlug])
 
   return (
     <div className="page-container">
-      <Header />
+      <Header onNavClick={() => setSelectedSlug(null)} />
       <main className="page-content">
-        <Outlet />
+        <Outlet context={{ selectedSlug, setSelectedSlug }} />
       </main>
       <Footer />
     </div>

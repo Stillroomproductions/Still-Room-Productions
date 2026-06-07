@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { client } from '../sanityClient'
 import { urlFor } from '../sanityClient'
+import { MOCK_PROJECTS } from '../hooks/useProjects'
 
 const query = `*[_type == "project" && slug.current == $slug][0] {
   _id,
@@ -35,11 +36,18 @@ export default function ProjectPage({ slug, onBack }) {
   useEffect(() => {
     client.fetch(query, { slug })
       .then(data => {
-        setProject(data)
+        if (data) {
+          setProject(data)
+        } else {
+          const mock = MOCK_PROJECTS.find(p => p.slug?.current === slug)
+          setProject(mock || null)
+        }
         setLoading(false)
       })
       .catch(err => {
-        console.error(err)
+        console.error('Project fetch failed:', err)
+        const mock = MOCK_PROJECTS.find(p => p.slug?.current === slug)
+        setProject(mock || null)
         setLoading(false)
       })
     window.scrollTo(0, 0)
@@ -49,8 +57,6 @@ export default function ProjectPage({ slug, onBack }) {
   if (!project) return <div>Project not found</div>
 
   const embedUrl = getEmbedUrl(project.trailerUrl)
-
-  /* Image order: environment first, people second. Client to upload in correct order via Sanity. */
 
   return (
     <div id="project-detail" style={{ minHeight: '100vh', background: '#000', color: '#fff' }}>
@@ -67,9 +73,22 @@ export default function ProjectPage({ slug, onBack }) {
         </div>
 
         {/* Title */}
-        <h1 className="project-title" style={{ fontSize: '48px', fontWeight: 300, letterSpacing: '-1px', marginBottom: '40px', lineHeight: 1.2 }}>
+        <h1 className="project-title" style={{ fontSize: '48px', fontWeight: 300, letterSpacing: '-1px', marginBottom: '16px', lineHeight: 1.2 }}>
           {project.title}
         </h1>
+
+        {/* Written & Directed credit */}
+        <p style={{
+          fontSize: '13px',
+          letterSpacing: '0.25em',
+          textTransform: 'uppercase',
+          color: '#7a6e5f',
+          marginBottom: '32px',
+          fontFamily: '"Barlow Condensed", sans-serif',
+          fontWeight: 200,
+        }}>
+          Written & Directed by Gerald Gyimah
+        </p>
 
         {/* Divider */}
         <div style={{ height: '1px', background: 'rgba(255,255,255,0.1)', marginBottom: '40px' }} />
@@ -81,7 +100,7 @@ export default function ProjectPage({ slug, onBack }) {
           </div>
         )}
 
-        {/* Hero image (environment) */}
+        {/* First image (main film still) */}
         {project.images?.[0] && (
           <div className="project-hero-image" style={{ marginBottom: '100px', aspectRatio: '16/9', overflow: 'hidden' }}>
             <img src={urlFor(project.images[0]).url()} alt={project.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
@@ -99,6 +118,20 @@ export default function ProjectPage({ slug, onBack }) {
                 {member.actorName}{member.characterName ? ` as ${member.characterName}` : ''}
               </div>
             ))}
+          </div>
+        )}
+
+        {/* Second image (people/characters) */}
+        {project.images?.[1] && (
+          <div className="project-image" style={{ marginBottom: '60px', aspectRatio: '16/9', overflow: 'hidden' }}>
+            <img src={urlFor(project.images[1]).url()} alt={`${project.title} image 2`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          </div>
+        )}
+
+        {/* Third image */}
+        {project.images?.[2] && (
+          <div className="project-image" style={{ marginBottom: '60px', aspectRatio: '16/9', overflow: 'hidden' }}>
+            <img src={urlFor(project.images[2]).url()} alt={`${project.title} image 3`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
           </div>
         )}
 
@@ -130,20 +163,6 @@ export default function ProjectPage({ slug, onBack }) {
                 style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
               />
             </div>
-          </div>
-        )}
-
-        {/* Second image (people/characters) */}
-        {project.images?.[1] && (
-          <div className="project-image" style={{ marginBottom: '60px', aspectRatio: '16/9', overflow: 'hidden' }}>
-            <img src={urlFor(project.images[1]).url()} alt={`${project.title} image 2`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-          </div>
-        )}
-
-        {/* Third image */}
-        {project.images?.[2] && (
-          <div className="project-image" style={{ marginBottom: '60px', aspectRatio: '16/9', overflow: 'hidden' }}>
-            <img src={urlFor(project.images[2]).url()} alt={`${project.title} image 3`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
           </div>
         )}
 

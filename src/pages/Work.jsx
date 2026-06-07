@@ -8,9 +8,12 @@ import ProjectPage from '../pages/ProjectPage'
 /**
  * Work page — renders project content exclusively from Sanity.
  */
-function Work() {
+function Work({ selectedSlug: propSelectedSlug, setSelectedSlug: propSetSelectedSlug }) {
   const { projects, isLoading } = useProjects()
-  const [selectedSlug, setSelectedSlug] = useState(null)
+  const [localSelectedSlug, setLocalSelectedSlug] = useState(null)
+
+  const selectedSlug = propSelectedSlug !== undefined ? propSelectedSlug : localSelectedSlug
+  const setSelectedSlug = propSetSelectedSlug !== undefined ? propSetSelectedSlug : setLocalSelectedSlug
   const { hash } = useLocation()
 
   /* Close ProjectPage when navigating to a different section via header nav */
@@ -18,7 +21,7 @@ function Work() {
     if (hash && hash !== '#work') {
       setSelectedSlug(null)
     }
-  }, [hash])
+  }, [hash, setSelectedSlug])
 
   if (isLoading) {
     return <div id="work" style={{ minHeight: '100vh', background: '#000' }} />

@@ -5,7 +5,7 @@ import { useLocation } from 'react-router-dom'
  * Site header with logo, desktop nav, and mobile hamburger menu.
  * Adds a subtle background on scroll.
  */
-function Header() {
+function Header({ onNavClick }) {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const location = useLocation()
@@ -51,7 +51,12 @@ function Header() {
       <header className={`site-header ${scrolled ? 'site-header--scrolled' : ''}`}>
         <div className="container header-inner">
           {/* Logo */}
-          <a href="/#home" className="header-logo" aria-label="Still Room Productions — Home">
+          <a
+            href="/#home"
+            className="header-logo"
+            aria-label="Still Room Productions — Home"
+            onClick={onNavClick}
+          >
             <svg className="header-logo-icon" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
               <rect x="10" y="10" width="100" height="100" stroke="currentColor" strokeWidth="3" fill="none" />
               <rect x="38" y="35" width="44" height="44" stroke="currentColor" strokeWidth="2" fill="none" />
@@ -69,6 +74,7 @@ function Header() {
               <a
                 key={link.to}
                 href={link.to}
+                onClick={onNavClick}
               >
                 {link.label}
               </a>
@@ -95,7 +101,10 @@ function Header() {
           <a
             key={link.to}
             href={link.to}
-            onClick={() => setMenuOpen(false)}
+            onClick={() => {
+              setMenuOpen(false)
+              if (onNavClick) onNavClick()
+            }}
           >
             {link.label}
           </a>

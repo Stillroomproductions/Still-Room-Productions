@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { useOutletContext } from 'react-router-dom'
 import Work from './Work'
 import About from './About'
 import Contact from './Contact'
@@ -8,6 +9,10 @@ import Contact from './Contact'
  * followed by scrolling sections for Work, About, and Contact.
  */
 function Home() {
+  const context = useOutletContext()
+  const selectedSlug = context?.selectedSlug
+  const setSelectedSlug = context?.setSelectedSlug
+
   return (
     <div className="page-enter">
       {/* HERO SECTION */}
@@ -49,7 +54,7 @@ function Home() {
       </section>
 
       {/* OTHER SECTIONS */}
-      <Work />
+      <Work selectedSlug={selectedSlug} setSelectedSlug={setSelectedSlug} />
       <About />
       <Contact />
     </div>
