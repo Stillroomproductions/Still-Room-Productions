@@ -136,7 +136,7 @@ export default function ProjectPage({ slug, onBack }) {
         )}
 
         {/* Festival Selections */}
-        {project.festivalSelections?.length > 0 && (
+        {/* {project.festivalSelections?.length > 0 && (
           <div className="project-festivals" style={{ marginBottom: '60px' }}>
             <h2 style={{ fontSize: '14px', textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '20px', opacity: 0.7 }}>
               Selected
@@ -147,7 +147,7 @@ export default function ProjectPage({ slug, onBack }) {
               </div>
             ))}
           </div>
-        )}
+        )} */}
 
         {/* Trailer */}
         {embedUrl && (
