@@ -10,7 +10,7 @@ import { urlFor } from '../lib/sanityClient'
  * Receives projects array as props from the server component.
  * Clicking a project navigates to /projects/[slug].
  */
-export default function WorkSection({ projects = [] }) {
+export default function WorkSection({ projects = [], onFilmClick }) {
   return (
     <div>
       <section className="page-header">
@@ -30,9 +30,17 @@ export default function WorkSection({ projects = [] }) {
         <div className="container">
           {projects.map((project, index) => (
             <Fragment key={project._id || project.title || index}>
-              <Link
-                href={`/work/${project.slug?.current || ''}`}
+              <div
+                onClick={() => onFilmClick && onFilmClick(project)}
                 style={{ cursor: 'pointer', textDecoration: 'none', color: 'inherit' }}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    onFilmClick && onFilmClick(project);
+                  }
+                }}
               >
                 <motion.article
                   className="film-entry"
@@ -61,7 +69,7 @@ export default function WorkSection({ projects = [] }) {
                     <p className="film-logline">{project.description}</p>
                   </div>
                 </motion.article>
-              </Link>
+              </div>
             </Fragment>
           ))}
         </div>

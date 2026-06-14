@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo } from 'react'
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Camera, Video, Film, Clapperboard, Aperture, MonitorPlay, Focus, Projector } from 'lucide-react'
 import Image from 'next/image'
@@ -8,69 +8,43 @@ import Image from 'next/image'
 const icons = [Camera, Video, Film, Clapperboard, Aperture, MonitorPlay, Focus, Projector]
 
 export default function CinematicBackground({ src = '/images/_52A6916.jpg' }) {
-  const elements = useMemo(() => {
-    return Array.from({ length: 12 }).map((_, i) => {
-      const Icon = icons[i % icons.length]
-      const size = Math.random() * 60 + 40 // 40px to 100px
-      const left = Math.random() * 100 // 0% to 100%
-      const top = Math.random() * 100 // 0% to 100%
+  const [elements, setElements] = useState(null)
 
-      const moveX = (Math.random() - 0.5) * 100 // gentle drift
-      const moveY = (Math.random() - 0.5) * 100
-      const duration = Math.random() * 20 + 40 // 40s to 60s
-
-      const blur = Math.random() * 4 + 4 // 4px to 8px blur
-      const opacity = Math.random() * 0.15 + 0.05 // slightly more visible
-
-      return {
+  useEffect(() => {
+    setElements(
+      Array.from({ length: 12 }, (_, i) => ({
         id: i,
-        Icon,
-        size,
-        left,
-        top,
-        moveX,
-        moveY,
-        duration,
-        blur,
-        opacity,
+        Icon: icons[i % icons.length],
+        size:          Math.random() * 60 + 40,
+        left:          Math.random() * 100,
+        top:           Math.random() * 100,
+        moveX:         (Math.random() - 0.5) * 100,
+        moveY:         (Math.random() - 0.5) * 100,
+        duration:      Math.random() * 20 + 40,
+        blur:          Math.random() * 4 + 4,
+        opacity:       Math.random() * 0.15 + 0.05,
         initialRotate: Math.random() * 360,
-      }
-    })
+      }))
+    )
   }, [])
 
   return (
     <div className="cinematic-bg" aria-hidden="true" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}>
       {src && (
-        <Image 
-          src={src} 
-          alt="Still Room Productions" 
-          fill 
-          style={{ objectFit: 'cover' }} 
-          priority 
-          quality={90} 
-        />
+        <Image src={src} alt="Still Room Productions" fill style={{ objectFit: 'cover' }} priority quality={90} />
       )}
-      {elements.map((el) => (
+      {elements && elements.map((el) => (
         <motion.div
           key={el.id}
           className="cinematic-icon"
-          initial={{
-            x: 0,
-            y: 0,
-            opacity: 0,
-            rotate: el.initialRotate,
-          }}
+          initial={{ x: 0, y: 0, opacity: 0, rotate: el.initialRotate }}
           animate={{
             x: [0, el.moveX, 0],
             y: [0, el.moveY, 0],
             opacity: [0, el.opacity, el.opacity, 0],
             rotate: [el.initialRotate, el.initialRotate + 45, el.initialRotate + 90],
           }}
-          transition={{
-            duration: el.duration,
-            repeat: Infinity,
-            ease: "linear",
-          }}
+          transition={{ duration: el.duration, repeat: Infinity, ease: 'linear' }}
           style={{
             position: 'absolute',
             left: `${el.left}%`,
@@ -85,7 +59,7 @@ export default function CinematicBackground({ src = '/images/_52A6916.jpg' }) {
           <el.Icon width="100%" height="100%" strokeWidth={0.5} />
         </motion.div>
       ))}
-      <div className="cinematic-bg-overlay"></div>
+      <div className="cinematic-bg-overlay" />
     </div>
   )
 }

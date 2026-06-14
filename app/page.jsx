@@ -1,9 +1,8 @@
+// app/page.js
+import { Suspense } from 'react'
 import { client } from '../lib/sanityClient'
 import { getHero, getAllProjects, getAbout, getContact, getSiteSettings } from '../lib/queries'
-import HeroSection from '../components/HeroSection'
-import WorkSection from '../components/WorkSection'
-import AboutSection from '../components/AboutSection'
-import ContactSection from '../components/ContactSection'
+import HomeClient from '../components/HomeClient'
 
 const MOCK_PROJECTS = [
   {
@@ -35,31 +34,19 @@ export const metadata = {
   },
 }
 
-/**
- * Home page — async server component that fetches hero, projects, about,
- * and contact data from Sanity, then passes to client section components.
- */
 export default async function HomePage() {
-  // Fetch all data in parallel
-  const [hero, projects, about, contact] = await Promise.all([
+  const [hero, films, about, contact] = await Promise.all([
     client.fetch(getHero).catch(() => null),
     client.fetch(getAllProjects).catch(() => []),
     client.fetch(getAbout).catch(() => null),
     client.fetch(getContact).catch(() => null),
   ])
 
-  // Fall back to mock projects if Sanity returns nothing
-  const projectData = projects && projects.length > 0 ? projects : MOCK_PROJECTS
+  const projectData = films && films.length > 0 ? films : MOCK_PROJECTS
 
   return (
-    <div className="page-enter">
-      {/* HERO SECTION */}
-      <HeroSection hero={hero} />
-
-      {/* OTHER SECTIONS */}
-      <WorkSection projects={projectData} />
-      <AboutSection about={about} />
-      <ContactSection contact={contact} />
-    </div>
+    <Suspense fallback={null}>
+      <HomeClient hero={hero} films={projectData} about={about} contact={contact} />
+    </Suspense>
   )
 }

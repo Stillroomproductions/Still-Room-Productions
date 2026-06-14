@@ -1,8 +1,7 @@
 'use client'
 
-import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { urlFor } from '../../../lib/sanityClient'
+import { urlFor } from '../lib/sanityClient'
 
 function getEmbedUrl(url) {
   if (!url) return null
@@ -17,7 +16,7 @@ function getEmbedUrl(url) {
   return null
 }
 
-export default function FilmDetailClient({ film: project }) {
+export default function FilmDetail({ film: project, onBack }) {
   const embedUrl = getEmbedUrl(project.trailerUrl)
 
   return (
@@ -30,9 +29,9 @@ export default function FilmDetailClient({ film: project }) {
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
           {/* Back link */}
-          <Link href="/work" className="back-link" style={{ display: 'inline-block', background: 'none', border: 'none', color: '#fff', fontSize: '14px', cursor: 'pointer', marginBottom: '40px', padding: 0 }}>
+          <button onClick={onBack} className="back-link" style={{ display: 'inline-block', background: 'none', border: 'none', color: '#fff', fontSize: '14px', cursor: 'pointer', marginBottom: '40px', padding: 0 }}>
             ←   Work
-          </Link>
+          </button>
 
           {/* Status */}
           <div className="project-status" style={{ fontSize: '12px', textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '20px', opacity: 0.7 }}>

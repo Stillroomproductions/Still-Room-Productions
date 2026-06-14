@@ -1,3 +1,4 @@
+// app/sitemap.js
 import { client } from '../lib/sanityClient'
 
 export const revalidate = 3600 // rebuild sitemap every hour
@@ -7,9 +8,6 @@ export default async function sitemap() {
 
   const staticPages = [
     { url: baseUrl, priority: 1.0, changeFrequency: 'monthly' },
-    { url: `${baseUrl}/work`, priority: 0.9, changeFrequency: 'weekly' },
-    { url: `${baseUrl}/about`, priority: 0.8, changeFrequency: 'monthly' },
-    { url: `${baseUrl}/contact`, priority: 0.7, changeFrequency: 'yearly' },
   ].map(page => ({ ...page, lastModified: new Date() }))
 
   // Films — fetched live from Sanity, auto-updates as Gerald adds content

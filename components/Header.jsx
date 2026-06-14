@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
-import Link from 'next/link'
 
 /**
  * Site header with logo, desktop nav, and mobile hamburger menu.
@@ -34,10 +33,10 @@ export default function Header() {
   }, [menuOpen])
 
   const navLinks = [
-    { href: '/', label: 'Home' },
-    { href: '/work', label: 'Work' },
-    { href: '/about', label: 'About' },
-    { href: '/contact', label: 'Contact' },
+    { href: '/#home', label: 'HOME' },
+    { href: '/#work', label: 'WORK' },
+    { href: '/#about', label: 'ABOUT' },
+    { href: '/#contact', label: 'CONTACT' },
   ]
 
   return (
@@ -45,8 +44,8 @@ export default function Header() {
       <header className={`site-header ${scrolled ? 'site-header--scrolled' : ''}`}>
         <div className="container header-inner">
           {/* Logo */}
-          <Link
-            href="/"
+          <a
+            href="/#home"
             className="header-logo"
             aria-label="Still Room Productions — Home"
           >
@@ -59,17 +58,17 @@ export default function Header() {
               <line x1="110" y1="110" x2="82" y2="79" stroke="currentColor" strokeWidth="1.5" />
             </svg>
             <span className="header-logo-text">Still Room Productions</span>
-          </Link>
+          </a>
 
           {/* Desktop nav */}
           <nav className="main-nav" aria-label="Main navigation">
             {navLinks.map((link) => (
-              <Link
+              <a
                 key={link.href}
                 href={link.href}
               >
                 {link.label}
-              </Link>
+              </a>
             ))}
           </nav>
 
@@ -90,13 +89,13 @@ export default function Header() {
       {/* Mobile navigation overlay */}
       <nav className={`mobile-nav-overlay ${menuOpen ? 'open' : ''}`} aria-label="Mobile navigation">
         {navLinks.map((link) => (
-          <Link
+          <a
             key={link.href}
             href={link.href}
             onClick={() => setMenuOpen(false)}
           >
             {link.label}
-          </Link>
+          </a>
         ))}
       </nav>
     </>
