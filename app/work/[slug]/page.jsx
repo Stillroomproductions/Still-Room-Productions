@@ -118,7 +118,7 @@ export default async function FilmDetailPage({ params }) {
           "award": project.festivalSelections.join(', ')
         }),
       }} />
-      <HeroSection hero={hero} />
+      {/* <HeroSection hero={hero} /> */}
       <FilmDetailClient film={project} />
     </>
   )
