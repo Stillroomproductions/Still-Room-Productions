@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
+import Link from 'next/link'
 
 /**
  * Site header with logo, desktop nav, and mobile hamburger menu.
@@ -44,8 +45,8 @@ export default function Header() {
       <header className={`site-header ${scrolled ? 'site-header--scrolled' : ''}`}>
         <div className="container header-inner">
           {/* Logo */}
-          <a
-            href="/#home"
+          <Link
+            href="/"
             className="header-logo"
             aria-label="Still Room Productions — Home"
           >
@@ -58,17 +59,17 @@ export default function Header() {
               <line x1="110" y1="110" x2="82" y2="79" stroke="currentColor" strokeWidth="1.5" />
             </svg>
             <span className="header-logo-text">Still Room Productions</span>
-          </a>
+          </Link>
 
           {/* Desktop nav */}
           <nav className="main-nav" aria-label="Main navigation">
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.href}
                 href={link.href}
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
           </nav>
 
@@ -89,13 +90,13 @@ export default function Header() {
       {/* Mobile navigation overlay */}
       <nav className={`mobile-nav-overlay ${menuOpen ? 'open' : ''}`} aria-label="Mobile navigation">
         {navLinks.map((link) => (
-          <a
+          <Link
             key={link.href}
             href={link.href}
             onClick={() => setMenuOpen(false)}
           >
             {link.label}
-          </a>
+          </Link>
         ))}
       </nav>
     </>

@@ -115,7 +115,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en-GB">
       <body>
         <JsonLd data={{
           "@context": "https://schema.org",
