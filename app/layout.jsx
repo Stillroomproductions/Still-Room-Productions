@@ -50,7 +50,7 @@ export const metadata = {
     'film portfolio London director',
   ],
 
-  authors: [{ name: 'Gerald Gyimah', url: 'https://www.stillroomproductions.com/about' }],
+  authors: [{ name: 'Gerald Gyimah', url: 'https://www.stillroomproductions.com/#about' }],
   creator: 'Gerald Gyimah',
   publisher: 'Still Room Productions',
 
@@ -82,8 +82,7 @@ export const metadata = {
         url: '/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'Still Room Productions — Independent Film Production Company, London',
-        type: 'image/jpeg',
+        alt: 'Still Room Productions',
       },
     ],
   },
@@ -96,6 +95,19 @@ export const metadata = {
     description: 'London-based independent production company developing formally restrained work for film and television.',
     images: ['/og-image.jpg'],
   },
+
+  icons: {
+    icon: [
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: '/icon-192x192.png', sizes: '192x192', type: 'image/png' },
+      { url: '/icon-512x512.png', sizes: '512x512', type: 'image/png' },
+    ],
+    apple: [
+      { url: '/apple-touch-icon.png' },
+    ],
+  },
+
+  manifest: '/site.webmanifest',
 
   alternates: {
     canonical: 'https://www.stillroomproductions.com',
