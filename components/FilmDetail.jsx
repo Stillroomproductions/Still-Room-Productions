@@ -60,15 +60,15 @@ export default function FilmDetail({ film: project }) {
           <div style={{ height: '1px', background: 'rgba(255,255,255,0.1)', marginBottom: '40px' }} />
 
           {/* Synopsis */}
-          {project.description && (
+          {/* {project.description && (
             <div className="project-synopsis" style={{ fontSize: '16px', lineHeight: 1.8, marginBottom: '48px', maxWidth: '800px', opacity: 0.9 }}>
               {project.description}
             </div>
-          )}
+          )} */}
         </motion.div>
 
         {/* First image (main film still) */}
-        {project.images?.[0] && (
+        {/* {project.images?.[0] && (
           <motion.div 
             className="project-hero-image" 
             style={{ marginBottom: '80px', aspectRatio: '16/9', overflow: 'hidden' }}
@@ -79,7 +79,7 @@ export default function FilmDetail({ film: project }) {
           >
             <img src={urlFor(project.images[0]).width(1600).url()} alt={project.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
           </motion.div>
-        )}
+        )} */}
 
         <motion.div
           initial={{ opacity: 0, y: 30 }}
