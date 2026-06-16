@@ -30,7 +30,7 @@ export default function FilmDetail({ film: project }) {
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
           {/* Back link */}
-          <Link href="/#work" className="back-link" style={{ display: 'inline-block', textDecoration: 'none', color: '#fff', fontSize: '14px', marginBottom: '40px' }}>
+          <Link href={`/#project-${project.slug?.current}`} className="back-link" style={{ display: 'inline-block', textDecoration: 'none', color: '#fff', fontSize: '14px', marginBottom: '40px' }}>
             ←   Work
           </Link>
 

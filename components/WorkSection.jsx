@@ -32,6 +32,7 @@ export default function WorkSection({ projects = [] }) {
             <Fragment key={project._id || project.title || index}>
               <Link href={`/work/${project.slug?.current}`} style={{ textDecoration: 'none', color: 'inherit' }}>
                 <motion.article
+                  id={`project-${project.slug?.current}`}
                   className="film-entry"
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
