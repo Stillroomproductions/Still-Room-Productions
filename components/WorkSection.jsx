@@ -13,7 +13,7 @@ import { urlFor } from '../lib/sanityClient'
 export default function WorkSection({ projects = [] }) {
   return (
     <div>
-      <section className="page-header">
+      <section className="work-header">
         <div className="container">
           <motion.h1
             initial={{ opacity: 0, y: 20 }}

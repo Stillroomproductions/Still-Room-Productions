@@ -17,6 +17,11 @@ function getEmbedUrl(url) {
   return null
 }
 
+/** Check whether a Sanity image object has an actual asset reference that urlFor can resolve */
+function hasAsset(img) {
+  return img && (img.asset || img._ref || (typeof img === 'string'))
+}
+
 export default function FilmDetail({ film: project }) {
   const embedUrl = getEmbedUrl(project.trailerUrl)
 
@@ -30,7 +35,7 @@ export default function FilmDetail({ film: project }) {
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
           {/* Back link */}
-          <Link href={`/#project-${project.slug?.current}`} className="back-link" style={{ display: 'inline-block', textDecoration: 'none', color: '#fff', fontSize: '14px', marginBottom: '40px' }}>
+          <Link href={`/#project-${project.slug?.current}`} className="back-link" style={{ display: 'inline-block', textDecoration: 'none', color: '#fff', fontSize: '14px', marginBottom: '24px' }}>
             ←   Work
           </Link>
 
@@ -40,7 +45,7 @@ export default function FilmDetail({ film: project }) {
           </div>
 
           {/* Title */}
-          <h1 className="project-title" style={{ fontSize: 'clamp(2.5rem, 5vw, 48px)', fontWeight: 300, letterSpacing: '-1px', marginBottom: '16px', lineHeight: 1.2, textTransform: 'uppercase' }}>
+          <h1 className="project-title" style={{ fontSize: 'clamp(2.5rem, 5vw, 36px)', fontWeight: 300, letterSpacing: '-1px', marginBottom: '16px', lineHeight: 1.2, textTransform: 'uppercase' }}>
             {project.title}
           </h1>
 
@@ -80,21 +85,30 @@ export default function FilmDetail({ film: project }) {
             <img src={urlFor(project.images[0]).width(1600).url()} alt={project.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
           </motion.div>
         )} */}
-
+        {/* Cast + Image — side by side */}
         <motion.div
+          className="cast-image-row"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          style={{ display: 'flex', gap: '48px', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '60px' }}
         >
-          {/* Cast */}
+          {/* Image on the left */}
+          {hasAsset(project.images?.[1]) && (
+            <div className="project-image" style={{ flex: '1 1 0%', aspectRatio: '16/9', overflow: 'hidden' }}>
+              <img src={urlFor(project.images[1]).width(1600).url()} alt={`${project.title} image 2`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            </div>
+          )}
+
+          {/* Cast on the right */}
           {project.cast?.length > 0 && (
-            <div className="project-cast" style={{ marginBottom: '60px' }}>
+            <div className="project-cast" style={{ flex: '0 0 auto', minWidth: '180px' }}>
               <h2 style={{ fontSize: '14px', textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '20px', opacity: 0.7 }}>
                 Cast
               </h2>
               {project.cast.map((member, i) => (
-                <div key={i} className="cast-member" style={{ fontSize: '16px', marginBottom: '12px', opacity: 0.9 }}>
+                <div key={i} className="cast-member" style={{ fontSize: '16px', marginBottom: '12px', opacity: 0.9, whiteSpace: 'nowrap' }}>
                   {member.actorName}{member.characterName ? ` as ${member.characterName}` : ''}
                 </div>
               ))}
@@ -102,22 +116,8 @@ export default function FilmDetail({ film: project }) {
           )}
         </motion.div>
 
-        {/* Second image (people/characters) */}
-        {project.images?.[1] && (
-          <motion.div 
-            className="project-image" 
-            style={{ marginBottom: '60px', aspectRatio: '16/9', overflow: 'hidden' }}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <img src={urlFor(project.images[1]).width(1600).url()} alt={`${project.title} image 2`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-          </motion.div>
-        )}
-
         {/* Third image */}
-        {project.images?.[2] && (
+        {hasAsset(project.images?.[2]) && (
           <motion.div 
             className="project-image" 
             style={{ marginBottom: '60px', aspectRatio: '16/9', overflow: 'hidden' }}
