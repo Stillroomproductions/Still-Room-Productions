@@ -27,7 +27,7 @@ export default function FilmDetail({ film: project }) {
 
   return (
     <div id="project-detail" style={{ minHeight: '100vh', background: '#000', color: '#fff', paddingBottom: '80px' }}>
-      <div className="container" style={{ paddingTop: '140px' }}>
+      <div className="container" style={{ paddingTop: '100px' }}>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -35,17 +35,17 @@ export default function FilmDetail({ film: project }) {
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
           {/* Back link */}
-          <Link href={`/#project-${project.slug?.current}`} className="back-link" style={{ display: 'inline-block', textDecoration: 'none', color: '#fff', fontSize: '14px', marginBottom: '24px' }}>
+          <Link href={`/#project-${project.slug?.current}`} className="back-link" style={{ display: 'inline-block', textDecoration: 'none', color: '#fff', fontSize: '14px', marginBottom: '16px' }}>
             ←   Work
           </Link>
 
           {/* Status */}
-          <div className="project-status" style={{ fontSize: '12px', textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '20px', opacity: 0.7 }}>
+          <div className="project-status" style={{ fontSize: '12px', textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '12px', opacity: 0.7 }}>
             {project.type ? project.type.toUpperCase() : 'SHORT FILM'}
           </div>
 
           {/* Title */}
-          <h1 className="project-title" style={{ fontSize: 'clamp(2.5rem, 5vw, 36px)', fontWeight: 300, letterSpacing: '-1px', marginBottom: '16px', lineHeight: 1.2, textTransform: 'uppercase' }}>
+          <h1 className="project-title" style={{ fontSize: 'clamp(2.5rem, 5vw, 36px)', fontWeight: 300, letterSpacing: '-1px', marginBottom: '8px', lineHeight: 1.2, textTransform: 'uppercase' }}>
             {project.title}
           </h1>
 
@@ -55,14 +55,14 @@ export default function FilmDetail({ film: project }) {
             letterSpacing: '0.25em',
             textTransform: 'uppercase',
             color: '#7a6e5f',
-            marginBottom: '32px',
+            marginBottom: '24px',
             fontWeight: 200,
           }}>
             Written & Directed by {project.director || 'Gerald Gyimah'}
           </p>
 
           {/* Divider */}
-          <div style={{ height: '1px', background: 'rgba(255,255,255,0.1)', marginBottom: '40px' }} />
+          <div style={{ height: '1px', background: 'rgba(255,255,255,0.1)', marginBottom: '32px' }} />
 
           {/* Synopsis */}
           {/* {project.description && (
@@ -85,33 +85,39 @@ export default function FilmDetail({ film: project }) {
             <img src={urlFor(project.images[0]).width(1600).url()} alt={project.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
           </motion.div>
         )} */}
-        {/* Cast + Image — side by side */}
+        {/* Cast + Image row (Responsive) */}
         <motion.div
-          className="cast-image-row"
+          className="film-detail-cast-row"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          style={{ display: 'flex', gap: '48px', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '60px' }}
         >
-          {/* Image on the left */}
+          {/* Image */}
           {hasAsset(project.images?.[1]) && (
-            <div className="project-image" style={{ flex: '1 1 0%', aspectRatio: '16/9', overflow: 'hidden' }}>
+            <div className="film-detail-image-col" style={{ aspectRatio: '16/9', overflow: 'hidden' }}>
               <img src={urlFor(project.images[1]).width(1600).url()} alt={`${project.title} image 2`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </div>
           )}
 
-          {/* Cast on the right */}
+          {/* Cast */}
           {project.cast?.length > 0 && (
-            <div className="project-cast" style={{ flex: '0 0 auto', minWidth: '180px' }}>
-              <h2 style={{ fontSize: '14px', textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '20px', opacity: 0.7 }}>
+            <div className="film-detail-cast-col">
+              <h2 style={{ fontSize: '14px', textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '24px', opacity: 0.7 }}>
                 Cast
               </h2>
-              {project.cast.map((member, i) => (
-                <div key={i} className="cast-member" style={{ fontSize: '16px', marginBottom: '12px', opacity: 0.9, whiteSpace: 'nowrap' }}>
-                  {member.actorName}{member.characterName ? ` as ${member.characterName}` : ''}
-                </div>
-              ))}
+              <div className="cast-grid">
+                {project.cast.map((member, i) => (
+                  <div key={i} className="cast-member" style={{ fontSize: '16px', opacity: 0.9 }}>
+                    {member.actorName}
+                    {member.characterName && (
+                      <span style={{ display: 'block', opacity: 0.6, fontSize: '14px', marginTop: '4px' }}>
+                        as {member.characterName}
+                      </span>
+                    )}
+                  </div>
+                ))}
+              </div>
             </div>
           )}
         </motion.div>
