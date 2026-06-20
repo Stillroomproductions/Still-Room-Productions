@@ -24,6 +24,9 @@ function hasAsset(img) {
 
 export default function FilmDetail({ film: project }) {
   const embedUrl = getEmbedUrl(project.trailerUrl)
+  const isConsultation = project.title?.toLowerCase().trim() === 'the consultation'
+  const firstImageIndex = isConsultation ? 2 : 1
+  const secondImageIndex = isConsultation ? 1 : 2
 
   return (
     <div id="project-detail" style={{ minHeight: '100vh', background: '#000', color: '#fff', paddingBottom: '80px' }}>
@@ -94,9 +97,9 @@ export default function FilmDetail({ film: project }) {
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
           {/* Image */}
-          {hasAsset(project.images?.[1]) && (
+          {hasAsset(project.images?.[firstImageIndex]) && (
             <div className="film-detail-image-col" style={{ aspectRatio: '16/9', overflow: 'hidden' }}>
-              <img src={urlFor(project.images[1]).width(1600).url()} alt={`${project.title} image 2`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              <img src={urlFor(project.images[firstImageIndex]).width(1600).url()} alt={`${project.title} image 1`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </div>
           )}
 
@@ -123,7 +126,7 @@ export default function FilmDetail({ film: project }) {
         </motion.div>
 
         {/* Third image */}
-        {hasAsset(project.images?.[2]) && (
+        {hasAsset(project.images?.[secondImageIndex]) && (
           <motion.div 
             className="project-image" 
             style={{ marginBottom: '60px', aspectRatio: '16/9', overflow: 'hidden' }}
@@ -132,7 +135,7 @@ export default function FilmDetail({ film: project }) {
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           >
-            <img src={urlFor(project.images[2]).width(1600).url()} alt={`${project.title} image 3`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            <img src={urlFor(project.images[secondImageIndex]).width(1600).url()} alt={`${project.title} image 2`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
           </motion.div>
         )}
 
