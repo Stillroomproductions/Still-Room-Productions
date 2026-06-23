@@ -35,8 +35,8 @@ const nextConfig = {
     return [
       {
         source: '/:path*',
-        has: [{ type: 'host', value: 'stillroomproductions.com' }],
-        destination: 'https://www.stillroomproductions.com/:path*',
+        has: [{ type: 'host', value: 'www.stillroomproductions.com' }],
+        destination: 'https://stillroomproductions.com/:path*',
         permanent: true,
       },
       {

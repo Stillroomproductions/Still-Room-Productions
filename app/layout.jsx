@@ -4,7 +4,7 @@ import Footer from '../components/Footer'
 import JsonLd from '../components/JsonLd'
 
 export const metadata = {
-  metadataBase: new URL('https://www.stillroomproductions.com'),
+  metadataBase: new URL('https://stillroomproductions.com'),
 
   title: {
     default: 'Still Room Productions — Independent Film Production | London',
@@ -50,7 +50,7 @@ export const metadata = {
     'film portfolio London director',
   ],
 
-  authors: [{ name: 'Gerald Gyimah', url: 'https://www.stillroomproductions.com/#about' }],
+  authors: [{ name: 'Gerald Gyimah', url: 'https://stillroomproductions.com/#about' }],
   creator: 'Gerald Gyimah',
   publisher: 'Still Room Productions',
 
@@ -73,7 +73,7 @@ export const metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_GB',
-    url: 'https://www.stillroomproductions.com',
+    url: 'https://stillroomproductions.com',
     siteName: 'Still Room Productions',
     title: 'Still Room Productions — Independent Film Production | London',
     description: 'London-based independent production company developing formally restrained work for film and television. Work about systems, procedure, memory, and moral pressure.',
@@ -110,9 +110,9 @@ export const metadata = {
   manifest: '/site.webmanifest',
 
   alternates: {
-    canonical: 'https://www.stillroomproductions.com',
+    canonical: 'https://stillroomproductions.com',
     languages: {
-      'en-GB': 'https://www.stillroomproductions.com',
+      'en-GB': 'https://stillroomproductions.com',
     },
   },
 
@@ -132,23 +132,23 @@ export default function RootLayout({ children }) {
         <JsonLd data={{
           "@context": "https://schema.org",
           "@type": "Organization",
-          "@id": "https://www.stillroomproductions.com/#organization",
+          "@id": "https://stillroomproductions.com/#organization",
           "name": "Still Room Productions",
           "alternateName": "Still Room",
-          "url": "https://www.stillroomproductions.com",
+          "url": "https://stillroomproductions.com",
           "logo": {
             "@type": "ImageObject",
-            "url": "https://www.stillroomproductions.com/logo.svg",
+            "url": "https://stillroomproductions.com/logo.svg",
             "width": 200,
             "height": 60
           },
           "description": "Still Room Productions is a London-based independent production company developing formally restrained work for film and television about systems, procedure, memory, and moral pressure.",
-          "foundingDate": "2020",
+          "foundingDate": "2021",
           "founder": {
             "@type": "Person",
             "name": "Gerald Gyimah",
             "jobTitle": "Director & Producer",
-            "url": "https://www.stillroomproductions.com/about"
+            "url": "https://stillroomproductions.com/about"
           },
           "address": {
             "@type": "PostalAddress",
@@ -163,27 +163,25 @@ export default function RootLayout({ children }) {
             "Television Development",
             "Arthouse Cinema"
           ],
-          "sameAs": [
-            // Gerald will fill these in when he provides social handles
-          ]
+          "sameAs": []
         }} />
 
         <JsonLd data={{
           "@context": "https://schema.org",
           "@type": "WebSite",
-          "@id": "https://www.stillroomproductions.com/#website",
-          "url": "https://www.stillroomproductions.com",
+          "@id": "https://stillroomproductions.com/#website",
+          "url": "https://stillroomproductions.com",
           "name": "Still Room Productions",
           "description": "Independent film and television production company based in London.",
           "publisher": {
-            "@id": "https://www.stillroomproductions.com/#organization"
+            "@id": "https://stillroomproductions.com/#organization"
           },
           "inLanguage": "en-GB",
           "potentialAction": {
             "@type": "SearchAction",
             "target": {
               "@type": "EntryPoint",
-              "urlTemplate": "https://www.stillroomproductions.com/work?q={search_term_string}"
+              "urlTemplate": "https://stillroomproductions.com/work?q={search_term_string}"
             },
             "query-input": "required name=search_term_string"
           }

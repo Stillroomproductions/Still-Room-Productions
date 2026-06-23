@@ -4,12 +4,7 @@ export default function robots() {
       {
         userAgent: '*',
         allow: '/',
-        disallow: [
-          '/studio/',
-          '/api/',
-          '/_next/',
-          '/admin/',
-        ],
+        disallow: ['/studio/', '/api/'],
       },
       {
         userAgent: 'GPTBot',
@@ -20,7 +15,7 @@ export default function robots() {
         disallow: ['/'],
       },
     ],
-    sitemap: 'https://www.stillroomproductions.com/sitemap.xml',
-    host: 'https://www.stillroomproductions.com',
+    sitemap: 'https://stillroomproductions.com/sitemap.xml',
+    host: 'https://stillroomproductions.com',
   }
 }

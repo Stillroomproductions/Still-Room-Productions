@@ -43,11 +43,11 @@ export async function generateMetadata({ params }) {
       ...(project.festivalSelections || []),
     ],
     alternates: {
-      canonical: `https://www.stillroomproductions.com/work/${slug}`,
+      canonical: `https://stillroomproductions.com/work/${slug}`,
     },
     openGraph: {
       type: 'video.movie',
-      url: `https://www.stillroomproductions.com/work/${slug}`,
+      url: `https://stillroomproductions.com/work/${slug}`,
       title: `${project.title} — Still Room Productions`,
       description: description,
       images: [{ url: ogImage, width: 1200, height: 630, alt: `${project.title} — Still Room Productions` }],
@@ -88,32 +88,34 @@ export default async function FilmDetailPage({ params }) {
 
   return (
     <>
-      <JsonLd data={{
-        "@context": "https://schema.org",
-        "@type": "Movie",
-        "@id": `https://www.stillroomproductions.com/work/${project.slug?.current}`,
-        "name": project.title,
-        "description": project.description,
-        "url": `https://www.stillroomproductions.com/work/${project.slug?.current}`,
-        "image": project.images?.[0] ? urlFor(project.images[0]).width(1200).height(630).url() : undefined,
-        "datePublished": project._createdAt,
-        "dateModified": project._updatedAt,
-        "director": {
-          "@type": "Person",
-          "name": project.director || "Gerald Gyimah",
-          "url": "https://www.stillroomproductions.com/about"
-        },
-        "productionCompany": {
-          "@type": "Organization",
-          "name": "Still Room Productions",
-          "url": "https://www.stillroomproductions.com"
-        },
-        "countryOfOrigin": { "@type": "Country", "name": "United Kingdom" },
-        "inLanguage": "en-GB",
-        ...(project.festivalSelections?.length && {
-          "award": project.festivalSelections.join(', ')
-        }),
-      }} />
+      {project && (
+        <JsonLd data={{
+          "@context": "https://schema.org",
+          "@type": "Movie",
+          "@id": `https://stillroomproductions.com/work/${project.slug?.current || ''}`,
+          "name": project.title || '',
+          "description": project.description || '',
+          "url": `https://stillroomproductions.com/work/${project.slug?.current || ''}`,
+          ...(project.images?.[0] && { "image": urlFor(project.images[0]).width(1200).height(630).url() }),
+          ...(project._createdAt && { "datePublished": project._createdAt }),
+          ...(project._updatedAt && { "dateModified": project._updatedAt }),
+          "director": {
+            "@type": "Person",
+            "name": project.director || "Gerald Gyimah",
+            "url": "https://stillroomproductions.com/about"
+          },
+          "productionCompany": {
+            "@type": "Organization",
+            "name": "Still Room Productions",
+            "url": "https://stillroomproductions.com"
+          },
+          "countryOfOrigin": { "@type": "Country", "name": "United Kingdom" },
+          "inLanguage": "en-GB",
+          ...(project.festivalSelections?.length && {
+            "award": project.festivalSelections.join(', ')
+          }),
+        }} />
+      )}
       <FilmDetail film={project} />
     </>
   )
