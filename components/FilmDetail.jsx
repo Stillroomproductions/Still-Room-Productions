@@ -125,8 +125,8 @@ export default function FilmDetail({ film: project }) {
           )}
         </motion.div>
 
-        {/* Third image */}
-        {hasAsset(project.images?.[secondImageIndex]) && (
+        {/* Third image (hidden for The Consultation) */}
+        {!isConsultation && hasAsset(project.images?.[secondImageIndex]) && (
           <motion.div 
             className="project-image" 
             style={{ marginBottom: '60px', aspectRatio: '16/9', overflow: 'hidden' }}
