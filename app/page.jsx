@@ -24,7 +24,7 @@ const MOCK_PROJECTS = [
 ]
 
 export const metadata = {
-  title: 'Home',
+  title: 'Still Room Productions | Independent Film & Television Production Company London',
   description: 'Still Room Productions is a London-based independent film and television production company developing formally restrained, precise work about systems, procedure, memory, and moral pressure.',
   alternates: { canonical: 'https://stillroomproductions.com' },
   openGraph: {
