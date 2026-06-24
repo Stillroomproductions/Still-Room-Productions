@@ -34,12 +34,6 @@ const nextConfig = {
   async redirects() {
     return [
       {
-        source: '/:path*',
-        has: [{ type: 'host', value: 'www.stillroomproductions.com' }],
-        destination: 'https://stillroomproductions.com/:path*',
-        permanent: true,
-      },
-      {
         source: '/projects/:slug',
         destination: '/work/:slug',
         permanent: true,
