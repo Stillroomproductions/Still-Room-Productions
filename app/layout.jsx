@@ -117,7 +117,7 @@ export const metadata = {
   },
 
   verification: {
-    google: process.env.NEXT_PUBLIC_GSC_VERIFICATION || 'REPLACE_WITH_GOOGLE_SEARCH_CONSOLE_VERIFICATION_CODE',
+    google: process.env.NEXT_PUBLIC_GSC_VERIFICATION,
   },
 
   other: {
