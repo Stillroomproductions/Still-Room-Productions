@@ -1,3 +1,4 @@
+//sitemap.js
 import { client } from '../lib/sanityClient'
 
 export const revalidate = 3600
@@ -32,22 +33,26 @@ export default async function sitemap() {
     },
   ]
 
-  let filmPages = []
+  let projectPages = []
   try {
-    const films = await client.fetch(
-      `*[_type == "film" && defined(slug.current) && !(_id in path("drafts.**"))]
-      { "slug": slug.current, _updatedAt }
+    const projects = await client.fetch(
+      `*[_type == "project" && defined(slug.current) && !(_id in path("drafts.**"))]
+      {
+        "slug": slug.current,
+        _updatedAt
+      }
       | order(_updatedAt desc)`
     )
-    filmPages = films.map(film => ({
-      url: `${baseUrl}/work/${film.slug}`,
-      lastModified: new Date(film._updatedAt),
+    console.log("Sitemap projects:", projects)
+    projectPages = projects.map(project => ({
+      url: `${baseUrl}/work/${project.slug}`,
+      lastModified: new Date(project._updatedAt),
       changeFrequency: 'monthly',
       priority: 0.8,
     }))
   } catch (e) {
-    console.error('Sitemap: failed to fetch films', e)
+    console.error('Sitemap: failed to fetch projects', e)
   }
 
-  return [...staticPages, ...filmPages]
+  return [...staticPages, ...projectPages]
 }
