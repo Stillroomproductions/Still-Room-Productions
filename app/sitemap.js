@@ -1,20 +1,37 @@
-// app/sitemap.js
 import { client } from '../lib/sanityClient'
 
-export const revalidate = 3600 // rebuild sitemap every hour
+export const revalidate = 3600
 
 export default async function sitemap() {
   const baseUrl = 'https://stillroomproductions.com'
 
   const staticPages = [
-    { url: baseUrl, priority: 1.0, changeFrequency: 'monthly' },
-    { url: `${baseUrl}/work`, priority: 0.9, changeFrequency: 'monthly' },
-    { url: `${baseUrl}/about`, priority: 0.7, changeFrequency: 'monthly' },
-    { url: `${baseUrl}/contact`, priority: 0.6, changeFrequency: 'yearly' },
-  ].map(page => ({ ...page, lastModified: new Date() }))
+    {
+      url: baseUrl,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 1.0,
+    },
+    {
+      url: `${baseUrl}/work`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/about`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/contact`,
+      lastModified: new Date(),
+      changeFrequency: 'yearly',
+      priority: 0.7,
+    },
+  ]
 
-  // Films — fetched live from Sanity, auto-updates as Gerald adds content
-  // Note: Only homepage and film pages are included in the sitemap since this is a single-page scroll app.
   let filmPages = []
   try {
     const films = await client.fetch(
