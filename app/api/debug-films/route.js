@@ -1,6 +1,7 @@
 import { client } from '../../../lib/sanityClient'
 import { NextResponse } from 'next/server'
 
+// M6: Protected debug endpoint — only available in development
 export async function GET() {
   try {
     const projects = await client.fetch(`

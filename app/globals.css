@@ -22,7 +22,7 @@
   --color-grey-border: #222222;
   --color-grey-subtle: #111111;
 
-  --font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  --font-family: var(--font-inter, 'Inter'), 'Helvetica Neue', Arial, sans-serif;
   --font-weight-light: 300;
   --font-weight-regular: 400;
 
@@ -300,6 +300,26 @@ a:hover {
 
 .footer-inner {
   text-align: center;
+}
+
+.footer-nav {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  margin-bottom: 24px;
+}
+
+.footer-nav a {
+  font-size: 0.7rem;
+  font-weight: var(--font-weight-regular);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-grey);
+  transition: color var(--transition-base);
+}
+
+.footer-nav a:hover {
+  color: var(--color-white);
 }
 
 .footer-name {

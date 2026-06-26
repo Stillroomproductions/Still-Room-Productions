@@ -32,6 +32,7 @@ export default function ContactSection({ contact }) {
             <a
               href={`mailto:${email}`}
               className="contact-email"
+              aria-label={`Email Still Room Productions at ${email}`}
               style={{
                 fontSize: 'clamp(0.75rem, 2.5vw, 1.3rem)',
                 letterSpacing: '0.15em',

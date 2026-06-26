@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion'
 import Link from 'next/link'
+import Image from 'next/image'
 import { urlFor } from '../lib/sanityClient'
 
 function getEmbedUrl(url) {
@@ -22,6 +23,13 @@ function hasAsset(img) {
   return img && (img.asset || img._ref || (typeof img === 'string'))
 }
 
+/**
+ * Film detail page component.
+ * C8: Uses next/image for all images.
+ * M11: Descriptive alt text for Google Image search.
+ * M12: Added title to iframe for accessibility.
+ * L8: Removed deprecated frameBorder attribute.
+ */
 export default function FilmDetail({ film: project }) {
   const embedUrl = getEmbedUrl(project.trailerUrl)
   const isConsultation = project.title?.toLowerCase().trim() === 'the consultation'
@@ -38,7 +46,7 @@ export default function FilmDetail({ film: project }) {
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
           {/* Back link */}
-          <Link href={`/#project-${project.slug?.current}`} className="back-link" style={{ display: 'inline-block', textDecoration: 'none', color: '#fff', fontSize: '14px', marginBottom: '16px' }}>
+          <Link href="/work" className="back-link" style={{ display: 'inline-block', textDecoration: 'none', color: '#fff', fontSize: '14px', marginBottom: '16px' }}>
             ←   Work
           </Link>
 
@@ -66,28 +74,8 @@ export default function FilmDetail({ film: project }) {
 
           {/* Divider */}
           <div style={{ height: '1px', background: 'rgba(255,255,255,0.1)', marginBottom: '32px' }} />
-
-          {/* Synopsis */}
-          {/* {project.description && (
-            <div className="project-synopsis" style={{ fontSize: '16px', lineHeight: 1.8, marginBottom: '48px', maxWidth: '800px', opacity: 0.9 }}>
-              {project.description}
-            </div>
-          )} */}
         </motion.div>
 
-        {/* First image (main film still) */}
-        {/* {project.images?.[0] && (
-          <motion.div 
-            className="project-hero-image" 
-            style={{ marginBottom: '80px', aspectRatio: '16/9', overflow: 'hidden' }}
-            initial={{ opacity: 0, scale: 0.98 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <img src={urlFor(project.images[0]).width(1600).url()} alt={project.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-          </motion.div>
-        )} */}
         {/* Cast + Image row (Responsive) */}
         <motion.div
           className="film-detail-cast-row"
@@ -96,10 +84,18 @@ export default function FilmDetail({ film: project }) {
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
-          {/* Image */}
+          {/* C8: Using next/image, M11: Descriptive alt text */}
           {hasAsset(project.images?.[firstImageIndex]) && (
             <div className="film-detail-image-col" style={{ aspectRatio: '16/9', overflow: 'hidden' }}>
-              <img src={urlFor(project.images[firstImageIndex]).width(1600).url()} alt={`${project.title} image 1`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              <Image
+                src={urlFor(project.images[firstImageIndex]).width(1600).url()}
+                alt={`Scene from ${project.title} — ${project.description?.slice(0, 100) || 'a short film by Still Room Productions'}`}
+                width={1600}
+                height={900}
+                sizes="(max-width: 992px) 100vw, 60vw"
+                loading="lazy"
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              />
             </div>
           )}
 
@@ -135,11 +131,19 @@ export default function FilmDetail({ film: project }) {
             viewport={{ once: true }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           >
-            <img src={urlFor(project.images[secondImageIndex]).width(1600).url()} alt={`${project.title} image 2`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            <Image
+              src={urlFor(project.images[secondImageIndex]).width(1600).url()}
+              alt={`Production still from ${project.title} — Still Room Productions`}
+              width={1600}
+              height={900}
+              sizes="(max-width: 992px) 100vw, 80vw"
+              loading="lazy"
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+            />
           </motion.div>
         )}
 
-        {/* Trailer */}
+        {/* Trailer — M12: Added title, L8: Removed deprecated frameBorder */}
         {embedUrl && (
           <motion.div 
             className="project-trailer" 
@@ -155,9 +159,11 @@ export default function FilmDetail({ film: project }) {
             <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden' }}>
               <iframe
                 src={embedUrl}
-                frameBorder="0"
+                title={`${project.title} — Trailer`}
                 allow="autoplay; fullscreen"
-                style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}
+                allowFullScreen
+                loading="lazy"
+                style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 'none' }}
               />
             </div>
           </motion.div>

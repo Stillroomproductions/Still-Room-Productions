@@ -10,7 +10,8 @@ export const metadata = {
     canonical: 'https://stillroomproductions.com/about',
   },
   openGraph: {
-    type: 'profile',
+    // M14: Fixed from 'profile' to 'website' — this is a company about page
+    type: 'website',
     url: 'https://stillroomproductions.com/about',
     title: 'About — Still Room Productions',
     description: 'London-based independent production company founded by Gerald Gyimah, developing formally restrained work for film and television.',
@@ -30,6 +31,26 @@ export default async function AboutPage() {
 
   return (
     <div className="page-enter" style={{ paddingTop: '120px' }}>
+      {/* H2: BreadcrumbList schema for SERP breadcrumb display */}
+      <JsonLd data={{
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://stillroomproductions.com"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "About"
+          }
+        ]
+      }} />
+
+      {/* AboutPage schema with enriched Person entity (H7) */}
       <JsonLd data={{
         "@context": "https://schema.org",
         "@type": "AboutPage",
@@ -41,15 +62,14 @@ export default async function AboutPage() {
           "@id": "https://stillroomproductions.com/#website"
         },
         "mainEntity": {
-          "@type": "Person",
-          "name": "Gerald Gyimah",
-          "jobTitle": "Director & Producer",
-          "worksFor": {
-            "@id": "https://stillroomproductions.com/#organization"
-          },
+          "@id": "https://stillroomproductions.com/#person-gerald-gyimah"
         },
+        "about": [
+          { "@id": "https://stillroomproductions.com/#person-gerald-gyimah" },
+          { "@id": "https://stillroomproductions.com/#organization" }
+        ],
       }} />
-      <AboutSection about={about} />
+      <AboutSection about={about} headingLevel="h1" />
     </div>
   )
 }

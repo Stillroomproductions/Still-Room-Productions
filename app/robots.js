@@ -16,6 +16,6 @@ export default function robots() {
       },
     ],
     sitemap: 'https://stillroomproductions.com/sitemap.xml',
-    host: 'https://stillroomproductions.com',
+    // M3: Removed non-standard 'host' directive (Yandex-only)
   }
 }

@@ -29,8 +29,38 @@ export const metadata = {
 export default async function WorkPage() {
   const films = await client.fetch(getAllProjects).catch(() => [])
 
+  // H12: Build hasPart array from film data for CollectionPage schema
+  const filmParts = (films || [])
+    .filter(p => p?.slug?.current)
+    .map(p => ({
+      "@type": "Movie",
+      "@id": `https://stillroomproductions.com/work/${p.slug.current}`,
+      "name": p.title,
+      "url": `https://stillroomproductions.com/work/${p.slug.current}`,
+    }))
+
   return (
     <div className="page-enter" style={{ paddingTop: '120px' }}>
+      {/* H2: BreadcrumbList schema */}
+      <JsonLd data={{
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://stillroomproductions.com"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Work"
+          }
+        ]
+      }} />
+
+      {/* H12: CollectionPage with hasPart references to all films */}
       <JsonLd data={{
         "@context": "https://schema.org",
         "@type": "CollectionPage",
@@ -44,9 +74,21 @@ export default async function WorkPage() {
         "publisher": {
           "@id": "https://stillroomproductions.com/#organization"
         },
+        ...(filmParts.length > 0 && {
+          "hasPart": filmParts,
+          "mainEntity": {
+            "@type": "ItemList",
+            "numberOfItems": filmParts.length,
+            "itemListElement": filmParts.map((film, i) => ({
+              "@type": "ListItem",
+              "position": i + 1,
+              "item": film
+            }))
+          }
+        }),
       }} />
       <Suspense fallback={null}>
-        <WorkSection projects={films} />
+        <WorkSection projects={films} headingLevel="h1" />
       </Suspense>
     </div>
   )
