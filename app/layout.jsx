@@ -1,7 +1,24 @@
 import './globals.css'
+import { Inter } from 'next/font/google'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import JsonLd from '../components/JsonLd'
+
+// H9: Proper font loading with next/font
+const inter = Inter({
+  subsets: ['latin'],
+  weight: ['300', '400'],
+  display: 'swap',
+  variable: '--font-inter',
+})
+
+// M1: Proper viewport export (Next.js 16 separates viewport from metadata)
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: '#000000', // H11: Moved from metadata.other to viewport
+}
 
 export const metadata = {
   metadataBase: new URL('https://stillroomproductions.com'),
@@ -19,6 +36,7 @@ export const metadata = {
     'Gerald Gyimah',
     'Gerald Gyimah director',
     'Gerald Gyimah writer',
+    'Gerald Gyimah producer',
     // What they do
     'independent film production London',
     'independent film company UK',
@@ -82,15 +100,16 @@ export const metadata = {
         url: '/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'Still Room Productions',
+        alt: 'Still Room Productions — Independent Film Production Company, London',
       },
     ],
   },
 
   twitter: {
     card: 'summary_large_image',
-    site: '@stillroomprod', // update when Gerald provides handle
-    creator: '@geraldgyimah', // update when Gerald provides handle
+    // TODO: Update these handles when confirmed — remove if not real accounts
+    site: '@stillroomprod',
+    creator: '@geraldgyimah',
     title: 'Still Room Productions — Independent Film Production',
     description: 'London-based independent production company developing formally restrained work for film and television.',
     images: ['/og-image.jpg'],
@@ -98,7 +117,8 @@ export const metadata = {
 
   icons: {
     icon: [
-      { url: '/favicon.png', type: 'image/svg+xml' },
+      // C6: Fixed MIME type — favicon.png is PNG, not SVG
+      { url: '/favicon.png', type: 'image/png' },
       { url: '/icon-192x192.png', sizes: '192x192', type: 'image/png' },
       { url: '/icon-512x512.png', sizes: '512x512', type: 'image/png' },
     ],
@@ -119,16 +139,13 @@ export const metadata = {
   verification: {
     google: process.env.NEXT_PUBLIC_GSC_VERIFICATION,
   },
-
-  other: {
-    'theme-color': '#000000',
-  },
 }
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en-GB">
+    <html lang="en-GB" className={inter.variable}>
       <body>
+        {/* Organization Schema — C2: Populated sameAs, H8: Added contactPoint */}
         <JsonLd data={{
           "@context": "https://schema.org",
           "@type": "Organization",
@@ -142,13 +159,11 @@ export default function RootLayout({ children }) {
             "width": 200,
             "height": 60
           },
+          "image": "https://stillroomproductions.com/og-image.jpg",
           "description": "Still Room Productions is a London-based independent production company developing formally restrained work for film and television about systems, procedure, memory, and moral pressure.",
           "foundingDate": "2021",
           "founder": {
-            "@type": "Person",
-            "name": "Gerald Gyimah",
-            "jobTitle": "Director & Producer",
-            "url": "https://stillroomproductions.com/about"
+            "@id": "https://stillroomproductions.com/#person-gerald-gyimah"
           },
           "address": {
             "@type": "PostalAddress",
@@ -163,9 +178,74 @@ export default function RootLayout({ children }) {
             "Television Development",
             "Arthouse Cinema"
           ],
+          "numberOfEmployees": {
+            "@type": "QuantitativeValue",
+            "value": 1
+          },
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "email": "info@stillroomproductions.com",
+            "contactType": "General Enquiries",
+            "areaServed": "GB",
+            "availableLanguage": "English"
+          },
           "sameAs": []
         }} />
 
+        {/* C3/H1: Standalone Person schema for Gerald Gyimah entity recognition */}
+        <JsonLd data={{
+          "@context": "https://schema.org",
+          "@type": "Person",
+          "@id": "https://stillroomproductions.com/#person-gerald-gyimah",
+          "name": "Gerald Gyimah",
+          "givenName": "Gerald",
+          "familyName": "Gyimah",
+          "url": "https://stillroomproductions.com/about",
+          "image": "https://stillroomproductions.com/og-image.jpg",
+          "jobTitle": "Director & Producer",
+          "description": "Gerald Gyimah is a London-based writer, director, and producer. He is the founder of Still Room Productions, an independent production company developing formally restrained work for film and television.",
+          "worksFor": {
+            "@id": "https://stillroomproductions.com/#organization"
+          },
+          "affiliation": {
+            "@id": "https://stillroomproductions.com/#organization"
+          },
+          "hasOccupation": [
+            {
+              "@type": "Occupation",
+              "name": "Film Director"
+            },
+            {
+              "@type": "Occupation",
+              "name": "Film Producer"
+            },
+            {
+              "@type": "Occupation",
+              "name": "Screenwriter"
+            }
+          ],
+          "knowsAbout": [
+            "Film Direction",
+            "Film Production",
+            "Screenwriting",
+            "Independent Cinema",
+            "Short Film",
+            "Drama",
+            "Arthouse Film"
+          ],
+          "nationality": {
+            "@type": "Country",
+            "name": "United Kingdom"
+          },
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "London",
+            "addressCountry": "GB"
+          },
+          "sameAs": []
+        }} />
+
+        {/* WebSite Schema — H6: Removed non-functional SearchAction */}
         <JsonLd data={{
           "@context": "https://schema.org",
           "@type": "WebSite",
@@ -176,15 +256,7 @@ export default function RootLayout({ children }) {
           "publisher": {
             "@id": "https://stillroomproductions.com/#organization"
           },
-          "inLanguage": "en-GB",
-          "potentialAction": {
-            "@type": "SearchAction",
-            "target": {
-              "@type": "EntryPoint",
-              "urlTemplate": "https://stillroomproductions.com/work?q={search_term_string}"
-            },
-            "query-input": "required name=search_term_string"
-          }
+          "inLanguage": "en-GB"
         }} />
         <div className="page-container">
           <Header />

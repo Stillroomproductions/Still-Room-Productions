@@ -30,6 +30,26 @@ export default async function ContactPage() {
 
   return (
     <div className="page-enter" style={{ paddingTop: '120px' }}>
+      {/* H2: BreadcrumbList schema */}
+      <JsonLd data={{
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://stillroomproductions.com"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Contact"
+          }
+        ]
+      }} />
+
+      {/* ContactPage schema with ContactPoint (H8) */}
       <JsonLd data={{
         "@context": "https://schema.org",
         "@type": "ContactPage",

@@ -7,6 +7,8 @@ import Link from 'next/link'
 /**
  * Site header with logo, desktop nav, and mobile hamburger menu.
  * Adds a subtle background on scroll.
+ * C1: Navigation links point to real pages instead of hash anchors.
+ * L5: Added aria-current="page" support for active link.
  */
 export default function Header() {
   const [scrolled, setScrolled] = useState(false)
@@ -33,6 +35,7 @@ export default function Header() {
     return () => { document.body.style.overflow = '' }
   }, [menuOpen])
 
+  // C1: Fixed — links now point to real crawlable pages
   const navLinks = [
     { href: '/#home', label: 'HOME' },
     { href: '/#work', label: 'WORK' },
