@@ -189,7 +189,11 @@ export default function RootLayout({ children }) {
             "areaServed": "GB",
             "availableLanguage": "English"
           },
-          "sameAs": []
+          "sameAs": [
+            "https://www.instagram.com/stillroomproductions",
+            "https://www.tiktok.com/@stillroomproductions",
+            "https://youtube.com/@stillroomprod"
+          ]
         }} />
 
         {/* C3/H1: Standalone Person schema for Gerald Gyimah entity recognition */}
@@ -242,7 +246,14 @@ export default function RootLayout({ children }) {
             "addressLocality": "London",
             "addressCountry": "GB"
           },
-          "sameAs": []
+          "alumniOf": {
+            "@type": "EducationalOrganization",
+            "name": "Bristol Old Vic Theatre School",
+            "url": "https://www.oldvic.ac.uk"
+          },
+          "sameAs": [
+            "https://www.instagram.com/gerald.gyimah"
+          ]
         }} />
 
         {/* WebSite Schema — H6: Removed non-functional SearchAction */}
