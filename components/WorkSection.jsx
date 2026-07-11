@@ -66,7 +66,7 @@ export default function WorkSection({ projects = [], headingLevel = 'h2' }) {
                   </div>
 
                   <div className="film-info">
-                    <span className="film-status">SHORT FILM</span>
+                    <span className="film-status">{project.type?.toUpperCase() || 'FILM'}</span>
                     <h2 className="film-title" style={{ cursor: project.slug?.current ? 'pointer' : 'default' }}>{project.title?.toUpperCase()}</h2>
                     <p className="film-logline">{project.description}</p>
                   </div>
