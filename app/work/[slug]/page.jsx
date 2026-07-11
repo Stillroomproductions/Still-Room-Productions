@@ -5,6 +5,9 @@ import { getProjectBySlug, getAllProjects } from '../../../lib/queries'
 import FilmDetail from '../../../components/FilmDetail'
 import JsonLd from '../../../components/JsonLd'
 
+// ISR: Revalidate this page every 60 seconds so new Sanity content appears automatically
+export const revalidate = 60
+
 // M15: Only allow slugs that exist in generateStaticParams
 export const dynamicParams = true // Keep true to allow ISR for new films
 

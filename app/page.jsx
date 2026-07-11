@@ -4,6 +4,9 @@ import { client } from '../lib/sanityClient'
 import { getHero, getAllProjects, getAbout, getContact, getSiteSettings } from '../lib/queries'
 import HomeClient from '../components/HomeClient'
 
+// ISR: Revalidate this page every 60 seconds so new Sanity content appears automatically
+export const revalidate = 60
+
 const MOCK_PROJECTS = [
   {
     _id: 'mock-project-1',

@@ -3,6 +3,9 @@ import { getAbout } from '../../lib/queries'
 import AboutSection from '../../components/AboutSection'
 import JsonLd from '../../components/JsonLd'
 
+// ISR: Revalidate this page every 60 seconds so new Sanity content appears automatically
+export const revalidate = 60
+
 export const metadata = {
   title: 'About',
   description: 'Still Room Productions is a London-based independent production company founded by Gerald Gyimah. We develop formally restrained, precise work for film and television about systems, procedure, memory, and moral pressure.',

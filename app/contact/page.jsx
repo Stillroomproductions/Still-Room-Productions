@@ -3,6 +3,9 @@ import { getContact } from '../../lib/queries'
 import ContactSection from '../../components/ContactSection'
 import JsonLd from '../../components/JsonLd'
 
+// ISR: Revalidate this page every 60 seconds so new Sanity content appears automatically
+export const revalidate = 60
+
 export const metadata = {
   title: 'Contact',
   description: 'Get in touch with Still Room Productions. Based in London, UK — reach us for film production enquiries, commissions, and collaboration.',

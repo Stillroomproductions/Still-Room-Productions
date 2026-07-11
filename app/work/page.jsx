@@ -4,6 +4,9 @@ import { getAllProjects } from '../../lib/queries'
 import WorkSection from '../../components/WorkSection'
 import JsonLd from '../../components/JsonLd'
 
+// ISR: Revalidate this page every 60 seconds so new Sanity content appears automatically
+export const revalidate = 60
+
 export const metadata = {
   title: 'Work — Films & Projects',
   description: 'Explore the films and projects of Still Room Productions — formally restrained, precise short films about systems, procedure, memory, and moral pressure. Based in London.',
