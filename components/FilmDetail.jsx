@@ -32,9 +32,20 @@ function hasAsset(img) {
  */
 export default function FilmDetail({ film: project }) {
   const embedUrl = getEmbedUrl(project.trailerUrl)
+  const allImages = project.images || []
   const isConsultation = project.title?.toLowerCase().trim() === 'the consultation'
-  const firstImageIndex = isConsultation ? 2 : 1
-  const secondImageIndex = isConsultation ? 1 : 2
+  
+  let firstImg = null
+  let secondImg = null
+  
+  if (allImages.length > 0) {
+    if (isConsultation) {
+      firstImg = allImages[2] || allImages[1] || allImages[0]
+    } else {
+      firstImg = allImages[1] || allImages[0]
+      secondImg = allImages[2] || null
+    }
+  }
 
   return (
     <div id="project-detail" style={{ minHeight: '100vh', background: '#000', color: '#fff', paddingBottom: '80px' }}>
@@ -85,10 +96,10 @@ export default function FilmDetail({ film: project }) {
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
           {/* C8: Using next/image, M11: Descriptive alt text */}
-          {hasAsset(project.images?.[firstImageIndex]) && (
+          {hasAsset(firstImg) && (
             <div className="film-detail-image-col" style={{ aspectRatio: '16/9', overflow: 'hidden' }}>
               <Image
-                src={urlFor(project.images[firstImageIndex]).width(1600).url()}
+                src={urlFor(firstImg).width(1600).url()}
                 alt={`Scene from ${project.title} — ${project.description?.slice(0, 100) || 'a short film by Still Room Productions'}`}
                 width={1600}
                 height={900}
@@ -122,7 +133,7 @@ export default function FilmDetail({ film: project }) {
         </motion.div>
 
         {/* Third image (hidden for The Consultation) */}
-        {!isConsultation && hasAsset(project.images?.[secondImageIndex]) && (
+        {!isConsultation && hasAsset(secondImg) && (
           <motion.div 
             className="project-image" 
             style={{ marginBottom: '60px', aspectRatio: '16/9', overflow: 'hidden' }}
@@ -132,7 +143,7 @@ export default function FilmDetail({ film: project }) {
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           >
             <Image
-              src={urlFor(project.images[secondImageIndex]).width(1600).url()}
+              src={urlFor(secondImg).width(1600).url()}
               alt={`Production still from ${project.title} — Still Room Productions`}
               width={1600}
               height={900}
