@@ -57,7 +57,14 @@ export default function WorkSection({ projects = [], headingLevel = 'h2' }) {
                           height={750}
                           sizes="(max-width: 900px) 100vw, 60vw"
                           loading="lazy"
-                          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                          style={{
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover',
+                            objectPosition: project.image?.hotspot
+                              ? `${(project.image.hotspot.x * 100).toFixed(1)}% ${(project.image.hotspot.y * 100).toFixed(1)}%`
+                              : '50% 50%',
+                          }}
                         />
                       ) : (
                         <div className="image-placeholder" />

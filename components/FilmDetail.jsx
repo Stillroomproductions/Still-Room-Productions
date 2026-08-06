@@ -97,15 +97,15 @@ export default function FilmDetail({ film: project }) {
         >
           {/* C8: Using next/image, M11: Descriptive alt text */}
           {hasAsset(firstImg) && (
-            <div className="film-detail-image-col" style={{ aspectRatio: '16/9', overflow: 'hidden' }}>
+            <div className="film-detail-image-col">
               <Image
                 src={urlFor(firstImg).width(1600).url()}
                 alt={`Scene from ${project.title} — ${project.description?.slice(0, 100) || 'a short film by Still Room Productions'}`}
                 width={1600}
-                height={900}
+                height={1200}
                 sizes="(max-width: 992px) 100vw, 60vw"
                 loading="lazy"
-                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                style={{ width: '100%', height: 'auto', maxHeight: '70vh', objectFit: 'contain' }}
               />
             </div>
           )}
@@ -136,7 +136,7 @@ export default function FilmDetail({ film: project }) {
         {!isConsultation && hasAsset(secondImg) && (
           <motion.div 
             className="project-image" 
-            style={{ marginBottom: '60px', aspectRatio: '16/9', overflow: 'hidden' }}
+            style={{ marginBottom: '60px' }}
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -146,10 +146,10 @@ export default function FilmDetail({ film: project }) {
               src={urlFor(secondImg).width(1600).url()}
               alt={`Production still from ${project.title} — Still Room Productions`}
               width={1600}
-              height={900}
+              height={1200}
               sizes="(max-width: 992px) 100vw, 80vw"
               loading="lazy"
-              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              style={{ width: '100%', height: 'auto', maxHeight: '75vh', objectFit: 'contain' }}
             />
           </motion.div>
         )}
