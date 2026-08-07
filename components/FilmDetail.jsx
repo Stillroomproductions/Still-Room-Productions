@@ -105,7 +105,7 @@ export default function FilmDetail({ film: project }) {
                 height={1200}
                 sizes="(max-width: 992px) 100vw, 60vw"
                 loading="lazy"
-                style={{ width: '100%', height: 'auto', maxHeight: '70vh', objectFit: 'contain' }}
+                style={{ width: '100%', height: 'auto', objectFit: 'cover' }}
               />
             </div>
           )}
@@ -149,7 +149,7 @@ export default function FilmDetail({ film: project }) {
               height={1200}
               sizes="(max-width: 992px) 100vw, 80vw"
               loading="lazy"
-              style={{ width: '100%', height: 'auto', maxHeight: '75vh', objectFit: 'contain' }}
+              style={{ width: '100%', height: 'auto', objectFit: 'cover' }}
             />
           </motion.div>
         )}
