@@ -724,21 +724,14 @@ a:hover {
 
 .film-detail-image-col {
   width: 100%;
-  background: var(--color-grey-subtle);
   overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  max-height: 70vh;
 }
 
 .film-detail-image-col img {
   display: block;
-  max-width: 100%;
-  max-height: 70vh;
-  width: auto;
+  width: 100%;
   height: auto;
-  object-fit: contain;
+  object-fit: cover;
 }
 
 .film-detail-cast-col .cast-grid {
@@ -749,21 +742,14 @@ a:hover {
 
 /* Project detail — second/third image */
 .project-image {
-  background: var(--color-grey-subtle);
   overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  max-height: 75vh;
 }
 
 .project-image img {
   display: block;
-  max-width: 100%;
-  max-height: 75vh;
-  width: auto;
+  width: 100%;
   height: auto;
-  object-fit: contain;
+  object-fit: cover;
 }
 
 @media (min-width: 992px) {
