@@ -364,8 +364,9 @@ a:hover {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: left center;
-  /* Preserves the observation chart and gown detail on the left */
+  /* Framing comes from the hotspot set in Sanity (applied inline by
+     CinematicBackground). No fixed object-position here, or it would
+     override the editor's choice. */
   display: block;
 }
 
@@ -467,9 +468,15 @@ a:hover {
 
 /* ---------- Page Header (sub-pages) ---------- */
 .page-header {
-  padding: 40px 0 100px;
-  /* Increased whitespace */
+  /* Mid-scroll default (homepage sections). Standalone pages add the
+     header clearance via .page-standalone below. */
+  padding: 40px 0 60px;
   text-align: center;
+}
+
+/* Standalone /work, /about, /contact pages: clear the fixed site header. */
+.page-standalone {
+  padding-top: 120px;
 }
 
 .work-header {
@@ -793,12 +800,12 @@ a:hover {
 /* ---------- About Page ---------- */
 .about-section {
   padding: 0 0 120px;
-  /* Mobile */
-@media (max-width: 768px) {
-  
-    padding: 0 0 20px;
-  
 }
+
+/* Until an About image is uploaded in Sanity there is no picture to balance
+   the text, so drop the tall bottom padding rather than leaving dead space. */
+.about-section--no-image {
+  padding-bottom: 40px;
 }
 
 .about-content {
@@ -849,9 +856,6 @@ a:hover {
 .contact-section {
   padding: 80px 0 120px;
   min-height: auto;
-  @media (max-width: 768px) {
-    padding: 0px 0 80px;
-  }
 }
 
 .contact-content {
@@ -1088,7 +1092,7 @@ a:hover {
   }
 
   .page-header {
-    padding: 180px 0 80px;
+    padding: 40px 0 48px;
   }
 
   .film-media-container {
@@ -1129,8 +1133,7 @@ a:hover {
   }
 
   .about-image {
-    margin: 120px 0;
-    /* Increased from 80px (50% more) for mobile spacing */
+    margin: 48px 0;
   }
 
   /* Contact Page - Mobile Form Optimization */
@@ -1214,7 +1217,7 @@ a:hover {
   }
 
   .page-header {
-    padding: 120px 0 40px;
+    padding: 32px 0 32px;
   }
 
   .contact-email {

@@ -53,9 +53,22 @@ export default {
     {
       name: 'images',
       title: 'Project Images',
-      description: 'Add up to 3 images. First image is the hero, second and third appear below the project info.',
+      description:
+        'Add up to 3 images. The first is used on the Work listing; the others appear on ' +
+        'the film page itself. For each image, click the crop icon and drag the circle over ' +
+        'the part that must always stay visible (usually a face) — the site keeps that ' +
+        'point in frame on every screen size, so portraits are not cut off at the top.',
       type: 'array',
-      of: [{ type: 'image', options: { hotspot: true } }],
+      of: [{
+        type: 'image',
+        options: { hotspot: true },
+        fields: [{
+          name: 'alt',
+          title: 'Image description',
+          type: 'string',
+          description: 'Describes the image for screen readers and Google. Optional but recommended.',
+        }],
+      }],
       validation: Rule => Rule.max(3)
     },
     {

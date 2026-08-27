@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import Image from 'next/image'
-import { urlFor } from '../lib/sanityClient'
+import { sanityImage, hasImageAsset } from '../lib/imageUrl'
 
 function getEmbedUrl(url) {
   if (!url) return null
@@ -18,11 +18,6 @@ function getEmbedUrl(url) {
   return null
 }
 
-/** Check whether a Sanity image object has an actual asset reference that urlFor can resolve */
-function hasAsset(img) {
-  return img && (img.asset || img._ref || (typeof img === 'string'))
-}
-
 /**
  * Film detail page component.
  * C8: Uses next/image for all images.
@@ -32,20 +27,20 @@ function hasAsset(img) {
  */
 export default function FilmDetail({ film: project }) {
   const embedUrl = getEmbedUrl(project.trailerUrl)
-  const allImages = project.images || []
-  const isConsultation = project.title?.toLowerCase().trim() === 'the consultation'
-  
-  let firstImg = null
-  let secondImg = null
-  
-  if (allImages.length > 0) {
-    if (isConsultation) {
-      firstImg = allImages[2] || allImages[1] || allImages[0]
-    } else {
-      firstImg = allImages[1] || allImages[0]
-      secondImg = allImages[2] || null
-    }
-  }
+
+  // Only keep entries that actually have an uploaded asset, so a half-filled
+  // image slot in Sanity never leaves a blank space on the page.
+  const allImages = (project.images || []).filter(hasImageAsset)
+
+  // Second image leads the page where one exists (it is usually the wider
+  // production still), with the rest following below. Previously this was
+  // hardcoded per film title, which broke silently whenever a film was
+  // renamed in Sanity — the ordering now comes purely from the image list.
+  const [firstImg = null, secondImg = null] =
+    allImages.length > 1 ? [allImages[1], allImages[2]] : [allImages[0], null]
+
+  const leadImage = sanityImage(firstImg, 1600)
+  const supportingImage = sanityImage(secondImg, 1600)
 
   return (
     <div id="project-detail" style={{ minHeight: '100vh', background: '#000', color: '#fff', paddingBottom: '80px' }}>
@@ -96,16 +91,16 @@ export default function FilmDetail({ film: project }) {
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
           {/* C8: Using next/image, M11: Descriptive alt text */}
-          {hasAsset(firstImg) && (
+          {leadImage && (
             <div className="film-detail-image-col">
               <Image
-                src={urlFor(firstImg).width(1600).url()}
+                src={leadImage.src}
                 alt={`Scene from ${project.title} — ${project.description?.slice(0, 100) || 'a short film by Still Room Productions'}`}
                 width={1600}
                 height={1200}
                 sizes="(max-width: 992px) 100vw, 60vw"
                 loading="lazy"
-                style={{ width: '100%', height: 'auto', objectFit: 'cover' }}
+                style={{ width: '100%', height: 'auto', objectPosition: leadImage.objectPosition }}
               />
             </div>
           )}
@@ -132,8 +127,8 @@ export default function FilmDetail({ film: project }) {
           )}
         </motion.div>
 
-        {/* Third image (hidden for The Consultation) */}
-        {!isConsultation && hasAsset(secondImg) && (
+        {/* Supporting still, shown below the project info when one is uploaded */}
+        {supportingImage && (
           <motion.div 
             className="project-image" 
             style={{ marginBottom: '60px' }}
@@ -143,13 +138,13 @@ export default function FilmDetail({ film: project }) {
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           >
             <Image
-              src={urlFor(secondImg).width(1600).url()}
+              src={supportingImage.src}
               alt={`Production still from ${project.title} — Still Room Productions`}
               width={1600}
               height={1200}
               sizes="(max-width: 992px) 100vw, 80vw"
               loading="lazy"
-              style={{ width: '100%', height: 'auto', objectFit: 'cover' }}
+              style={{ width: '100%', height: 'auto', objectPosition: supportingImage.objectPosition }}
             />
           </motion.div>
         )}
