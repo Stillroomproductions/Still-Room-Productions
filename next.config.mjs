@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Next 16.3 writes AGENTS.md/CLAUDE.md into the repo root on dev start.
+  // This project keeps its own docs, so opt out of the generated files.
+  agentRules: false,
   images: {
     remotePatterns: [
       { protocol: 'https', hostname: 'cdn.sanity.io' },
