@@ -23,7 +23,7 @@ export default function HomeClient({ hero, films, about, contact }) {
   }, [])
 
   return (
-    <div className="page-enter">
+    <div>
       <section id="home">
         <HeroSection hero={hero} />
       </section>
@@ -32,16 +32,16 @@ export default function HomeClient({ hero, films, about, contact }) {
         <WorkSection projects={films} />
       </section>
 
+      {/* No extra top padding here: these sections sit mid-scroll on the
+          homepage, so the section's own spacing is enough. The 120px offset
+          belongs only on the standalone /about and /contact pages, where it
+          clears the fixed header. */}
       <section id="about">
-        <div className="page-enter" style={{ paddingTop: '120px' }}>
-          <AboutSection about={about} />
-        </div>
+        <AboutSection about={about} />
       </section>
 
       <section id="contact">
-        <div className="page-enter" style={{ paddingTop: '120px' }}>
-          <ContactSection contact={contact} />
-        </div>
+        <ContactSection contact={contact} />
       </section>
     </div>
   )
