@@ -8,8 +8,12 @@ export default defineConfig({
   name: 'default',
   title: 'still-room-productions',
 
-  projectId: 'tk6o47ip',
-  dataset: 'production',
+  projectId: process.env.SANITY_STUDIO_PROJECT_ID || 'tk6o47ip',
+  // Which dataset this Studio edits. Defaults to production so nothing
+  // changes for anyone who has not set the variable; set
+  // SANITY_STUDIO_DATASET=staging (see studio/.env.staging) to work safely
+  // against staging instead of the live site's content.
+  dataset: process.env.SANITY_STUDIO_DATASET || 'production',
 
   plugins: [structureTool({structure}), visionTool()],
 
