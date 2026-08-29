@@ -72,6 +72,27 @@ export default {
       validation: Rule => Rule.max(3)
     },
     {
+      name: 'poster',
+      title: 'Film Poster (portrait)',
+      description:
+        'The vertical marketing poster with the title and credits on it. This is ' +
+        'NOT a film still — do not put a landscape image here. It appears on its ' +
+        'own below the film information, shown whole at its natural shape. ' +
+        'Recommended: portrait, around 2:3 (e.g. 1400 x 2000px), JPG or PNG.',
+      type: 'image',
+      options: {
+        // Hotspot is available but the poster is never cropped on the site —
+        // it always shows in full, so the hotspot has no visible effect here.
+        hotspot: true,
+      },
+      fields: [{
+        name: 'alt',
+        title: 'Image description',
+        type: 'string',
+        description: 'Describes the poster for screen readers and Google. Optional but recommended.',
+      }],
+    },
+    {
       name: 'slug',
       title: 'Page URL',
       type: 'slug',

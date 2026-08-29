@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import Image from 'next/image'
-import { sanityImage, hasImageAsset } from '../lib/imageUrl'
+import { sanityImage, hasImageAsset, naturalImage } from '../lib/imageUrl'
 
 function getEmbedUrl(url) {
   if (!url) return null
@@ -41,6 +41,12 @@ export default function FilmDetail({ film: project }) {
 
   const leadImage = sanityImage(firstImg, 1600)
   const supportingImage = sanityImage(secondImg, 1600)
+
+  // Portrait marketing poster. Deliberately not passed through the hotspot
+  // positioning used for stills: the poster carries title and credit text, so
+  // it is always shown whole at its natural shape and never cropped.
+  const poster = naturalImage(project.poster, 1000)
+  const posterAlt = project.poster?.alt || `${project.title} — film poster`
 
   return (
     <div id="project-detail" style={{ minHeight: '100vh', background: '#000', color: '#fff', paddingBottom: '80px' }}>
@@ -126,6 +132,32 @@ export default function FilmDetail({ film: project }) {
             </div>
           )}
         </motion.div>
+
+        {/* Film poster — portrait, shown whole. Sits between the film
+            information and the gallery stills. */}
+        {poster && (
+          <motion.div
+            className="film-poster"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-50px' }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <h2 className="film-poster-heading">Poster</h2>
+            <div className="film-poster-frame">
+              {/* Real intrinsic dimensions from Sanity, so the poster keeps its
+                  own aspect ratio at every screen size and is never cropped. */}
+              <Image
+                src={poster.src}
+                alt={posterAlt}
+                width={poster.width}
+                height={poster.height}
+                sizes="(max-width: 600px) 78vw, (max-width: 992px) 52vw, 380px"
+                loading="lazy"
+              />
+            </div>
+          </motion.div>
+        )}
 
         {/* Supporting still, shown below the project info when one is uploaded */}
         {supportingImage && (
