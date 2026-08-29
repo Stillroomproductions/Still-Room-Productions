@@ -38,3 +38,6 @@ nextjs-app/.env.local
 # Recoverable from git history if ever needed; confirm originals are archived
 # elsewhere before removing this folder for good.
 _unused-images/
+
+# Local Sanity document backups (never commit content dumps)
+.backup/
