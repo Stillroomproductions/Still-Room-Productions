@@ -135,15 +135,16 @@ export default function FilmDetail({ film: project }) {
 
         {/* Film poster — portrait, shown whole. Sits between the film
             information and the gallery stills. */}
+        {/* Deliberately not scroll-triggered. The other sections fade in with
+            whileInView, but the poster is tall and sits low on the page, and
+            in practice the trigger did not always fire — leaving the poster
+            stuck at opacity 0 with a large blank space where it should be.
+            A plain fade on mount is less fancy and always shows the poster. */}
         {poster && (
           <motion.div
             className="film-poster"
             initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            /* No viewport margin here: the poster is tall, and an inset
-               trigger area could leave it stuck invisible. Matches the other
-               sections on this page. */
-            viewport={{ once: true }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           >
             <h2 className="film-poster-heading">Poster</h2>
