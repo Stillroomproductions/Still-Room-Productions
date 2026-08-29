@@ -23,6 +23,10 @@ if (!token) {
 
 const folder = process.argv[2]
 const force = process.argv.includes('--force')
+const dsIdx = process.argv.indexOf('--dataset')
+const dataset = dsIdx !== -1 && process.argv[dsIdx + 1]
+  ? process.argv[dsIdx + 1]
+  : (process.env.NEXT_PUBLIC_SANITY_DATASET || 'production')
 if (!folder || !fs.existsSync(folder)) {
   console.error('Pass the folder containing the poster files.')
   process.exit(1)
@@ -30,7 +34,7 @@ if (!folder || !fs.existsSync(folder)) {
 
 const client = createClient({
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || 'tk6o47ip',
-  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || 'production',
+  dataset,
   apiVersion: '2024-01-01',
   useCdn: false,
   token,
@@ -51,6 +55,8 @@ const MAP = [
 const files = fs.readdirSync(folder).filter((f) => /\.(jpe?g|png)$/i.test(f))
 
 async function run() {
+  console.log(`dataset: ${dataset}
+`)
   for (const [fragment, slug] of MAP) {
     const file = files.find((f) => f.includes(fragment))
     if (!file) {

@@ -13,10 +13,14 @@ import fs from 'fs'
 const token = process.env.SANITY_WRITE_TOKEN
 if (!token) { console.error('Missing SANITY_WRITE_TOKEN.'); process.exit(1) }
 const force = process.argv.includes('--force')
+const dsIdx = process.argv.indexOf('--dataset')
+const dataset = dsIdx !== -1 && process.argv[dsIdx + 1]
+  ? process.argv[dsIdx + 1]
+  : (process.env.NEXT_PUBLIC_SANITY_DATASET || 'production')
 
 const client = createClient({
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || 'tk6o47ip',
-  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || 'production',
+  dataset,
   apiVersion: '2024-01-01', useCdn: false, token,
 })
 
@@ -29,6 +33,8 @@ const TARGETS = [
 ]
 
 async function run() {
+  console.log(`dataset: ${dataset}
+`)
   for (const t of TARGETS) {
     if (!fs.existsSync(t.file)) { console.log(`${t.label}: source file missing — skipped`); continue }
     const doc = await client.fetch(`*[_id==$id][0]{_id, "has": defined(${t.field})}`, { id: t.id })
