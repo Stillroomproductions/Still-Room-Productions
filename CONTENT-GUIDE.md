@@ -107,19 +107,15 @@ In the Sanity sidebar you will see **Homepage**, **About Page** and
 **Contact Page** as single entries. Click one and it opens straight into the
 edit form.
 
-> **One-off setup step still needed:** these page entries have not been
-> created in Sanity yet, which is why the homepage background and the About
-> photograph currently cannot be changed. Someone needs to run
-> `scripts/createPageDocuments.mjs` once with a Sanity write token
-> (instructions are at the top of that file). After that, both are yours to
-> edit.
+Both the homepage background and the About photograph are now set and fully
+under your control — upload a new image in the Studio at any time and it
+replaces what is there.
 
-Until a homepage background is uploaded, the site shows a built-in placeholder
-image. Replace it as soon as the Homepage entry exists.
+The images currently in place were taken from the existing photography, as
+starting points. Replace them whenever you have something you prefer, and set
+a hotspot on each so the framing is yours.
 
-The About section shows **no photograph** until you upload one. It previously
-showed an unrelated stock photo of a hospital sign, which was not something
-you could change.
+All 8 film posters are uploaded and appear on their film pages.
 
 ---
 

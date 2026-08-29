@@ -140,7 +140,10 @@ export default function FilmDetail({ film: project }) {
             className="film-poster"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-50px' }}
+            /* No viewport margin here: the poster is tall, and an inset
+               trigger area could leave it stuck invisible. Matches the other
+               sections on this page. */
+            viewport={{ once: true }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           >
             <h2 className="film-poster-heading">Poster</h2>
