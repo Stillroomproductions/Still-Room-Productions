@@ -4,19 +4,7 @@ import { motion } from 'framer-motion'
 import Link from 'next/link'
 import Image from 'next/image'
 import { sanityImage, hasImageAsset, naturalImage } from '../lib/imageUrl'
-
-function getEmbedUrl(url) {
-  if (!url) return null
-  if (url.includes('youtube.com') || url.includes('youtu.be')) {
-    const id = url.split('v=')[1]?.split('&')[0] || url.split('/').pop()
-    return `https://www.youtube.com/embed/${id}`
-  }
-  if (url.includes('vimeo.com')) {
-    const id = url.split('/').pop()
-    return `https://player.vimeo.com/video/${id}`
-  }
-  return null
-}
+import { getEmbedUrl } from '../lib/videoEmbed'
 
 /**
  * Film detail page component.
@@ -27,6 +15,8 @@ function getEmbedUrl(url) {
  */
 export default function FilmDetail({ film: project }) {
   const embedUrl = getEmbedUrl(project.trailerUrl)
+  // "Trailer" unless the editor picked "Teaser" in Sanity.
+  const videoLabel = project.trailerLabel === 'Teaser' ? 'Teaser' : 'Trailer'
 
   // Only keep entries that actually have an uploaded asset, so a half-filled
   // image slot in Sanity never leaves a blank space on the page.
@@ -135,6 +125,32 @@ export default function FilmDetail({ film: project }) {
 
         {/* Film poster — portrait, shown whole. Sits between the film
             information and the gallery stills. */}
+        {/* Trailer or teaser. Hidden entirely when no video URL is set, so
+            there is no empty space or placeholder. Sits between the film
+            information and the poster. */}
+        {embedUrl && (
+          <motion.div
+            className="film-video"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <h2 className="film-video-heading">{videoLabel}</h2>
+            <div className="film-video-frame">
+              <iframe
+                src={embedUrl}
+                title={`${project.title} — ${videoLabel}`}
+                /* No autoplay: the video only starts when a visitor presses
+                   play. Fullscreen and picture-in-picture stay available. */
+                allow="fullscreen; picture-in-picture; encrypted-media"
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="strict-origin-when-cross-origin"
+              />
+            </div>
+          </motion.div>
+        )}
+
         {/* Deliberately not scroll-triggered. The other sections fade in with
             whileInView, but the poster is tall and sits low on the page, and
             in practice the trigger did not always fire — leaving the poster
@@ -185,31 +201,6 @@ export default function FilmDetail({ film: project }) {
           </motion.div>
         )}
 
-        {/* Trailer — M12: Added title, L8: Removed deprecated frameBorder */}
-        {embedUrl && (
-          <motion.div 
-            className="project-trailer" 
-            style={{ marginBottom: '60px' }}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <h2 style={{ fontSize: '14px', textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '20px', opacity: 0.7 }}>
-              Trailer
-            </h2>
-            <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden' }}>
-              <iframe
-                src={embedUrl}
-                title={`${project.title} — Trailer`}
-                allow="autoplay; fullscreen"
-                allowFullScreen
-                loading="lazy"
-                style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 'none' }}
-              />
-            </div>
-          </motion.div>
-        )}
       </div>
     </div>
   )

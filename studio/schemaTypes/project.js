@@ -101,8 +101,32 @@ export default {
     },
     {
       name: 'trailerUrl',
-      title: 'Trailer URL',
+      title: 'Trailer / Teaser URL',
+      description:
+        'Paste the Vimeo or YouTube link for the film. Leave empty and no ' +
+        'video section appears on the page. The video never plays on its own — ' +
+        'a visitor has to press play.',
       type: 'url',
+      validation: (Rule) =>
+        Rule.uri({ scheme: ['http', 'https'] }).custom((value) => {
+          if (!value) return true
+          const ok = /(?:youtube\.com|youtu\.be|vimeo\.com)/i.test(value)
+          return ok || 'Must be a YouTube or Vimeo link.'
+        }),
+    },
+    {
+      name: 'trailerLabel',
+      title: 'Video Heading',
+      description: 'The wording shown above the video. Defaults to Trailer.',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Trailer', value: 'Trailer' },
+          { title: 'Teaser', value: 'Teaser' },
+        ],
+        layout: 'radio',
+      },
+      initialValue: 'Trailer',
     },
     {
       name: 'cast',

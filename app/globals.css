@@ -747,6 +747,49 @@ a:hover {
   gap: 20px;
 }
 
+/* ---------- Film trailer / teaser video ----------
+   A 16:9 frame that scales with the column. padding-top holds the ratio, so
+   the box has height before the iframe loads and nothing jumps on the page. */
+.film-video {
+  margin: 0 0 60px;
+}
+
+.film-video-heading {
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  opacity: 0.7;
+  margin-bottom: 20px;
+}
+
+.film-video-frame {
+  position: relative;
+  width: 100%;
+  /* aspect-ratio rather than a padding-top hack: with border-box sizing the
+     percentage padding is measured against the padding box, which left the
+     visible frame slightly off 16:9 once the 1px border was accounted for. */
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: var(--color-grey-subtle);
+  border: 1px solid var(--color-grey-border);
+}
+
+.film-video-frame iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+
+@media (max-width: 600px) {
+  .film-video {
+    margin-bottom: 48px;
+  }
+}
+
 /* ---------- Film poster (portrait marketing poster) ----------
    The poster carries the film's title and credits as part of the artwork, so
    it must always be readable in full: never cropped, never stretched, and
