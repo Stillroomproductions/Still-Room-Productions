@@ -90,7 +90,28 @@ will look out of place in a slot designed for a vertical poster.
 
 ---
 
-## 4. Film stills
+## 4. Trailer or teaser video
+
+Each film can show one video, above the poster.
+
+**To add one:** open the film under **Films & Projects**, then:
+
+1. Paste the Vimeo or YouTube link into **Trailer / Teaser URL**
+2. Pick **Trailer** or **Teaser** under **Video Heading** — this is the
+   wording shown above the video
+3. Publish
+
+Leave the URL empty and **no video section appears at all** — no gap, no
+placeholder.
+
+Any normal share link works: `vimeo.com/123456789`, `youtu.be/abc123`, a
+YouTube watch link, or a link with a start time or share code on the end.
+An unlisted Vimeo video works too, as long as you copy the full link
+including its private code.
+
+The video **never plays on its own** — a visitor has to press play.
+
+## 5. Film stills
 
 Each film takes up to 3 images under **Project Images**:
 
@@ -101,7 +122,7 @@ Leaving a slot empty is fine — the site skips it rather than leaving a gap.
 
 ---
 
-## 5. Homepage and About images
+## 6. Homepage and About images
 
 In the Sanity sidebar you will see **Homepage**, **About Page** and
 **Contact Page** as single entries. Click one and it opens straight into the
@@ -119,7 +140,7 @@ All 8 film posters are uploaded and appear on their film pages.
 
 ---
 
-## 6. What still needs a developer
+## 7. What still needs a developer
 
 - The logo in the site header (drawn in code, not an image file)
 - The browser-tab icon
