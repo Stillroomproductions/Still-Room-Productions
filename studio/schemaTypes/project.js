@@ -53,10 +53,44 @@ export default {
     {
       name: 'images',
       title: 'Project Images',
-      description: 'Add up to 3 images. First image is the hero, second and third appear below the project info.',
+      description:
+        'Add up to 3 images. The first is used on the Work listing; the others appear on ' +
+        'the film page itself. For each image, click the crop icon and drag the circle over ' +
+        'the part that must always stay visible (usually a face) — the site keeps that ' +
+        'point in frame on every screen size, so portraits are not cut off at the top.',
       type: 'array',
-      of: [{ type: 'image', options: { hotspot: true } }],
+      of: [{
+        type: 'image',
+        options: { hotspot: true },
+        fields: [{
+          name: 'alt',
+          title: 'Image description',
+          type: 'string',
+          description: 'Describes the image for screen readers and Google. Optional but recommended.',
+        }],
+      }],
       validation: Rule => Rule.max(3)
+    },
+    {
+      name: 'poster',
+      title: 'Film Poster (portrait)',
+      description:
+        'The vertical marketing poster with the title and credits on it. This is ' +
+        'NOT a film still — do not put a landscape image here. It appears on its ' +
+        'own below the film information, shown whole at its natural shape. ' +
+        'Recommended: portrait, around 2:3 (e.g. 1400 x 2000px), JPG or PNG.',
+      type: 'image',
+      options: {
+        // Hotspot is available but the poster is never cropped on the site —
+        // it always shows in full, so the hotspot has no visible effect here.
+        hotspot: true,
+      },
+      fields: [{
+        name: 'alt',
+        title: 'Image description',
+        type: 'string',
+        description: 'Describes the poster for screen readers and Google. Optional but recommended.',
+      }],
     },
     {
       name: 'slug',
@@ -67,8 +101,32 @@ export default {
     },
     {
       name: 'trailerUrl',
-      title: 'Trailer URL',
+      title: 'Trailer / Teaser URL',
+      description:
+        'Paste the Vimeo or YouTube link for the film. Leave empty and no ' +
+        'video section appears on the page. The video never plays on its own — ' +
+        'a visitor has to press play.',
       type: 'url',
+      validation: (Rule) =>
+        Rule.uri({ scheme: ['http', 'https'] }).custom((value) => {
+          if (!value) return true
+          const ok = /(?:youtube\.com|youtu\.be|vimeo\.com)/i.test(value)
+          return ok || 'Must be a YouTube or Vimeo link.'
+        }),
+    },
+    {
+      name: 'trailerLabel',
+      title: 'Video Heading',
+      description: 'The wording shown above the video. Defaults to Trailer.',
+      type: 'string',
+      options: {
+        list: [
+          { title: 'Trailer', value: 'Trailer' },
+          { title: 'Teaser', value: 'Teaser' },
+        ],
+        layout: 'radio',
+      },
+      initialValue: 'Trailer',
     },
     {
       name: 'cast',
@@ -84,9 +142,70 @@ export default {
     },
     {
       name: 'festivalSelections',
-      title: 'Festival Selections',
+      title: 'Festivals / Official Selections',
+      description:
+        'Add a row per festival as selections come in. Only the festival name ' +
+        'is required. Leave this empty and no festivals section appears on the ' +
+        'film page.',
       type: 'array',
-      of: [{ type: 'string' }],
+      of: [
+        {
+          type: 'object',
+          name: 'festival',
+          title: 'Festival',
+          fields: [
+            {
+              name: 'name',
+              title: 'Festival Name',
+              type: 'string',
+              validation: (Rule) => Rule.required(),
+            },
+            {
+              name: 'year',
+              title: 'Year',
+              type: 'string',
+              description: 'e.g. 2026. Optional.',
+            },
+            {
+              name: 'award',
+              title: 'Award / Nomination',
+              type: 'string',
+              description:
+                'Optional, e.g. "Best Short Film" or "Nominated — Best Director". ' +
+                'Leave empty for a plain official selection.',
+            },
+            {
+              name: 'laurel',
+              title: 'Laurel Image',
+              type: 'image',
+              description:
+                'Optional. The festival laurel, ideally a PNG with a transparent ' +
+                'background so it sits on the dark page. Shown small beside the ' +
+                'entry; the text above is always shown whether or not a laurel ' +
+                'is added.',
+              options: { hotspot: false },
+              fields: [
+                {
+                  name: 'alt',
+                  title: 'Image description',
+                  type: 'string',
+                  description: 'For screen readers. Optional but recommended.',
+                },
+              ],
+            },
+          ],
+          preview: {
+            select: { name: 'name', year: 'year', award: 'award', media: 'laurel' },
+            prepare({ name, year, award, media }) {
+              return {
+                title: [name, year].filter(Boolean).join(' — '),
+                subtitle: award || 'Official Selection',
+                media,
+              }
+            },
+          },
+        },
+      ],
     },
     {
       name: 'pressQuotes',

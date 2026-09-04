@@ -6,7 +6,7 @@ import SkeletonBlock from './SkeletonBlock'
  */
 export default function HomePageSkeleton() {
   return (
-    <div className="page-enter">
+    <div>
       {/* ── Hero Section ── */}
       <section className="hero" style={{ position: 'relative', overflow: 'hidden' }}>
         {/* Background shimmer */}

@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { urlFor } from '../lib/sanityClient'
+import { sanityImage } from '../lib/imageUrl'
 import CinematicBackground from './CinematicBackground'
 
 /**
@@ -14,14 +14,16 @@ export default function HeroSection({ hero }) {
   const heading = hero?.heading || 'Still Room Productions'
   const tagline = hero?.subheading ||
     'Develops formally restrained film and television work about systems, procedure, memory, and moral pressure.'
-  const heroImageUrl = hero?.heroImage
-    ? urlFor(hero.heroImage).width(1920).url()
-    : '/images/_52A6916.jpg'
+  // Honour the focal point set in Sanity; fall back to the bundled still and
+  // centre framing when no hero image has been chosen yet.
+  const heroImage = sanityImage(hero?.heroImage, 1920)
+  const heroImageUrl = heroImage?.src || '/images/_52A6916.jpg'
+  const heroImagePosition = heroImage?.objectPosition || '50% 50%'
 
   return (
     <section className="hero">
       <div className="hero-background">
-        <CinematicBackground src={heroImageUrl} />
+        <CinematicBackground src={heroImageUrl} objectPosition={heroImagePosition} />
         <div className="hero-gradient"></div>
       </div>
 
