@@ -142,9 +142,70 @@ export default {
     },
     {
       name: 'festivalSelections',
-      title: 'Festival Selections',
+      title: 'Festivals / Official Selections',
+      description:
+        'Add a row per festival as selections come in. Only the festival name ' +
+        'is required. Leave this empty and no festivals section appears on the ' +
+        'film page.',
       type: 'array',
-      of: [{ type: 'string' }],
+      of: [
+        {
+          type: 'object',
+          name: 'festival',
+          title: 'Festival',
+          fields: [
+            {
+              name: 'name',
+              title: 'Festival Name',
+              type: 'string',
+              validation: (Rule) => Rule.required(),
+            },
+            {
+              name: 'year',
+              title: 'Year',
+              type: 'string',
+              description: 'e.g. 2026. Optional.',
+            },
+            {
+              name: 'award',
+              title: 'Award / Nomination',
+              type: 'string',
+              description:
+                'Optional, e.g. "Best Short Film" or "Nominated — Best Director". ' +
+                'Leave empty for a plain official selection.',
+            },
+            {
+              name: 'laurel',
+              title: 'Laurel Image',
+              type: 'image',
+              description:
+                'Optional. The festival laurel, ideally a PNG with a transparent ' +
+                'background so it sits on the dark page. Shown small beside the ' +
+                'entry; the text above is always shown whether or not a laurel ' +
+                'is added.',
+              options: { hotspot: false },
+              fields: [
+                {
+                  name: 'alt',
+                  title: 'Image description',
+                  type: 'string',
+                  description: 'For screen readers. Optional but recommended.',
+                },
+              ],
+            },
+          ],
+          preview: {
+            select: { name: 'name', year: 'year', award: 'award', media: 'laurel' },
+            prepare({ name, year, award, media }) {
+              return {
+                title: [name, year].filter(Boolean).join(' — '),
+                subtitle: award || 'Official Selection',
+                media,
+              }
+            },
+          },
+        },
+      ],
     },
     {
       name: 'pressQuotes',

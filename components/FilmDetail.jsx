@@ -18,6 +18,10 @@ export default function FilmDetail({ film: project }) {
   // "Trailer" unless the editor picked "Teaser" in Sanity.
   const videoLabel = project.trailerLabel === 'Teaser' ? 'Teaser' : 'Trailer'
 
+  // Festivals. Rows with no name are ignored, so a half-filled entry in
+  // Sanity never renders as a blank line.
+  const festivals = (project.festivalSelections || []).filter((f) => f?.name?.trim())
+
   // Only keep entries that actually have an uploaded asset, so a half-filled
   // image slot in Sanity never leaves a blank space on the page.
   const allImages = (project.images || []).filter(hasImageAsset)
@@ -148,6 +152,50 @@ export default function FilmDetail({ film: project }) {
                 referrerPolicy="strict-origin-when-cross-origin"
               />
             </div>
+          </motion.div>
+        )}
+
+        {/* Festivals / official selections. Hidden entirely when there are
+            no entries. Sits between the video and the poster. */}
+        {festivals.length > 0 && (
+          <motion.div
+            className="film-festivals"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <h2 className="film-festivals-heading">Official Selections</h2>
+            <ul className="film-festivals-list">
+              {festivals.map((f, i) => {
+                const laurel = sanityImage(f.laurel, 320)
+                return (
+                  <li
+                    key={`${f.name}-${f.year || i}`}
+                    className={laurel ? 'film-festival' : 'film-festival film-festival--no-laurel'}
+                  >
+                    {laurel && (
+                      <div className="film-festival-laurel">
+                        {/* Laurels vary in shape, so the image keeps its own
+                            proportions inside a fixed height. */}
+                        <img
+                          src={laurel.src}
+                          alt={f.laurel?.alt || `${f.name} laurel`}
+                          loading="lazy"
+                          decoding="async"
+                        />
+                      </div>
+                    )}
+                    <div className="film-festival-text">
+                      <span className="film-festival-name">
+                        {f.name}
+                        {f.year && <span className="film-festival-year"> {f.year}</span>}
+                      </span>
+                      {f.award && <span className="film-festival-award">{f.award}</span>}
+                    </div>
+                  </li>
+                )
+              })}
+            </ul>
           </motion.div>
         )}
 

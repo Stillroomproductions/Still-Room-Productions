@@ -111,7 +111,31 @@ including its private code.
 
 The video **never plays on its own** — a visitor has to press play.
 
-## 5. Film stills
+## 5. Festivals / official selections
+
+Add festival selections to a film as they come in. The section only appears
+once there is at least one entry — leave it empty and nothing shows.
+
+**To add one:** open the film under **Films & Projects**, find
+**Festivals / Official Selections**, and press **Add item**. Each row has:
+
+| Field | Required? | Notes |
+|---|---|---|
+| Festival Name | **Yes** | e.g. London Short Film Festival |
+| Year | No | e.g. 2026 |
+| Award / Nomination | No | e.g. Best Short Film, or Nominated — Best Director |
+| Laurel Image | No | The festival laurel graphic |
+
+Rows with no award simply read as an official selection. Rows with no laurel
+still show their text, lined up with the rest.
+
+**Laurels:** a PNG with a transparent background works best, so it sits
+cleanly on the dark page. Any shape is fine — the site scales it to a
+consistent height without stretching it. Around 600px wide is plenty.
+
+Drag rows to reorder them; the site shows them in the order you set.
+
+## 6. Film stills
 
 Each film takes up to 3 images under **Project Images**:
 
@@ -122,7 +146,7 @@ Leaving a slot empty is fine — the site skips it rather than leaving a gap.
 
 ---
 
-## 6. Homepage and About images
+## 7. Homepage and About images
 
 In the Sanity sidebar you will see **Homepage**, **About Page** and
 **Contact Page** as single entries. Click one and it opens straight into the
@@ -140,7 +164,7 @@ All 8 film posters are uploaded and appear on their film pages.
 
 ---
 
-## 7. What still needs a developer
+## 8. What still needs a developer
 
 - The logo in the site header (drawn in code, not an image file)
 - The browser-tab icon

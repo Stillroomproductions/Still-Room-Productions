@@ -790,6 +790,116 @@ a:hover {
   }
 }
 
+/* ---------- Festivals / official selections ----------
+   A restrained list rather than a grid of badges: most films will have a
+   handful of entries, and the text has to read clearly whether or not a
+   laurel image was uploaded. */
+.film-festivals {
+  margin: 0 0 60px;
+}
+
+.film-festivals-heading {
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  opacity: 0.7;
+  margin-bottom: 24px;
+}
+
+.film-festivals-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.film-festival {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--color-grey-border);
+}
+
+.film-festival:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+/* Fixed height and a reserved width: laurels are all different shapes, so the
+   height keeps rows even without distorting any of them, and the fixed column
+   keeps the text aligned whether or not a row has a laurel. */
+.film-festival-laurel {
+  flex: 0 0 120px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Rows with no laurel keep the same text alignment as rows that have one. */
+.film-festival--no-laurel .film-festival-text {
+  margin-left: 140px;
+}
+
+.film-festival-laurel img {
+  height: 100%;
+  width: auto;
+  max-width: 120px;
+  object-fit: contain;
+  display: block;
+}
+
+.film-festival-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.film-festival-name {
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+  color: var(--color-white);
+}
+
+.film-festival-year {
+  opacity: 0.6;
+}
+
+.film-festival-award {
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #7a6e5f;
+}
+
+@media (max-width: 600px) {
+  .film-festivals {
+    margin-bottom: 48px;
+  }
+
+  .film-festival {
+    gap: 16px;
+  }
+
+  .film-festival-laurel {
+    flex-basis: 84px;
+    height: 48px;
+  }
+
+  .film-festival-laurel img {
+    max-width: 84px;
+  }
+
+  /* Narrow screens: drop the reserved column so the text uses the full width. */
+  .film-festival--no-laurel .film-festival-text {
+    margin-left: 0;
+  }
+}
+
 /* ---------- Film poster (portrait marketing poster) ----------
    The poster carries the film's title and credits as part of the artwork, so
    it must always be readable in full: never cropped, never stretched, and
