@@ -1,30 +1,11 @@
 // app/page.js
 import { Suspense } from 'react'
 import { client } from '../lib/sanityClient'
-import { getHero, getAllProjects, getAbout, getContact, getSiteSettings } from '../lib/queries'
+import { getHero, getAllProjects, getAbout, getContact } from '../lib/queries'
 import HomeClient from '../components/HomeClient'
 
 // ISR: Revalidate this page every 60 seconds so new Sanity content appears automatically
 export const revalidate = 60
-
-const MOCK_PROJECTS = [
-  {
-    _id: 'mock-project-1',
-    title: 'Assessment',
-    type: 'Short Film',
-    status: 'Completed',
-    description: 'A dark institutional drama exploring procedure and moral pressure in a bureaucratic system.',
-    slug: { current: 'assessment' },
-    image: '/images/_52A6916.jpg',
-    images: ['/images/_52A6916.jpg', '/images/_52A6916.jpg', '/images/_52A6916.jpg'],
-    cast: [
-      { actorName: 'Gerald Gyimah', characterName: 'Officer' },
-      { actorName: 'John Doe', characterName: 'Witness' }
-    ],
-    festivalSelections: ['London Film Festival 2025', 'Sundance Film Festival 2026'],
-    trailerUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
-  }
-]
 
 export const metadata = {
   title: 'Still Room Productions — Independent Film Production, London',
@@ -45,11 +26,14 @@ export default async function HomePage() {
     client.fetch(getContact).catch(() => null),
   ])
 
-  const projectData = films && films.length > 0 ? films : MOCK_PROJECTS
-
+  // If Sanity is unreachable the Work section simply renders empty rather than
+  // showing stand-in content. The previous fallback invented a film credited to
+  // "London Film Festival 2025" and "Sundance Film Festival 2026", with a
+  // placeholder cast and a joke trailer link. Publishing unearned festival
+  // selections is a reputational risk for a production company, so it is gone.
   return (
     <Suspense fallback={null}>
-      <HomeClient hero={hero} films={projectData} about={about} contact={contact} />
+      <HomeClient hero={hero} films={films || []} about={about} contact={contact} />
     </Suspense>
   )
 }

@@ -364,8 +364,9 @@ a:hover {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: left center;
-  /* Preserves the observation chart and gown detail on the left */
+  /* Framing comes from the hotspot set in Sanity (applied inline by
+     CinematicBackground). No fixed object-position here, or it would
+     override the editor's choice. */
   display: block;
 }
 
@@ -467,9 +468,15 @@ a:hover {
 
 /* ---------- Page Header (sub-pages) ---------- */
 .page-header {
-  padding: 40px 0 100px;
-  /* Increased whitespace */
+  /* Mid-scroll default (homepage sections). Standalone pages add the
+     header clearance via .page-standalone below. */
+  padding: 40px 0 60px;
   text-align: center;
+}
+
+/* Standalone /work, /about, /contact pages: clear the fixed site header. */
+.page-standalone {
+  padding-top: 120px;
 }
 
 .work-header {
@@ -740,6 +747,219 @@ a:hover {
   gap: 20px;
 }
 
+/* ---------- Film trailer / teaser video ----------
+   A 16:9 frame that scales with the column. padding-top holds the ratio, so
+   the box has height before the iframe loads and nothing jumps on the page. */
+.film-video {
+  margin: 0 0 60px;
+}
+
+.film-video-heading {
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  opacity: 0.7;
+  margin-bottom: 20px;
+}
+
+.film-video-frame {
+  position: relative;
+  width: 100%;
+  /* aspect-ratio rather than a padding-top hack: with border-box sizing the
+     percentage padding is measured against the padding box, which left the
+     visible frame slightly off 16:9 once the 1px border was accounted for. */
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: var(--color-grey-subtle);
+  border: 1px solid var(--color-grey-border);
+}
+
+.film-video-frame iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+
+@media (max-width: 600px) {
+  .film-video {
+    margin-bottom: 48px;
+  }
+}
+
+/* ---------- Festivals / official selections ----------
+   A restrained list rather than a grid of badges: most films will have a
+   handful of entries, and the text has to read clearly whether or not a
+   laurel image was uploaded. */
+.film-festivals {
+  margin: 0 0 60px;
+}
+
+.film-festivals-heading {
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  opacity: 0.7;
+  margin-bottom: 24px;
+}
+
+.film-festivals-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.film-festival {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--color-grey-border);
+}
+
+.film-festival:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+/* Fixed height and a reserved width: laurels are all different shapes, so the
+   height keeps rows even without distorting any of them, and the fixed column
+   keeps the text aligned whether or not a row has a laurel. */
+.film-festival-laurel {
+  flex: 0 0 120px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Rows with no laurel keep the same text alignment as rows that have one. */
+.film-festival--no-laurel .film-festival-text {
+  margin-left: 140px;
+}
+
+.film-festival-laurel img {
+  height: 100%;
+  width: auto;
+  max-width: 120px;
+  object-fit: contain;
+  display: block;
+}
+
+.film-festival-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.film-festival-name {
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+  color: var(--color-white);
+}
+
+.film-festival-year {
+  opacity: 0.6;
+}
+
+.film-festival-award {
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #7a6e5f;
+}
+
+@media (max-width: 600px) {
+  .film-festivals {
+    margin-bottom: 48px;
+  }
+
+  .film-festival {
+    gap: 16px;
+  }
+
+  .film-festival-laurel {
+    flex-basis: 84px;
+    height: 48px;
+  }
+
+  .film-festival-laurel img {
+    max-width: 84px;
+  }
+
+  /* Narrow screens: drop the reserved column so the text uses the full width. */
+  .film-festival--no-laurel .film-festival-text {
+    margin-left: 0;
+  }
+}
+
+/* ---------- Film poster (portrait marketing poster) ----------
+   The poster carries the film's title and credits as part of the artwork, so
+   it must always be readable in full: never cropped, never stretched, and
+   never used as a hero. It is centred and capped in width so a tall portrait
+   image does not dominate the page on a large screen. */
+.film-poster {
+  margin: 0 0 60px;
+  text-align: center;
+}
+
+.film-poster-heading {
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  opacity: 0.7;
+  margin-bottom: 20px;
+  /* Centred over the poster it labels, matching the other section headings
+     on this page in size and weight. */
+  text-align: center;
+}
+
+.film-poster-frame {
+  /* Capped so the poster stays a considered object on the page rather than
+     filling the screen. width:fit-content lets the box shrink to whatever the
+     image's own shape ends up being, so an unusually tall poster produces a
+     narrower frame rather than a letterboxed one with bars down the sides. */
+  width: fit-content;
+  max-width: 380px;
+  margin: 0 auto;
+  background: var(--color-grey-subtle);
+  border: 1px solid var(--color-grey-border);
+}
+
+.film-poster-frame img {
+  /* The image drives its own size. max-height bounds a very tall poster and
+     `width:auto` lets the width follow, so the aspect ratio is preserved
+     exactly — never stretched, never cropped. */
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 78vh;
+}
+
+@media (max-width: 992px) {
+  .film-poster-frame {
+    max-width: 52vw;
+  }
+}
+
+@media (max-width: 600px) {
+  .film-poster-frame {
+    max-width: 78vw;
+  }
+
+  .film-poster {
+    margin-bottom: 48px;
+  }
+}
+
 /* Project detail — second/third image */
 .project-image {
   overflow: hidden;
@@ -793,12 +1013,12 @@ a:hover {
 /* ---------- About Page ---------- */
 .about-section {
   padding: 0 0 120px;
-  /* Mobile */
-@media (max-width: 768px) {
-  
-    padding: 0 0 20px;
-  
 }
+
+/* Until an About image is uploaded in Sanity there is no picture to balance
+   the text, so drop the tall bottom padding rather than leaving dead space. */
+.about-section--no-image {
+  padding-bottom: 40px;
 }
 
 .about-content {
@@ -849,9 +1069,6 @@ a:hover {
 .contact-section {
   padding: 80px 0 120px;
   min-height: auto;
-  @media (max-width: 768px) {
-    padding: 0px 0 80px;
-  }
 }
 
 .contact-content {
@@ -1088,7 +1305,7 @@ a:hover {
   }
 
   .page-header {
-    padding: 180px 0 80px;
+    padding: 40px 0 48px;
   }
 
   .film-media-container {
@@ -1129,8 +1346,7 @@ a:hover {
   }
 
   .about-image {
-    margin: 120px 0;
-    /* Increased from 80px (50% more) for mobile spacing */
+    margin: 48px 0;
   }
 
   /* Contact Page - Mobile Form Optimization */
@@ -1214,7 +1430,7 @@ a:hover {
   }
 
   .page-header {
-    padding: 120px 0 40px;
+    padding: 32px 0 32px;
   }
 
   .contact-email {

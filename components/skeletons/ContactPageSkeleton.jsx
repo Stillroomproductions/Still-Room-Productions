@@ -6,7 +6,7 @@ import SkeletonBlock from './SkeletonBlock'
  */
 export default function ContactPageSkeleton() {
   return (
-    <div className="page-enter" style={{ paddingTop: '120px' }}>
+    <div className="page-standalone">
       <div id="contact">
         <section className="contact-section">
           <div className="container">
