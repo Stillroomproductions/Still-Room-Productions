@@ -33,7 +33,7 @@ export default async function AboutPage() {
   const about = await client.fetch(getAbout).catch(() => null)
 
   return (
-    <div className="page-standalone">
+    <div className="page-enter" style={{ paddingTop: '120px' }}>
       {/* H2: BreadcrumbList schema for SERP breadcrumb display */}
       <JsonLd data={{
         "@context": "https://schema.org",

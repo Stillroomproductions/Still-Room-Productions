@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion'
 import Image from 'next/image'
-import { sanityImage } from '../lib/imageUrl'
+import { urlFor } from '../lib/sanityClient'
 
 /**
  * About section — receives about data as props from server component.
@@ -30,12 +30,10 @@ export default function AboutSection({ about, headingLevel = 'h2' }) {
     contentText = about.content
   }
 
-  // About image — comes entirely from Sanity, including its focal point.
-  // There is deliberately no hardcoded fallback here: the previous fallback
-  // was an unrelated stock photograph that appeared whenever Sanity had no
-  // About image, and could not be changed without a developer. Showing
-  // nothing is better than showing the wrong picture.
-  const aboutImage = sanityImage(about?.image, 1200)
+  // About image — use Sanity image if available, fall back to local
+  const aboutImageUrl = about?.image
+    ? urlFor(about.image).width(1200).url()
+    : '/images/_52A6982.jpg'
   const imageAlt = about?.imageCaption || 'Gerald Gyimah — Director and founder of Still Room Productions, London-based independent film company'
 
   return (
@@ -54,7 +52,7 @@ export default function AboutSection({ about, headingLevel = 'h2' }) {
         </div>
       </section>
 
-      <section className={aboutImage ? 'about-section' : 'about-section about-section--no-image'}>
+      <section className="about-section">
         <div className="container">
           <motion.div
             className="about-content"
@@ -67,30 +65,23 @@ export default function AboutSection({ about, headingLevel = 'h2' }) {
           </motion.div>
 
           {/* C8: Using next/image for optimization, lazy loading, and proper dimensions */}
-          {aboutImage && (
-            <motion.div
-              className="about-image"
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true, margin: "-10%" }}
-              transition={{ duration: 1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            >
-              <Image
-                src={aboutImage.src}
-                alt={imageAlt}
-                width={1200}
-                height={800}
-                sizes="(max-width: 900px) 100vw, 80vw"
-                loading="lazy"
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                  objectPosition: aboutImage.objectPosition,
-                }}
-              />
-            </motion.div>
-          )}
+          <motion.div
+            className="about-image"
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true, margin: "-10%" }}
+            transition={{ duration: 1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <Image
+              src={aboutImageUrl}
+              alt={imageAlt}
+              width={1200}
+              height={800}
+              sizes="(max-width: 900px) 100vw, 80vw"
+              loading="lazy"
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+            />
+          </motion.div>
         </div>
       </section>
     </div>
