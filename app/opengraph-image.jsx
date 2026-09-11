@@ -1,7 +1,6 @@
 import { ImageResponse } from 'next/og'
 
-// The edge runtime is deprecated in Next 16.3 and prevented this image from
-// being generated at build time. The default Node runtime handles it fine.
+export const runtime = 'edge'
 export const alt = 'Still Room Productions — Independent Film Production'
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
@@ -23,10 +22,10 @@ export default async function Image() {
         {/* Top border line */}
         <div style={{ position: 'absolute', top: 60, left: 60, right: 60, height: 1, background: '#333' }} />
 
-        {/* Logo mark — drawn as a square outline rather than a glyph. The
-            previous ✦ character is outside the standard font set, so the
-            renderer tried to fetch a font for it at build time and failed. */}
-        <div style={{ display: 'flex', width: 22, height: 22, border: '1px solid #666', marginBottom: 32 }} />
+        {/* Logo mark placeholder */}
+        <div style={{ color: '#ffffff', fontSize: 13, letterSpacing: '0.4em', textTransform: 'uppercase', marginBottom: 32, color: '#666' }}>
+          ✦
+        </div>
 
         {/* Company name */}
         <div style={{ color: '#ffffff', fontSize: 52, letterSpacing: '0.15em', textTransform: 'uppercase', fontWeight: 400, textAlign: 'center', lineHeight: 1.2 }}>

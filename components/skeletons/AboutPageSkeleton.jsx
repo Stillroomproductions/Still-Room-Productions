@@ -6,7 +6,7 @@ import SkeletonBlock from './SkeletonBlock'
  */
 export default function AboutPageSkeleton() {
   return (
-    <div className="page-standalone">
+    <div className="page-enter" style={{ paddingTop: '120px' }}>
       <div id="about">
         {/* Page header */}
         <section className="page-header">

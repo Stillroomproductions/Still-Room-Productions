@@ -43,7 +43,7 @@ export default async function WorkPage() {
     }))
 
   return (
-    <div className="page-standalone">
+    <div className="page-enter" style={{ paddingTop: '120px' }}>
       {/* H2: BreadcrumbList schema */}
       <JsonLd data={{
         "@context": "https://schema.org",

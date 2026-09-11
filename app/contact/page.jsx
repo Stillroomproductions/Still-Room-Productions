@@ -32,7 +32,7 @@ export default async function ContactPage() {
   const contact = await client.fetch(getContact).catch(() => null)
 
   return (
-    <div className="page-standalone">
+    <div className="page-enter" style={{ paddingTop: '120px' }}>
       {/* H2: BreadcrumbList schema */}
       <JsonLd data={{
         "@context": "https://schema.org",

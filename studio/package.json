@@ -5,30 +5,25 @@
   "main": "package.json",
   "license": "UNLICENSED",
   "scripts": {
-    "dev": "cross-env SANITY_STUDIO_DATASET=staging sanity dev",
-    "dev:staging": "cross-env SANITY_STUDIO_DATASET=staging sanity dev",
-    "dev:production": "cross-env SANITY_STUDIO_DATASET=production sanity dev",
-    "build": "cross-env SANITY_STUDIO_DATASET=staging sanity build",
-    "build:production": "cross-env SANITY_STUDIO_DATASET=production sanity build",
-    "deploy": "cross-env SANITY_STUDIO_DATASET=production sanity deploy",
+    "build": "sanity build",
+    "deploy": "sanity deploy",
     "deploy-graphql": "sanity graphql deploy",
-    "start": "sanity start",
-    "deploy:staging": "cross-env SANITY_STUDIO_DATASET=staging sanity deploy"
+    "dev": "sanity dev",
+    "start": "sanity start"
   },
   "keywords": [
     "sanity"
   ],
   "dependencies": {
-    "@sanity/vision": "^5.31.1",
+    "@sanity/vision": "^5.30.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
-    "sanity": "^5.31.1",
+    "sanity": "^5.30.0",
     "styled-components": "^6.1.18"
   },
   "devDependencies": {
     "@sanity/eslint-config-studio": "^6.0.0",
     "@types/react": "^19.2.14",
-    "cross-env": "^10.1.0",
     "eslint": "^9.28",
     "prettier": "^3.5",
     "typescript": "^5.8"

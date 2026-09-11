@@ -7,7 +7,7 @@ import SkeletonBlock from './SkeletonBlock'
  */
 export default function FilmDetailSkeleton() {
   return (
-    <div className="page-standalone">
+    <div className="page-enter" style={{ paddingTop: '120px' }}>
       {/* Page header */}
       <section className="page-header">
         <div className="container">
