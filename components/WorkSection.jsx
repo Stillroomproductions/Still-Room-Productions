@@ -4,7 +4,7 @@ import { Fragment } from 'react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import Image from 'next/image'
-import { urlFor } from '../lib/sanityClient'
+import { sanityImage } from '../lib/imageUrl'
 
 /**
  * Work section — renders project content from Sanity.
@@ -49,26 +49,26 @@ export default function WorkSection({ projects = [], headingLevel = 'h2' }) {
                   <div className="film-media-container">
                     <div className="film-image-wrapper">
                       {/* C8: Using next/image for optimization, lazy loading, and responsive srcset */}
-                      {project.image ? (
-                        <Image
-                          src={urlFor(project.image).width(1200).url()}
-                          alt={`${project.title} — film still from Still Room Productions short film`}
-                          width={1200}
-                          height={750}
-                          sizes="(max-width: 900px) 100vw, 60vw"
-                          loading="lazy"
-                          style={{
-                            width: '100%',
-                            height: '100%',
-                            objectFit: 'cover',
-                            objectPosition: project.image?.hotspot
-                              ? `${(project.image.hotspot.x * 100).toFixed(1)}% ${(project.image.hotspot.y * 100).toFixed(1)}%`
-                              : '50% 50%',
-                          }}
-                        />
-                      ) : (
-                        <div className="image-placeholder" />
-                      )}
+                      {(() => {
+                        const image = sanityImage(project.image, 1200)
+                        if (!image) return <div className="image-placeholder" />
+                        return (
+                          <Image
+                            src={image.src}
+                            alt={`${project.title} — film still from Still Room Productions short film`}
+                            width={1200}
+                            height={750}
+                            sizes="(max-width: 900px) 100vw, 60vw"
+                            loading="lazy"
+                            style={{
+                              width: '100%',
+                              height: '100%',
+                              objectFit: 'cover',
+                              objectPosition: image.objectPosition,
+                            }}
+                          />
+                        )
+                      })()}
                     </div>
                   </div>
 
