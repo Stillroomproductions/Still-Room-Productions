@@ -3,25 +3,8 @@
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import Image from 'next/image'
-import { urlFor } from '../lib/sanityClient'
-
-function getEmbedUrl(url) {
-  if (!url) return null
-  if (url.includes('youtube.com') || url.includes('youtu.be')) {
-    const id = url.split('v=')[1]?.split('&')[0] || url.split('/').pop()
-    return `https://www.youtube.com/embed/${id}`
-  }
-  if (url.includes('vimeo.com')) {
-    const id = url.split('/').pop()
-    return `https://player.vimeo.com/video/${id}`
-  }
-  return null
-}
-
-/** Check whether a Sanity image object has an actual asset reference that urlFor can resolve */
-function hasAsset(img) {
-  return img && (img.asset || img._ref || (typeof img === 'string'))
-}
+import { sanityImage, hasImageAsset, naturalImage } from '../lib/imageUrl'
+import { getEmbedUrl } from '../lib/videoEmbed'
 
 /**
  * Film detail page component.
@@ -32,20 +15,32 @@ function hasAsset(img) {
  */
 export default function FilmDetail({ film: project }) {
   const embedUrl = getEmbedUrl(project.trailerUrl)
-  const allImages = project.images || []
-  const isConsultation = project.title?.toLowerCase().trim() === 'the consultation'
-  
-  let firstImg = null
-  let secondImg = null
-  
-  if (allImages.length > 0) {
-    if (isConsultation) {
-      firstImg = allImages[2] || allImages[1] || allImages[0]
-    } else {
-      firstImg = allImages[1] || allImages[0]
-      secondImg = allImages[2] || null
-    }
-  }
+  // "Trailer" unless the editor picked "Teaser" in Sanity.
+  const videoLabel = project.trailerLabel === 'Teaser' ? 'Teaser' : 'Trailer'
+
+  // Festivals. Rows with no name are ignored, so a half-filled entry in
+  // Sanity never renders as a blank line.
+  const festivals = (project.festivalSelections || []).filter((f) => f?.name?.trim())
+
+  // Only keep entries that actually have an uploaded asset, so a half-filled
+  // image slot in Sanity never leaves a blank space on the page.
+  const allImages = (project.images || []).filter(hasImageAsset)
+
+  // Second image leads the page where one exists (it is usually the wider
+  // production still), with the rest following below. Previously this was
+  // hardcoded per film title, which broke silently whenever a film was
+  // renamed in Sanity — the ordering now comes purely from the image list.
+  const [firstImg = null, secondImg = null] =
+    allImages.length > 1 ? [allImages[1], allImages[2]] : [allImages[0], null]
+
+  const leadImage = sanityImage(firstImg, 1600)
+  const supportingImage = sanityImage(secondImg, 1600)
+
+  // Portrait marketing poster. Deliberately not passed through the hotspot
+  // positioning used for stills: the poster carries title and credit text, so
+  // it is always shown whole at its natural shape and never cropped.
+  const poster = naturalImage(project.poster, 1000)
+  const posterAlt = project.poster?.alt || `${project.title} — film poster`
 
   return (
     <div id="project-detail" style={{ minHeight: '100vh', background: '#000', color: '#fff', paddingBottom: '80px' }}>
@@ -96,16 +91,16 @@ export default function FilmDetail({ film: project }) {
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
           {/* C8: Using next/image, M11: Descriptive alt text */}
-          {hasAsset(firstImg) && (
+          {leadImage && (
             <div className="film-detail-image-col">
               <Image
-                src={urlFor(firstImg).width(1600).url()}
+                src={leadImage.src}
                 alt={`Scene from ${project.title} — ${project.description?.slice(0, 100) || 'a short film by Still Room Productions'}`}
                 width={1600}
                 height={1200}
                 sizes="(max-width: 992px) 100vw, 60vw"
                 loading="lazy"
-                style={{ width: '100%', height: 'auto', objectFit: 'cover' }}
+                style={{ width: '100%', height: 'auto', objectPosition: leadImage.objectPosition }}
               />
             </div>
           )}
@@ -132,8 +127,108 @@ export default function FilmDetail({ film: project }) {
           )}
         </motion.div>
 
-        {/* Third image (hidden for The Consultation) */}
-        {!isConsultation && hasAsset(secondImg) && (
+        {/* Film poster — portrait, shown whole. Sits between the film
+            information and the gallery stills. */}
+        {/* Trailer or teaser. Hidden entirely when no video URL is set, so
+            there is no empty space or placeholder. Sits between the film
+            information and the poster. */}
+        {embedUrl && (
+          <motion.div
+            className="film-video"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <h2 className="film-video-heading">{videoLabel}</h2>
+            <div className="film-video-frame">
+              <iframe
+                src={embedUrl}
+                title={`${project.title} — ${videoLabel}`}
+                /* No autoplay: the video only starts when a visitor presses
+                   play. Fullscreen and picture-in-picture stay available. */
+                allow="fullscreen; picture-in-picture; encrypted-media"
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="strict-origin-when-cross-origin"
+              />
+            </div>
+          </motion.div>
+        )}
+
+        {/* Festivals / official selections. Hidden entirely when there are
+            no entries. Sits between the video and the poster. */}
+        {festivals.length > 0 && (
+          <motion.div
+            className="film-festivals"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <h2 className="film-festivals-heading">Official Selections</h2>
+            <ul className="film-festivals-list">
+              {festivals.map((f, i) => {
+                const laurel = sanityImage(f.laurel, 320)
+                return (
+                  <li
+                    key={`${f.name}-${f.year || i}`}
+                    className={laurel ? 'film-festival' : 'film-festival film-festival--no-laurel'}
+                  >
+                    {laurel && (
+                      <div className="film-festival-laurel">
+                        {/* Laurels vary in shape, so the image keeps its own
+                            proportions inside a fixed height. */}
+                        <img
+                          src={laurel.src}
+                          alt={f.laurel?.alt || `${f.name} laurel`}
+                          loading="lazy"
+                          decoding="async"
+                        />
+                      </div>
+                    )}
+                    <div className="film-festival-text">
+                      <span className="film-festival-name">
+                        {f.name}
+                        {f.year && <span className="film-festival-year"> {f.year}</span>}
+                      </span>
+                      {f.award && <span className="film-festival-award">{f.award}</span>}
+                    </div>
+                  </li>
+                )
+              })}
+            </ul>
+          </motion.div>
+        )}
+
+        {/* Deliberately not scroll-triggered. The other sections fade in with
+            whileInView, but the poster is tall and sits low on the page, and
+            in practice the trigger did not always fire — leaving the poster
+            stuck at opacity 0 with a large blank space where it should be.
+            A plain fade on mount is less fancy and always shows the poster. */}
+        {poster && (
+          <motion.div
+            className="film-poster"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <h2 className="film-poster-heading">Poster</h2>
+            <div className="film-poster-frame">
+              {/* Real intrinsic dimensions from Sanity, so the poster keeps its
+                  own aspect ratio at every screen size and is never cropped. */}
+              <Image
+                src={poster.src}
+                alt={posterAlt}
+                width={poster.width}
+                height={poster.height}
+                sizes="(max-width: 600px) 78vw, (max-width: 992px) 52vw, 380px"
+                loading="lazy"
+              />
+            </div>
+          </motion.div>
+        )}
+
+        {/* Supporting still, shown below the project info when one is uploaded */}
+        {supportingImage && (
           <motion.div 
             className="project-image" 
             style={{ marginBottom: '60px' }}
@@ -143,42 +238,17 @@ export default function FilmDetail({ film: project }) {
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           >
             <Image
-              src={urlFor(secondImg).width(1600).url()}
+              src={supportingImage.src}
               alt={`Production still from ${project.title} — Still Room Productions`}
               width={1600}
               height={1200}
               sizes="(max-width: 992px) 100vw, 80vw"
               loading="lazy"
-              style={{ width: '100%', height: 'auto', objectFit: 'cover' }}
+              style={{ width: '100%', height: 'auto', objectPosition: supportingImage.objectPosition }}
             />
           </motion.div>
         )}
 
-        {/* Trailer — M12: Added title, L8: Removed deprecated frameBorder */}
-        {embedUrl && (
-          <motion.div 
-            className="project-trailer" 
-            style={{ marginBottom: '60px' }}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <h2 style={{ fontSize: '14px', textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '20px', opacity: 0.7 }}>
-              Trailer
-            </h2>
-            <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0, overflow: 'hidden' }}>
-              <iframe
-                src={embedUrl}
-                title={`${project.title} — Trailer`}
-                allow="autoplay; fullscreen"
-                allowFullScreen
-                loading="lazy"
-                style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 'none' }}
-              />
-            </div>
-          </motion.div>
-        )}
       </div>
     </div>
   )

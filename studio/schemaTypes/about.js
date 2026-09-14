@@ -33,6 +33,11 @@ export default {
       name: 'image',
       title: 'About Image',
       type: 'image',
+      description:
+        'The photograph on the About section. After uploading, click the crop icon and ' +
+        'drag the circle over the part that must always stay visible (usually a face). ' +
+        'This slot is a wide landscape shape, so on a portrait photo the hotspot is what ' +
+        'stops the top of the head being cut off.',
       options: {
         hotspot: true,
       },

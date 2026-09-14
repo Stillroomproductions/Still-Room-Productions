@@ -7,7 +7,7 @@ import Image from 'next/image'
 
 const icons = [Camera, Video, Film, Clapperboard, Aperture, MonitorPlay, Focus, Projector]
 
-export default function CinematicBackground({ src = '/images/_52A6916.jpg' }) {
+export default function CinematicBackground({ src = '/images/_52A6916.jpg', objectPosition = '50% 50%' }) {
   const [elements, setElements] = useState(null)
 
   useEffect(() => {
@@ -31,7 +31,15 @@ export default function CinematicBackground({ src = '/images/_52A6916.jpg' }) {
   return (
     <div className="cinematic-bg" aria-hidden="true" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}>
       {src && (
-        <Image src={src} alt="Still Room Productions" fill style={{ objectFit: 'cover' }} priority quality={90} />
+        <Image
+          src={src}
+          alt=""
+          fill
+          sizes="100vw"
+          style={{ objectFit: 'cover', objectPosition }}
+          priority
+          quality={90}
+        />
       )}
       {elements && elements.map((el) => (
         <motion.div
