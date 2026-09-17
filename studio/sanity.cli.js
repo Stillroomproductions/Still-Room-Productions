@@ -26,5 +26,12 @@ export default defineCliConfig({
      * Learn more at https://www.sanity.io/docs/studio/latest-version-of-sanity#k47faf43faf56
      */
     autoUpdates: true,
+
+    // Pins each dataset's deploy to its existing hosted app, so `sanity
+    // deploy` never has to prompt for which app id to use.
+    appId:
+      (process.env.SANITY_STUDIO_DATASET || 'production') === 'staging'
+        ? 'ep276yet3w3z116szdl4w644'
+        : 'iowp2cxnlbhsm39ifmw1ydh5',
   }
 })
